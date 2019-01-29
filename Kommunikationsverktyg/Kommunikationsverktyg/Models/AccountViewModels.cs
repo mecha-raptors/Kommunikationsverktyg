@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Kommunikationsverktyg.Models
 {
@@ -66,19 +67,36 @@ namespace Kommunikationsverktyg.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Epost")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Lösenordet {0} måste vara minst {2} tecken.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lösenord")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Bekräfta lösenord")]
+        [Compare("Password", ErrorMessage = "Lösenorden måste vara lika.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Förnamnet måste vara minst två tecken.", MinimumLength = 2)]
+        public string Firstname { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Efternamnet msåte vara minst två tecken.", MinimumLength = 2)]
+        public string Lastname { get; set; }
+
+        public HttpPostedFileBase Image { get; set; }
+
+        [Required]
+        [RegularExpression(@"(\+?46|0)7\d{8}$")]
+        public string Phone { get; set; }
+
+        [Required]
+        public string Title { get; set; }
     }
 
     public class ResetPasswordViewModel
