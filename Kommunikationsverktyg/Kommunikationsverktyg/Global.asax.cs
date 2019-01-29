@@ -1,4 +1,5 @@
 ﻿using Kommunikationsverktyg.Models;
+using Kommunikationsverktyg.Models.DbInitializer;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,12 +18,13 @@ namespace Kommunikationsverktyg
 
         protected void Application_Start()
         {
-            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            Database.SetInitializer(new ApplicationDbInitializer());
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            
         }
     }
 }

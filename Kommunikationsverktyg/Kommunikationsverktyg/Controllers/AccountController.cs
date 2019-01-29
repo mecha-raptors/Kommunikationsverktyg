@@ -173,6 +173,7 @@ namespace Kommunikationsverktyg.Controllers
                                                  Phone = model.Phone,
                                                  Title = model.Title
                 };
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -188,7 +189,8 @@ namespace Kommunikationsverktyg.Controllers
                 }
                 AddErrors(result);
             }
-
+            if(imgPath != null)
+            UserRepository.DeleteImg(imgPath);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

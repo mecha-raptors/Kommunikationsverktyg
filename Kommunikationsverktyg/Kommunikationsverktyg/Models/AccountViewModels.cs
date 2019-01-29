@@ -82,20 +82,25 @@ namespace Kommunikationsverktyg.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [Display(Name = "Förnamn")]
         [StringLength(100, ErrorMessage = "Förnamnet måste vara minst två tecken.", MinimumLength = 2)]
         public string Firstname { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Efternamnet msåte vara minst två tecken.", MinimumLength = 2)]
+        [Display(Name = "Efternamn")]
+        [StringLength(100, ErrorMessage = "Efternamnet måste vara minst två tecken.", MinimumLength = 2)]
         public string Lastname { get; set; }
 
+        [Display(Name = "Profilbild")]
         public HttpPostedFileBase Image { get; set; }
 
         [Required]
+        [Display(Name = "Telefonnummer (+467...)")]
         [RegularExpression(@"(\+?46|0)7\d{8}$")]
         public string Phone { get; set; }
 
         [Required]
+        [Display(Name = "Titel")]
         public string Title { get; set; }
     }
 
