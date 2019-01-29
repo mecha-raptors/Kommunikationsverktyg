@@ -28,5 +28,11 @@ namespace Kommunikationsverktyg.Controllers
 
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult WaitForVerification()
+        {
+            return View();
+        }
     }
 }

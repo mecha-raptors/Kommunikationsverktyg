@@ -152,7 +152,7 @@ namespace Kommunikationsverktyg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            string imgPath = null;
+            string imgPath = @"Images\avatar.jpg";
             if(model.Image != null)
             {
                 var helper = new UserRepository();
@@ -182,11 +182,6 @@ namespace Kommunikationsverktyg.Controllers
                     var eN = new EmailNotification();
                     eN.SendEmailRegister("kommunikationsverktyget@gmail.com", user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    /*var userStore = new UserStore<ApplicationUser>(_db);
-                    var userManager = new UserManager<ApplicationUser>(userStore);
-                    
-                    userManager.AddToRole(user.Id, "pending");
-                    _db.SaveChanges();*/
 
                     var roleManager = new RoleRepository();
                     roleManager.AddUserToRole(user.Id, "pending");
@@ -197,7 +192,7 @@ namespace Kommunikationsverktyg.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("WaitForVerification", "Home");
                 }
                 AddErrors(result);
             }
