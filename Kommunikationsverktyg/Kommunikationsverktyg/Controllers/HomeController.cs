@@ -11,7 +11,8 @@ namespace Kommunikationsverktyg.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new EventViewModel();
+            return View(viewModel);
         }
 
         public ActionResult About()
