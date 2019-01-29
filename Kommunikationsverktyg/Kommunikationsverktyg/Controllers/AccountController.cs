@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Repository;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -18,6 +19,7 @@ namespace Kommunikationsverktyg.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -178,6 +180,14 @@ namespace Kommunikationsverktyg.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var userStore = new UserStore<ApplicationUser>(_db);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    
+                    userManager.AddToRole(user.Id, "pending");
+                    _db.SaveChanges();
+
+                  
+                    
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
