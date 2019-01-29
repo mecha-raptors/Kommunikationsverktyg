@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kommunikationsverktyg.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,8 @@ namespace Kommunikationsverktyg.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new EventViewModel();
+            return View(viewModel);
         }
 
         public ActionResult About()
@@ -27,6 +29,15 @@ namespace Kommunikationsverktyg.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public JsonResult GetEvents()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var events = db.EventModels.ToList();
+                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
         }
     }
 }
