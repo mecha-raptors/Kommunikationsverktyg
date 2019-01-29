@@ -180,14 +180,14 @@ namespace Kommunikationsverktyg.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    var userStore = new UserStore<ApplicationUser>(_db);
+                    /*var userStore = new UserStore<ApplicationUser>(_db);
                     var userManager = new UserManager<ApplicationUser>(userStore);
                     
                     userManager.AddToRole(user.Id, "pending");
-                    _db.SaveChanges();
+                    _db.SaveChanges();*/
 
-                  
-                    
+                    var roleManager = new RoleRepository();
+                    roleManager.AddUserToRole(user.Id, "pending");
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

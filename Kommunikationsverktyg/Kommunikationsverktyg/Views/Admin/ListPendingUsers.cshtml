@@ -1,0 +1,54 @@
+﻿@model Kommunikationsverktyg.Models.ViewModels.ListUsersByRoleViewModel
+
+@{
+    ViewBag.Title = "ListPendingUsers";
+}
+
+<h2>Användare som väntar på verifiering</h2>
+
+<div class="col-lg-12">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th>Profilbild</th>
+            <th>Förnamn</th>
+            <th>Efternamn</th>
+            <th>Epost</th>
+            <th>Acceptera</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                <th><img src="../@user.Image" width="100" height="100" /></th>
+                <th>@user.Firstname</th>
+                <th>@user.Lastname</th>
+                <th>@user.Email</th>
+                <th><button value="@user.Id" class="btn btn-success move-to-active">Acceptera</button></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $(".move-to-active").on("click", function (e) {
+            var value = e.target.getAttribute("value");
+            $.ajax({
+                url: "/api/roles/add",
+                type: "Post",
+                data: JSON.stringify([value]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Användaren har accepterats");
+                    location.reload();
+                },
+                error: function () {
+                    alert("Något har gått fel, kontakta systemadmin!");
+                }
+
+            }) 
+    });    
+    </script>
+}
