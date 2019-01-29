@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Kommunikationsverktyg.Models;
+using Kommunikationsverktyg.Repository;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -149,9 +150,29 @@ namespace Kommunikationsverktyg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            string imgPath = null;
+            if(model.Image != null)
+            {
+                var helper = new UserRepository();
+                try
+                {
+                    imgPath = helper.SaveImage(model.Image);
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Det måste vara en bild");
+                }
+            }
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email,
+                                                 Email = model.Email,
+                                                 Image = imgPath,
+                                                 Firstname = model.Firstname,
+                                                 Lastname = model.Lastname,
+                                                 Phone = model.Phone,
+                                                 Title = model.Title
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
