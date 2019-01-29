@@ -176,6 +176,8 @@ namespace Kommunikationsverktyg.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var eN = new EmailNotification();
+                    eN.SendEmailRegister("kommunikationsverktyget@gmail.com", user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
