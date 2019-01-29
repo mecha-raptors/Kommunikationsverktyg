@@ -7,5 +7,6 @@ namespace Kommunikationsverktyg.Repository
 {
     public class RoleRepository
     {
+
     }
 }
