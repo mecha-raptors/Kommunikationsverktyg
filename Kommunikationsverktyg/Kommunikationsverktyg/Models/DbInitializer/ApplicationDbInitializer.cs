@@ -11,6 +11,17 @@ namespace Kommunikationsverktyg.Models.DbInitializer
     {
         protected override void Seed(ApplicationDbContext db)
         {
+            var Event = new EventModel
+            {
+                EventId = 1,
+                Title = "Exempelmöte",
+                Description = "Vi ska ses och prata.",
+                Start = new DateTime(2019, 1, 10, 14, 0, 0),
+                End = new DateTime(2019, 1, 10, 16, 0, 0)
+            };
+
+            db.EventModels.Add(Event);
+
             var store = new RoleStore<IdentityRole>(db);
             var roleManager = new RoleManager<IdentityRole>(store);
             var adminRole = new IdentityRole { Name = "admin" };
