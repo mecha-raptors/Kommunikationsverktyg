@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Repository;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -18,6 +19,7 @@ namespace Kommunikationsverktyg.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -173,12 +175,21 @@ namespace Kommunikationsverktyg.Controllers
                                                  Phone = model.Phone,
                                                  Title = model.Title
                 };
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     var eN = new EmailNotification();
                     eN.SendEmailRegister("kommunikationsverktyget@gmail.com", user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var userStore = new UserStore<ApplicationUser>(_db);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    
+                    userManager.AddToRole(user.Id, "pending");
+                    _db.SaveChanges();
+
+                  
+                    
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -190,7 +201,8 @@ namespace Kommunikationsverktyg.Controllers
                 }
                 AddErrors(result);
             }
-
+            if(imgPath != null)
+            UserRepository.DeleteImg(imgPath);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

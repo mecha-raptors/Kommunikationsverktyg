@@ -44,5 +44,10 @@ namespace Kommunikationsverktyg.Repository
                 return false;
             }
         }
+
+        public static void DeleteImg(string path)
+        {
+            File.Delete(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/"), path));
+        }
     }
 }

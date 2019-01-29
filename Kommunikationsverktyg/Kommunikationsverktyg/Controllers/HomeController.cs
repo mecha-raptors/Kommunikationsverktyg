@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace Kommunikationsverktyg.Controllers
 {
+    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "user")]
     public class HomeController : Controller
     {
         public ActionResult Index()
