@@ -179,6 +179,8 @@ namespace Kommunikationsverktyg.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var eN = new EmailNotification();
+                    eN.SendEmailRegister("kommunikationsverktyget@gmail.com", user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     /*var userStore = new UserStore<ApplicationUser>(_db);
                     var userManager = new UserManager<ApplicationUser>(userStore);

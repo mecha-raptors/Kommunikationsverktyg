@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm ("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id="formet" }))
 {
     <div class="form-horizontal">
     @Html.AntiForgeryToken()
@@ -15,7 +15,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id="mail" })
         </div>
     </div>
     <div class="form-group">
@@ -73,4 +73,8 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+    <script>
+
+
+        </script>
+    }
