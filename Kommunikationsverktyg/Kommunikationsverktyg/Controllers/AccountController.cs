@@ -453,7 +453,7 @@ namespace Kommunikationsverktyg.Controllers
 
             UserManager.UpdateAsync(currentUser);
 
-            return View();
+            return RedirectToAction("Contact", "Home");
         }
 
         protected override void Dispose(bool disposing)
