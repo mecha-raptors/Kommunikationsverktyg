@@ -105,14 +105,18 @@
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
-                    contentHeight: 400,
+                    contentHeight: 580,
                     defaultDate: new Date(),
                     timeFormat: 'h(:mm)',
                     selectable: true,
+                    defaultView: 'agendaWeek',
+                    minTime: '08:00:00',
+                    maxTime: '20:00:00',
+                    slotLabelFormat: 'HH:mm',
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay,agenda'
+                        right: 'agendaWeek, agendaDay'
                     },
                     eventLimit: true,
                     eventColor: '#378006',
@@ -132,7 +136,10 @@
                     dayClick: function (date, jsEvent, view, resourceObj) {
                         document.getElementById('testboy').value = date.format();
                         document.getElementById('testboy').style.visibility = 'visible';
-                        resourceObj.eventColor
+                    },
+                    select: function (start, end, jsEvent, view, resourceObj) {
+                        console.log(start.format());
+                        console.log(end.format());
                     }
                 })
             }
