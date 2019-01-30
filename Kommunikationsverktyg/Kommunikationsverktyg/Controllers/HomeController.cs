@@ -28,9 +28,18 @@ namespace Kommunikationsverktyg.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            var viewmodel = new RegisterViewModel();
+            var viewModel = new RegisterViewModel();
 
-            return View(viewmodel);
+            using (ApplicationDbContext _db = new ApplicationDbContext())
+            {
+                var currUser = _db.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+                viewModel.Email = currUser.Email;
+                viewModel.Firstname = currUser.Firstname;
+                viewModel.Lastname = currUser.Lastname;
+                viewModel.Phone = currUser.Phone;
+            }
+
+            return View(viewModel);
         }
 
         public JsonResult GetEvents()

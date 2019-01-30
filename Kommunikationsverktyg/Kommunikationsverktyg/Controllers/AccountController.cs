@@ -446,7 +446,10 @@ namespace Kommunikationsverktyg.Controllers
             currentUser.Firstname = rvm.Firstname;
             currentUser.Lastname = rvm.Lastname;
             currentUser.Phone = rvm.Phone;
-            currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
+            if (rvm.Password != null)
+            {
+                currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
+            }
             
             _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
             _db.SaveChanges();
