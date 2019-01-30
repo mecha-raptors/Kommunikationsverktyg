@@ -1,0 +1,96 @@
+﻿@model Kommunikationsverktyg.Models.ViewModels.ListFormalBlogViewModel
+
+@{
+    ViewBag.Title = "Formell blogg";
+}
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+</head>
+
+<h2 id="formalblogH2">Formell Blogg</h2>
+@using (Html.BeginForm("FormalBlog", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "formet" }))
+{
+<div class="form-horizontal col-lg-12">
+
+    <h4 id="formalblogH4">Gör ett inlägg</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group col-lg-12">
+        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
+    </div>
+    <div class="form-group col-lg-12">
+        @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
+
+    </div>
+    <div class="col-lg-6" style="padding: 0 !important;">
+        <label class="btn btn-block btn-success" id="file-upload">
+            Lägg till fil
+            <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
+        </label>
+        @*<button class="btn btn-block btn-success" style="display: none;" id="change-file">Byt fil</button>*@
+    </div>
+
+    <div class="col-lg-6">
+        <button id="send-message" class="btn btn-block btn-primary" style=" margin-left: 0.1%;">Skicka</button>
+    </div>
+    <small id="file-path"></small>
+
+
+
+</div>
+
+}
+     
+
+        
+        <div class="container">
+            <div class="row">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <h1 class="page-header">
+                        Formell Blogg
+                        <small>Se alla poster</small>
+                    </h1>
+                    @foreach (var item in Model.Posts)
+                    {
+                    <div style="border: 1px solid #000; padding: 1%; margin: 1%;">
+                        <h3>
+                            @item.Title
+                        </h3>
+                        <p class="lead">
+                            by <a href="index.php">@item.Fullname</a>
+                        </p>
+                        <p><span class="glyphicon glyphicon-time"></span> Skapad @item.Timestamp.ToString()</p>
+                        <hr>
+                        <p>@item.Message</p>
+                        <p>
+                            @if (item.FilePath != null)
+                            {
+                                <hr />
+
+                                <a class="btn btn-default" href="../@item.FilePath" download id="DownloadLink">Ladda ner mig</a>
+                                <small>@item.FilePath</small>
+                            }
+                        </p>
+                        <hr>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+@section Scripts{
+        <script type="text/javascript">
+    $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $("#file-path").empty();
+            $("#file-path").append(fileName + '" har valts.');
+        });
+        $("#File").on("click", function () {
+            $("#File").val("");
+        });
+    });
+        </script>    
+
+}
