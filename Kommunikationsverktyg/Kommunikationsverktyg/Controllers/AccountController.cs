@@ -440,26 +440,34 @@ namespace Kommunikationsverktyg.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditUser(RegisterViewModel rvm)
         {
-            var loggedInEmail = User.Identity.Name;
-            ApplicationUser currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
-
-            currentUser.Firstname = rvm.Firstname;
-            currentUser.Lastname = rvm.Lastname;
-            currentUser.Phone = rvm.Phone;
-            if (rvm.Password != null)
+            if (ModelState.IsValid)
             {
-                currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
+                var loggedInEmail = User.Identity.Name;
+                ApplicationUser currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
+
+                currentUser.Firstname = rvm.Firstname;
+                currentUser.Lastname = rvm.Lastname;
+                currentUser.Phone = rvm.Phone;
+                if (rvm.Password != null)
+                {
+                    currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
+                }
+
+                _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
+                _db.SaveChanges();
+
+                UserManager.UpdateAsync(currentUser);
+
+                return RedirectToAction("Contact", "Home");
             }
-            
-            _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
-            _db.SaveChanges();
 
-            UserManager.UpdateAsync(currentUser);
-
-            return RedirectToAction("Contact", "Home");
+            return View("Contact", "Home", rvm);
         }
+            
 
         protected override void Dispose(bool disposing)
         {
