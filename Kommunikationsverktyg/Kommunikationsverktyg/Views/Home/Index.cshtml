@@ -115,6 +115,10 @@
                     maxTime: '20:00:00',
                     defaultView: 'agendaWeek',
                     selectable: true,
+                    defaultView: 'agendaWeek',
+                    minTime: '08:00:00',
+                    maxTime: '20:00:00',
+                    slotLabelFormat: 'HH:mm',
                     header: {
                         left: 'prev,next today',
                         center: 'title',
@@ -140,9 +144,8 @@
                         document.getElementById('testboy').style.visibility = 'visible';
                     },
                     select: function (start, end, jsEvent, view, resourceObj) {
-                        console.log("Start time: " + start.format() + "end time: " + end.format());
-                        document.getElementById('startTime').value = start.format();
-                        document.getElementById('endTime').value = start.format();
+                        console.log(start.format());
+                        console.log(end.format());
                     }
                 })
             }
