@@ -70,7 +70,8 @@
     </div>
 </div>
 
-@Html.TextBoxFor(m => m.Start, new { @class = "form-control", id="testboy", style= "visibility: hidden"})
+@Html.TextBoxFor(m => m.Start, new { @class = "form-control", id="startTime", style= "visibility: hidden"})
+@Html.TextBoxFor(m => m.End, new { @class = "form-control", id="endTime", style= "visibility: hidden"})
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -105,14 +106,19 @@
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
-                    contentHeight: 400,
+                    contentHeight: 580,
                     defaultDate: new Date(),
-                    timeFormat: 'h(:mm)',
+                    axisFormat: 'H(:mm)',
+                    timeFormat: 'H(:mm)',
+                    slotLabelFormat: 'HH:mm',
+                    minTime: '08:00:00',
+                    maxTime: '20:00:00',
+                    defaultView: 'agendaWeek',
                     selectable: true,
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay,agenda'
+                        right: 'agendaWeek'
                     },
                     eventLimit: true,
                     eventColor: '#378006',
@@ -132,7 +138,11 @@
                     dayClick: function (date, jsEvent, view, resourceObj) {
                         document.getElementById('testboy').value = date.format();
                         document.getElementById('testboy').style.visibility = 'visible';
-                        resourceObj.eventColor
+                    },
+                    select: function (start, end, jsEvent, view, resourceObj) {
+                        console.log("Start time: " + start.format() + "end time: " + end.format());
+                        document.getElementById('startTime').value = start.format();
+                        document.getElementById('endTime').value = start.format();
                     }
                 })
             }
