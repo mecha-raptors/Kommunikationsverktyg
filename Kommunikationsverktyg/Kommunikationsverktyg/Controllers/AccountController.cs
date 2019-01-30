@@ -173,7 +173,9 @@ namespace Kommunikationsverktyg.Controllers
                                                  Firstname = model.Firstname,
                                                  Lastname = model.Lastname,
                                                  Phone = model.Phone,
-                                                 Title = model.Title
+                                                 Title = model.Title,
+                                                 Description = null
+                                                 
                 };
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
