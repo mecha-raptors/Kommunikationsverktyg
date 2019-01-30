@@ -441,17 +441,17 @@ namespace Kommunikationsverktyg.Controllers
         public ActionResult EditUser(RegisterViewModel rvm)
         {
             var loggedInEmail = User.Identity.Name;
-            var currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
+            ApplicationUser currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
 
             currentUser.Firstname = rvm.Firstname;
             currentUser.Lastname = rvm.Lastname;
             currentUser.Phone = rvm.Phone;
             currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
-
-            UserManager.Update(currentUser);
-
+            
             _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
             _db.SaveChanges();
+
+            UserManager.UpdateAsync(currentUser);
 
             return View();
         }
