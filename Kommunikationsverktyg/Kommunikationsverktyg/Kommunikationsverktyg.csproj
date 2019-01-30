@@ -213,6 +213,7 @@
     <Compile Include="Repository\FormalBlogRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\WordFilter.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +283,7 @@
     <Folder Include="Files\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Event\" />
+    <Folder Include="XmlWordList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
