@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kommunikationsverktyg.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace Kommunikationsverktyg.Repository
 {
     public class UserRepository
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+
         public string SaveImage(HttpPostedFileBase img)
         {
             if (!IsImage(img.FileName))
@@ -48,6 +51,25 @@ namespace Kommunikationsverktyg.Repository
         public static void DeleteImg(string path)
         {
             File.Delete(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/"), path));
+        }
+
+        public ApplicationUser GetUser(string id)
+        {
+            ApplicationUser user = null;
+            try
+            {
+                user = db.Users.FirstOrDefault(u => u.Id == id);
+
+                
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return user;
+
+
         }
     }
 }
