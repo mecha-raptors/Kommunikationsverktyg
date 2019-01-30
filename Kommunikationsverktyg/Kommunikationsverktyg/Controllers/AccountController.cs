@@ -447,13 +447,13 @@ namespace Kommunikationsverktyg.Controllers
             currentUser.Lastname = rvm.Lastname;
             currentUser.Phone = rvm.Phone;
             currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
-
-            UserManager.Update(currentUser);
-
+            
             _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
             _db.SaveChanges();
 
-            return View();
+            UserManager.UpdateAsync(currentUser);
+
+            return RedirectToAction("Contact", "Home");
         }
 
         protected override void Dispose(bool disposing)
