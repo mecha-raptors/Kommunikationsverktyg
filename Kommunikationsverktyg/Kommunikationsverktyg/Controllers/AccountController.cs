@@ -438,6 +438,24 @@ namespace Kommunikationsverktyg.Controllers
             return View();
         }
 
+        public ActionResult EditUser(RegisterViewModel rvm)
+        {
+            var loggedInEmail = User.Identity.Name;
+            var currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
+
+            currentUser.Firstname = rvm.Firstname;
+            currentUser.Lastname = rvm.Lastname;
+            currentUser.Phone = rvm.Phone;
+            currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
+
+            UserManager.Update(currentUser);
+
+            _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
+            _db.SaveChanges();
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

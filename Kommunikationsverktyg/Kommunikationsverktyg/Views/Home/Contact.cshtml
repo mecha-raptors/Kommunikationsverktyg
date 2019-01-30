@@ -1,17 +1,75 @@
-﻿@{
+﻿@model Kommunikationsverktyg.Models.RegisterViewModel
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div id="createMeeting" class="modal fade" role="dialog" style="width: 600px; height: 500px; background-color: white; margin: auto; border-radius: 25px; padding: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ändra användaruppgifter</h4>
+    </div>
+    <div class="modal-body">
+        @using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-horizontal">
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Firstname, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.Firstname, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Lastname, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.Lastname, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    </div>
+                </div>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="Spara Ändringar" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<button id="testknappen">Hejsan</button>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#testknappen').click(function () {
+                $('#createMeeting').modal();
+            });
+        })
+    </script>
+}

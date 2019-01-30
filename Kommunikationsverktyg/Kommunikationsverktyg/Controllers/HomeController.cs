@@ -28,7 +28,9 @@ namespace Kommunikationsverktyg.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            var viewmodel = new RegisterViewModel();
+
+            return View(viewmodel);
         }
 
         public JsonResult GetEvents()
