@@ -1,4 +1,4 @@
-﻿@model Kommunikationsverktyg.Models.ApplicationUser
+﻿@model Kommunikationsverktyg.Models.ViewModels.ProfileViewModel
 @{
     ViewBag.Title = "ViewProfile";
 }
@@ -17,42 +17,53 @@
         padding-top: 70px;
     }
 
-    #desc{
+    #desc {
         padding-left: 67px;
     }
 
-    #description{
+    #description {
         border: solid black 1px;
         border-radius: 5px;
         min-height: 12em;
         max-width: 30em;
     }
-
 </style>
 
 
-    <div>
-        <h2>@Model.UserName</h2>
-        <h4>@Model.Title</h4>
+<div>
+    <h2>@Model.ApplicationUser.UserName</h2>
+    <h4>@Model.ApplicationUser.Title</h4>
+</div>
+<div class="row" id="container">
+    <div class="col-xs-4" id="image">
+        <img class="img-circle" src="~/@Model.ApplicationUser.Image" id="profilepicture" height="250" width="250" />
     </div>
-    <div class="row" id="container">
-        <div class="col-xs-4" id="image">
-            <img class="img-circle" src="~/@Model.Image" id="profilepicture" height="250" width="250" />
-        </div>
 
-        <div class="col-xs-3" id="details">
-            <p>Förnamn: @Model.Firstname</p>
-            <p>Efternamn: @Model.Lastname</p>
-            <p>Telefonnummer: @Model.Phone</p>
-        </div>
+    <div class="col-xs-3" id="details">
+        <p>Förnamn: @Model.ApplicationUser.Firstname</p>
+        <p>Efternamn: @Model.ApplicationUser.Lastname</p>
+        <p>Telefonnummer: @Model.ApplicationUser.Phone</p>
     </div>
+</div>
 <div class="row" id="desc">
     <h3>Om mig</h3>
-    <p>@Model.Description</p>
     <div class="border">
-        <p  id="description">aslkdadnaklsndlkandlknasdaksndlkandlkansd</p>
+        <p id="description">@Model.ApplicationUser.Description</p>
     </div>
 </div>
 
+@Html.Partial("EditProfileView")
 
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#testknappen').click(function () {
+                $('#editUser').modal();
+            });
+        })
+    </script>
+    }
 

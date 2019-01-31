@@ -51,6 +51,8 @@ namespace Kommunikationsverktyg.Controllers
             ViewBag.Message = "Your contact page.";
 
             var viewModel = new RegisterViewModel();
+            var profileModel = new ProfileViewModel();
+            profileModel.RegisterViewModel = viewModel;
 
             using (ApplicationDbContext _db = new ApplicationDbContext())
             {
@@ -61,7 +63,7 @@ namespace Kommunikationsverktyg.Controllers
                 viewModel.Phone = currUser.Phone;
             }
 
-            return View(viewModel);
+            return View(profileModel);
         }
 
         public JsonResult GetEvents()
