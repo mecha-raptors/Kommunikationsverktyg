@@ -102,6 +102,9 @@ namespace Kommunikationsverktyg.Models
         [Required]
         [Display(Name = "Titel")]
         public string Title { get; set; }
+
+        [Display(Name = "Beskrivning")]
+        public string Description { get; set; }
     }
 
     public class ResetPasswordViewModel
