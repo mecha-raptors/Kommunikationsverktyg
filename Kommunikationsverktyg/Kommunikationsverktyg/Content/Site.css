@@ -17,8 +17,17 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+
+select {
     max-width: 280px;
 }
+
+input,
+textarea {
+    max-width: 1200px;
+}
+
+#formalblogH2, #formalblogH4{
+    padding-left : 42%;
+}
+

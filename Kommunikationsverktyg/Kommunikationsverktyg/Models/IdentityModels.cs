@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -12,10 +13,16 @@ namespace Kommunikationsverktyg.Models
         public virtual string Firstname { get; set; }
         public virtual string Lastname { get; set; }
         public virtual string Description { get; set; }
-        public virtual string Image { get; set; } = @"Images\avatar.png";
+        public virtual string Image { get; set; } = @"Images\avatar.jpg";
         public virtual string Phone { get; set; }
         public string Title { get; set; }
+        public ICollection<FormalBlogModel> Posts { get; set; }
 
+        //Konstruktor
+        public ApplicationUser() : base()
+        {
+            Posts = new List<FormalBlogModel>();
+        }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -28,6 +35,8 @@ namespace Kommunikationsverktyg.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<EventModel> EventModels { get; set; }
+        public virtual DbSet<FormalBlogModel> FormalBlogPosts { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
