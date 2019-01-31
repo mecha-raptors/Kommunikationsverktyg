@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Kommunikationsverktyg.Models;
+using Kommunikationsverktyg.Models.ViewModels;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -14,19 +15,23 @@ namespace Kommunikationsverktyg.Controllers
             return View();
         }
 
-        public ActionResult AddEvent(EventViewModel em)
+        public ActionResult AddEvent(RequestedEventViewModel em)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var newEvent = new EventModel
+                var newEvent = new RequestedEventModel
                 {
                     Title = em.Title,
                     Description = em.Description,
-                    Start = em.Start,
-                    End = em.End
+                    TimeSuggestions = new List<DateModel>()
                 };
 
-                db.EventModels.Add(newEvent);
+                foreach (DateModel dm in em.TimeSuggestions)
+                {
+                    newEvent.TimeSuggestions.Add(dm);
+                }
+
+                db.RequestedEvents.Add(newEvent);
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "Home");

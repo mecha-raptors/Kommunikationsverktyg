@@ -1,4 +1,4 @@
-﻿@model Kommunikationsverktyg.Models.EventViewModel
+﻿@model Kommunikationsverktyg.Models.ViewModels.RequestedEventViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -37,25 +37,32 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Titel" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Beskrivning" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Start, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.TimeSuggestions[0].StartTime, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Start, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.TimeSuggestions[0].StartTime, new { @class = "form-control", id = "startTime" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.End, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(m => m.TimeSuggestions[0].EndTime, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.End, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.TimeSuggestions[0].EndTime, new { @class = "form-control", id = "endTime" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default">Välj en till tid</button>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
                     </div>
                 </div>
 
@@ -70,8 +77,6 @@
     </div>
 </div>
 
-@Html.TextBoxFor(m => m.Start, new { @class = "form-control", id="startTime", style= "visibility: hidden"})
-@Html.TextBoxFor(m => m.End, new { @class = "form-control", id="endTime", style= "visibility: hidden"})
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -136,15 +141,12 @@
                         $('#myModal').modal();
                     },
                     dayClick: function (date, jsEvent, view, resourceObj) {
-                        document.getElementById('testboy').value = date.format();
-                        document.getElementById('testboy').style.visibility = 'visible';
+                        $('#createMeeting').modal();
                     },
                     select: function (start, end, jsEvent, view, resourceObj) {
                         console.log(start.format());
                         console.log(end.format());
-                        document.getElementById('startTime').style.visibility = 'visible';
                         document.getElementById('startTime').value = start.format();
-                        document.getElementById('endTime').style.visibility = 'visible';
                         document.getElementById('endTime').value = end.format();
 
                     }

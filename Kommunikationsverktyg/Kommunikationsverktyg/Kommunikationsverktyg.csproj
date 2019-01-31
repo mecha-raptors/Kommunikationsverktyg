@@ -198,8 +198,34 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901310938024_asdasd.cs" />
+    <Compile Include="Migrations\201901310938024_asdasd.Designer.cs">
+      <DependentUpon>201901310938024_asdasd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311008047_mig2.cs" />
+    <Compile Include="Migrations\201901311008047_mig2.Designer.cs">
+      <DependentUpon>201901311008047_mig2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311039210_mig3.cs" />
+    <Compile Include="Migrations\201901311039210_mig3.Designer.cs">
+      <DependentUpon>201901311039210_mig3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311053489_mig4.cs" />
+    <Compile Include="Migrations\201901311053489_mig4.Designer.cs">
+      <DependentUpon>201901311053489_mig4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311055320_mig5.cs" />
+    <Compile Include="Migrations\201901311055320_mig5.Designer.cs">
+      <DependentUpon>201901311055320_mig5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311152408_mig6.cs" />
+    <Compile Include="Migrations\201901311152408_mig6.Designer.cs">
+      <DependentUpon>201901311152408_mig6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DbInitializer\ApplicationDbInitializer.cs" />
     <Compile Include="Models\EventModel.cs" />
@@ -209,6 +235,7 @@
     <Compile Include="Models\ViewModels\ListFormalBlogViewModel.cs" />
     <Compile Include="Models\ViewModels\ListUsersByRoleViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\RequestedEventViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EmailNotification.cs" />
     <Compile Include="Repository\FormalBlogRepository.cs" />
@@ -298,6 +325,26 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901310938024_asdasd.resx">
+      <DependentUpon>201901310938024_asdasd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311008047_mig2.resx">
+      <DependentUpon>201901311008047_mig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311039210_mig3.resx">
+      <DependentUpon>201901311039210_mig3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311053489_mig4.resx">
+      <DependentUpon>201901311053489_mig4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311055320_mig5.resx">
+      <DependentUpon>201901311055320_mig5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311152408_mig6.resx">
+      <DependentUpon>201901311152408_mig6.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

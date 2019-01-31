@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace Kommunikationsverktyg.Models
 {
-    public class EventModel
+    public class RequestedEventModel
     {
         [Key]
         [Required]
@@ -16,8 +16,6 @@ namespace Kommunikationsverktyg.Models
         [Required]
         public virtual string Description { get; set; }
         [Required]
-        public virtual DateTime Start { get; set; }
-        [Required]
-        public virtual DateTime End { get; set; }
+        public virtual List<DateModel> TimeSuggestions { get; set; }
     }
 }

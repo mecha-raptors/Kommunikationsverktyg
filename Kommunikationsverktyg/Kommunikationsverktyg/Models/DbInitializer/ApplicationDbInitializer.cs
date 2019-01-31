@@ -7,8 +7,10 @@ using System.Web;
 
 namespace Kommunikationsverktyg.Models.DbInitializer
 {
-    public class ApplicationDbInitializer : System.Data.Entity.CreateDatabaseIfNotExists<ApplicationDbContext>
+    public class ApplicationDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<ApplicationDbContext>
     {
+        public IEnumerable<object> ValidationErrors { get; private set; }
+
         protected override void Seed(ApplicationDbContext db)
         {
             var Event = new EventModel
