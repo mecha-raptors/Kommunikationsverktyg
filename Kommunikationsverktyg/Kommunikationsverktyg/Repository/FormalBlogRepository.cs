@@ -31,7 +31,8 @@ namespace Kommunikationsverktyg.Repository
                         Fullname = item.User.Firstname + " " + item.User.Lastname,
                         Timestamp = item.Timestamp,
                         Title = item.Title,
-                        UserId = item.User.Id
+                        UserId = item.User.Id,
+                        PostId = item.FormalBlogModelId
                     };
                     list.Add(m);
                 }
@@ -82,5 +83,28 @@ namespace Kommunikationsverktyg.Repository
             return userPath;
         }
 
+        
+        public void DeletePost(ListFormalBlogViewModel list)
+        {
+            try
+            {
+                var model = new FormalBlogModel
+                {
+                    FilePath = SaveFile(list.File),
+                    Message = list.Message,
+                    Title = list.Title,
+                    Timestamp = list.Timestamp,
+                    Id = list.SenderId,
+                    FormalBlogModelId = list.PostId
+                };
+                _db.FormalBlogPosts.Attach(model);
+                _db.FormalBlogPosts.Remove(model);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
     }
 }

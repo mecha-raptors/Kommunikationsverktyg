@@ -78,6 +78,7 @@ namespace Kommunikationsverktyg.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult FormalBlog(ListFormalBlogViewModel BlogList)
         {
@@ -102,6 +103,15 @@ namespace Kommunikationsverktyg.Controllers
                 return View(model);
                 
             }
+        }
+
+        [HttpPost]
+        public ActionResult DeletePost(FormalBlogViewModel blogModel)
+        {
+            var helper = new FormalBlogRepository();
+            var model = helper.GetFormalPosts();
+            //helper.DeletePost(BlogList);
+            return RedirectToAction("Index");
         }
     }
 }

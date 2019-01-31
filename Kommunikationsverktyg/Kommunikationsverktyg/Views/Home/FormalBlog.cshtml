@@ -51,29 +51,56 @@
                         Formell Blogg
                         <small>Se alla poster</small>
                     </h1>
-                    @foreach (var item in Model.Posts)
+
+                    @using (Html.BeginForm("DeletePost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "formet" }))
+
                     {
+                        @*foreach(var item in Model.Posts)*@
+                    for (int i = 0; i < Model.Posts.Count(); i++)
+                    {
+
+
                     <div style="border: 1px solid #000; padding: 1%; margin: 1%;">
+                        <button type="submit" class="btn btn-danger" value="Delete">Ta bort</button>
                         <h3>
-                            @item.Title
+                            @*@item.Title*@
+                            @Model.Posts[i].Title
+                            @Html.HiddenFor(m => m.Posts[i].Title)
+
+
                         </h3>
                         <p class="lead">
-                            by <a href="index.php">@item.Fullname</a>
+                            by @*<a href="index.php">@item.Fullname</a>*@
+                            @Model.Posts[i].Fullname
+                            @Html.HiddenFor(m => m.Posts[i].Fullname)
                         </p>
-                        <p><span class="glyphicon glyphicon-time"></span> Skapad @item.Timestamp.ToString()</p>
-                        <hr>
-                        <p>@item.Message</p>
                         <p>
-                            @if (item.FilePath != null)
+                            <span class="glyphicon glyphicon-time"></span> Skapad @Model.Posts[i].Timestamp.ToString()
+                            @Html.HiddenFor(m => m.Posts[i].Timestamp) 
+                            @*@item.Timestamp.ToString()*@
+                        </p>
+                        <hr>
+                        @*<p>@item.Message</p>*@
+                        <p>
+                            @Model.Posts[i].Message
+                            @Html.HiddenFor(m => m.Posts[i].Message)
+                        </p>
+
+                        <p>
+                            @*@if (item.FilePath != null)*@
+                            @if (Model.Posts[i].FilePath != null)
                             {
                                 <hr />
 
-                                <a class="btn btn-default" href="../@item.FilePath" download id="DownloadLink">Ladda ner mig</a>
-                                <small>@item.FilePath</small>
+                                @*<a class="btn btn-default" href="../@item.FilePath" download id="DownloadLink">Ladda ner mig</a>
+            <small>@item.FilePath</small>*@
+                                <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
+                                <small>@Model.Posts[i].FilePath</small>
                             }
                         </p>
                         <hr>
                     </div>
+                    }
                     }
                 </div>
             </div>
