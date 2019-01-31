@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserProfileIndexViewModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Firstname>Joe</Firstname>
+  <Username>LordRogan</Username>
+  <Lastname>Rogan</Lastname>
+  <Gender>Man</Gender>
+  <Description>Once you understand what excellence is all about…you see how excellence manifests itself in any discipline.</Description>
+  <Image>Images\rogan.jpg</Image>
+  <DateOfBirth>1985-07-12</DateOfBirth>
+  <InsterestedIn>Båda</InsterestedIn>
+</UserProfileIndexViewModel>
