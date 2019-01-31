@@ -12,12 +12,16 @@ namespace Kommunikationsverktyg.Models
         [Required]
         public virtual int EventId { get; set; }
         [Required]
+        [Display(Name = "Titel")]
         public virtual string Title { get; set; }
         [Required]
+        [Display(Name = "Beskrivning")]
         public virtual string Description { get; set; }
         [Required]
+        [Display(Name = "Börjar")]
         public virtual DateTime Start { get; set; }
         [Required]
+        [Display(Name = "Slutar")]
         public virtual DateTime End { get; set; }
     }
 }

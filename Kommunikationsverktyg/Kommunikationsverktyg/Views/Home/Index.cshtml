@@ -107,7 +107,7 @@
                     alert('failed');
                 }
             })
-
+            
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
@@ -148,6 +148,7 @@
                         console.log(end.format());
                         document.getElementById('startTime').value = start.format();
                         document.getElementById('endTime').value = end.format();
+                        $('#createMeeting').modal();
 
                     }
                 })
