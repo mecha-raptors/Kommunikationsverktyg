@@ -36,6 +36,7 @@ namespace Kommunikationsverktyg.Models
     {
         public virtual DbSet<EventModel> EventModels { get; set; }
         public virtual DbSet<FormalBlogModel> FormalBlogPosts { get; set; }
+        public virtual DbSet<BadWords> BadWords { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
