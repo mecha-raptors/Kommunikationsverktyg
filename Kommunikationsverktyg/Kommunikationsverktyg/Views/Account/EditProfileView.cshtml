@@ -15,38 +15,40 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.Firstname, new { @class = "control-label" })
                     @Html.EditorFor(m => m.RegisterViewModel.Firstname, new { @class = "form-control", placeholder = Model.RegisterViewModel.Firstname })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Firstname)                
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Firstname, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.Lastname, new { @class = "control-label" })
                     @Html.EditorFor(m => m.RegisterViewModel.Lastname, new { @class = "form-control", placeholder = Model.RegisterViewModel.Lastname })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Lastname)
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Lastname, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.Title, new { @class = "control-label" })
                     @Html.EditorFor(m => m.RegisterViewModel.Title, new { @class = "form-control", placeholder = Model.RegisterViewModel.Title })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Title)
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Title, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.Phone, new { @class = "control-label" })
                     @Html.EditorFor(m => m.RegisterViewModel.Phone, new { @class = "form-control", placeholder = Model.RegisterViewModel.Phone })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Phone)
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Phone, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.Description, new { @class = "control-label" })
                     @Html.TextAreaFor(m => m.RegisterViewModel.Description, new { @class = "form-control", placeholder = Model.RegisterViewModel.Description, rows = 10 })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Description)
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Description, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.Password, new { @class = "control-label" })
                     @Html.PasswordFor(m => m.RegisterViewModel.Password, new { @class = "form-control", placeholder = "Nytt lösenord" })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Password)
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.Password, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.RegisterViewModel.ConfirmPassword, new { @class = "control-label" })
                     @Html.PasswordFor(m => m.RegisterViewModel.ConfirmPassword, new { @class = "form-control", placeholder = "Upprepa lösenord" })
-                    @Html.ValidationMessageFor(m => m.RegisterViewModel.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.RegisterViewModel.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
+                
+                @Html.HiddenFor(m => m.RegisterViewModel.Email)
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Spara Ändringar" />
@@ -57,7 +59,7 @@
     </div>
 </div>
 
-<button id="testknappen">Hejsan</button>
+<button id="testknappen">Redigera</button>
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>

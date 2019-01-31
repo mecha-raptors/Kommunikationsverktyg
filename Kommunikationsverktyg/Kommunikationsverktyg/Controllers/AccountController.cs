@@ -440,38 +440,79 @@ namespace Kommunikationsverktyg.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditUser(ProfileViewModel pvm)
         {
-            
-            var loggedInEmail = User.Identity.Name;
-            ApplicationUser currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
-
-            //The edit user form currently doesn't allow input of two required fields
-            //The fields are set to their current value from the user
-            pvm.RegisterViewModel.Email = currentUser.Email;
-            pvm.RegisterViewModel.Title = currentUser.Title;
+            var userRepository = new UserRepository();
+            pvm.ApplicationUser = userRepository.GetUser(User.Identity.GetUserId());
 
             if (ModelState.IsValid)
             {
-                currentUser.Firstname = pvm.RegisterViewModel.Firstname;
-                currentUser.Lastname = pvm.RegisterViewModel.Lastname;
-                currentUser.Phone = pvm.RegisterViewModel.Phone;
-                currentUser.Description = pvm.RegisterViewModel.Description;
+                pvm.ApplicationUser.Firstname = pvm.RegisterViewModel.Firstname;
+                pvm.ApplicationUser.Lastname = pvm.RegisterViewModel.Lastname;
+                pvm.ApplicationUser.Title = pvm.RegisterViewModel.Title;
+                pvm.ApplicationUser.Phone = pvm.RegisterViewModel.Phone;
+                pvm.ApplicationUser.Description = pvm.RegisterViewModel.Description;
 
                 if (pvm.RegisterViewModel.Password != null)
                 {
-                    currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(pvm.RegisterViewModel.Password);
+                    pvm.ApplicationUser.PasswordHash = UserManager.PasswordHasher.HashPassword(pvm.RegisterViewModel.Password);
                 }
 
-                _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
+                //Causes exception:
+                //_db.Entry(pvm.ApplicationUser).State = System.Data.Entity.EntityState.Modified;
+
+                //Changes aren't getting saved in the database...
                 _db.SaveChanges();
 
-                UserManager.UpdateAsync(currentUser);
+                UserManager.UpdateAsync(pvm.ApplicationUser);
 
-                return RedirectToAction("ViewProfile", "Profile", new { id = currentUser.Id });
-            }
-
-            return RedirectToAction("ViewProfile", "Profile", new { id = currentUser.Id });
+            return RedirectToAction("ViewProfile", new { id = pvm.ApplicationUser.Id });
         }
+
             
+            return View("ViewProfile", pvm);
+    }
+
+
+
+        public ActionResult ViewProfile(string id)
+        {
+            var userRepository = new UserRepository();
+
+            var user = userRepository.GetUser(id);
+            var rvm = new RegisterViewModel();
+            var profileModel = new ProfileViewModel();
+
+            profileModel.ApplicationUser = user;
+            profileModel.RegisterViewModel = rvm;
+
+            rvm.Email = user.Email;
+            rvm.Firstname = user.Firstname;
+            rvm.Lastname = user.Lastname;
+            rvm.Title = user.Title;
+            rvm.Phone = user.Phone;
+
+            if (profileModel.ApplicationUser == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                return View(profileModel);
+            }
+        }
+
+        public ActionResult ProfileRedirect()
+        {
+            var user = User.Identity.GetUserId();
+            return RedirectToAction("ViewProfile", new { id = user });
+        }
+
+        public ActionResult ViewUserProfile(ApplicationUser user)
+        {
+            var pvm = new ProfileViewModel();
+            pvm.ApplicationUser = user;
+            return View("ViewProfile", pvm);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -49,5 +49,12 @@ namespace Kommunikationsverktyg.Controllers
             var user = User.Identity.GetUserId();
             return RedirectToAction("ViewProfile", new { id = user });
         }
+        
+        public ActionResult ViewUserProfile(ApplicationUser user)
+        {
+            var pvm = new ProfileViewModel();
+            pvm.ApplicationUser = user;
+            return View("ViewProfile", pvm);
+        }
     }
 }
