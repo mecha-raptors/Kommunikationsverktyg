@@ -1,4 +1,6 @@
-﻿using Kommunikationsverktyg.Repository;
+﻿using Kommunikationsverktyg.Models;
+using Kommunikationsverktyg.Models.ViewModels;
+using Kommunikationsverktyg.Repository;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,15 +21,26 @@ namespace Kommunikationsverktyg.Controllers
         public ActionResult ViewProfile(string id)
         {
             var userRepository = new UserRepository();
-            var user = userRepository.GetUser(id);
 
-            if (user == null)
+            var user = userRepository.GetUser(id);
+            var rvm = new RegisterViewModel();
+            var profileModel = new ProfileViewModel();
+
+            profileModel.ApplicationUser = user;
+            profileModel.RegisterViewModel = rvm;
+
+            rvm.Email = user.Email;
+            rvm.Firstname = user.Firstname;
+            rvm.Lastname = user.Lastname;
+            rvm.Phone = user.Phone;
+            
+            if (profileModel.ApplicationUser == null)
             {
                 return View("Error");
             }
             else
             {
-                return View(user);
+                return View(profileModel);
             }
         }
 

@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Repository;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Kommunikationsverktyg.Models.ViewModels;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -437,19 +438,27 @@ namespace Kommunikationsverktyg.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(RegisterViewModel rvm)
+        public ActionResult EditUser(ProfileViewModel pvm)
         {
+            
+            var loggedInEmail = User.Identity.Name;
+            ApplicationUser currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
+
+            //The edit user form currently doesn't allow input of two required fields
+            //The fields are set to their current value from the user
+            pvm.RegisterViewModel.Email = currentUser.Email;
+            pvm.RegisterViewModel.Title = currentUser.Title;
+
             if (ModelState.IsValid)
             {
-                var loggedInEmail = User.Identity.Name;
-                ApplicationUser currentUser = _db.Users.FirstOrDefault(u => u.Email == loggedInEmail);
+                currentUser.Firstname = pvm.RegisterViewModel.Firstname;
+                currentUser.Lastname = pvm.RegisterViewModel.Lastname;
+                currentUser.Phone = pvm.RegisterViewModel.Phone;
+                currentUser.Description = pvm.RegisterViewModel.Description;
 
-                currentUser.Firstname = rvm.Firstname;
-                currentUser.Lastname = rvm.Lastname;
-                currentUser.Phone = rvm.Phone;
-                if (rvm.Password != null)
+                if (pvm.RegisterViewModel.Password != null)
                 {
-                    currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(rvm.Password);
+                    currentUser.PasswordHash = UserManager.PasswordHasher.HashPassword(pvm.RegisterViewModel.Password);
                 }
 
                 _db.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
@@ -457,10 +466,10 @@ namespace Kommunikationsverktyg.Controllers
 
                 UserManager.UpdateAsync(currentUser);
 
-                return RedirectToAction("Contact", "Home");
+                return RedirectToAction("ViewProfile", "Profile", new { id = currentUser.Id });
             }
 
-            return View("Contact", "Home", rvm);
+            return RedirectToAction("ViewProfile", "Profile", new { id = currentUser.Id });
         }
             
 
