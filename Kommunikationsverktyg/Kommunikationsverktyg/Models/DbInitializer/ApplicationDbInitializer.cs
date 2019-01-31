@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Kommunikationsverktyg.Models.DbInitializer
 {
-    public class ApplicationDbInitializer : System.Data.Entity.CreateDatabaseIfNotExists<ApplicationDbContext>
+    public class ApplicationDbInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext db)
         {
