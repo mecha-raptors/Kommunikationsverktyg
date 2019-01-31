@@ -142,6 +142,11 @@
                     select: function (start, end, jsEvent, view, resourceObj) {
                         console.log(start.format());
                         console.log(end.format());
+                        document.getElementById('startTime').style.visibility = 'visible';
+                        document.getElementById('startTime').value = start.format();
+                        document.getElementById('endTime').style.visibility = 'visible';
+                        document.getElementById('endTime').value = end.format();
+
                     }
                 })
             }
