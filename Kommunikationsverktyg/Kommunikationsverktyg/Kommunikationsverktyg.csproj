@@ -198,6 +198,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902011330307_fixatliteirepository.cs" />
+    <Compile Include="Migrations\201902011330307_fixatliteirepository.Designer.cs">
+      <DependentUpon>201902011330307_fixatliteirepository.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
@@ -305,6 +309,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902011330307_fixatliteirepository.resx">
+      <DependentUpon>201902011330307_fixatliteirepository.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
