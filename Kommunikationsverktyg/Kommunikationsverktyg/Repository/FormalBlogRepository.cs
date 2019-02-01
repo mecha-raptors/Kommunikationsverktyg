@@ -31,18 +31,22 @@ namespace Kommunikationsverktyg.Repository
                         Fullname = item.User.Firstname + " " + item.User.Lastname,
                         Timestamp = item.Timestamp,
                         Title = item.Title,
-                        UserId = item.User.Id
+                        UserId = item.User.Id,
+                        PostId = item.FormalBlogModelId
                     };
                     list.Add(m);
                 }
                 model.Posts = list;
                 return model;
             }
-            catch(Exception exc) {
+            catch (Exception exc)
+            {
                 throw new Exception();
             }
         }
-        public void SavePost(ListFormalBlogViewModel list) {
+
+        public void SavePost(ListFormalBlogViewModel list)
+        {
             try
             {
                 var model = new FormalBlogModel
@@ -57,15 +61,18 @@ namespace Kommunikationsverktyg.Repository
                 _db.FormalBlogPosts.Add(model);
                 _db.SaveChanges();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw new Exception();
             }
 
 
         }
+
         public string SaveFile(HttpPostedFileBase file)
         {
-            if (file == null) {
+            if (file == null)
+            {
                 return null;
             }
             if (UserRepo.IsImage(file.FileName))
@@ -81,29 +88,48 @@ namespace Kommunikationsverktyg.Repository
 
             return userPath;
         }
+
         public string FilterContent(string content)
         {
             var words = content.Split(' ');
             var badWords = _db.BadWords.ToList();
             string filteredContent = "";
-            foreach(var item in words)
+            foreach (var item in words)
             {
                 var IsComitted = false;
-                foreach(var badword in badWords) { 
+                foreach (var badword in badWords)
+                {
                     if (item.ToLower().Contains(badword.Word))
                     {
                         filteredContent += item.Mask() + " ";
                         IsComitted = true;
                         break;
                     }
-                    
-                }
 
-                if (!IsComitted) { 
-                filteredContent += item + " ";
+                }
+                if (!IsComitted)
+                {
+                    filteredContent += item + " ";
                 }
             }
             return filteredContent;
+        }
+
+
+        public void DeletePost(int id)
+        {
+
+            try
+            {
+                var db = new ApplicationDbContext();
+                var post = db.FormalBlogPosts.Find(id);
+                db.FormalBlogPosts.Remove(post);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
     }
     public static class StringExtensions
@@ -112,12 +138,12 @@ namespace Kommunikationsverktyg.Repository
         {
             var characters = str.ToCharArray();
             var maskedString = "";
-            for(var i = 1; i < characters.Count() - 1; i++)
+            for (var i = 1; i < characters.Count() - 1; i++)
             {
                 maskedString += "*";
             }
             return str.Substring(0, 1) + maskedString + str[str.Length - 1];
-            
+
         }
     }
 }

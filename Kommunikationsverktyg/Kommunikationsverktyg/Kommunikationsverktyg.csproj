@@ -191,36 +191,41 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\AdminApiController.cs" />
+    <Compile Include="Controllers\Api\FormalBlogApiController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901310938242_mymigration.cs" />
-    <Compile Include="Migrations\201901310938242_mymigration.Designer.cs">
-      <DependentUpon>201901310938242_mymigration.cs</DependentUpon>
+    <Compile Include="Migrations\201902011330307_fixatliteirepository.cs" />
+    <Compile Include="Migrations\201902011330307_fixatliteirepository.Designer.cs">
+      <DependentUpon>201902011330307_fixatliteirepository.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901311013096_enmigration.cs" />
-    <Compile Include="Migrations\201901311013096_enmigration.Designer.cs">
-      <DependentUpon>201901311013096_enmigration.cs</DependentUpon>
+    <Compile Include="Migrations\201902011220311_migration.cs" />
+    <Compile Include="Migrations\201902011220311_migration.Designer.cs">
+      <DependentUpon>201902011220311_migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\InformalBlogModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DbInitializer\ApplicationDbInitializer.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\FormalBlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\InformalBlogViewModel.cs" />
     <Compile Include="Models\ViewModels\ListFormalBlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListInformalBlogViewModel.cs" />
     <Compile Include="Models\ViewModels\ListUsersByRoleViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EmailNotification.cs" />
     <Compile Include="Repository\FormalBlogRepository.cs" />
+    <Compile Include="Repository\InformalBlogRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\WordFilter.cs" />
@@ -292,6 +297,8 @@
     <Content Include="Views\Account\ViewProfile.cshtml" />
     <Content Include="Views\Account\EditProfileView.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Profile\ViewProfile.cshtml" />
+    <Content Include="Views\Home\InformalBlog.cshtml" />
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -315,11 +322,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901310938242_mymigration.resx">
-      <DependentUpon>201901310938242_mymigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902011330307_fixatliteirepository.resx">
+      <DependentUpon>201902011330307_fixatliteirepository.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901311013096_enmigration.resx">
-      <DependentUpon>201901311013096_enmigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902011220311_migration.resx">
+      <DependentUpon>201902011220311_migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

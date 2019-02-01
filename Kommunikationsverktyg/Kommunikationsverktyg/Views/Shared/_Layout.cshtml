@@ -28,7 +28,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Hem", "Index", "Home")</li>
                     <li>@Html.ActionLink("Formell Blogg", "FormalBlog", "Home")</li>
-
+                    <li>@Html.ActionLink("Informell Blogg", "InformalBlog", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (User.IsInRole("admin"))
                     {
                         <li>@Html.ActionLink("Acceptera Användare", "ListPendingUsers", "Admin")</li>

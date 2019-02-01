@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Kommunikationsverktyg.Models.ViewModels
 {
-    public class ListFormalBlogViewModel
+    public class ListInformalBlogViewModel
     {
-        public List<FormalBlogViewModel> Posts { get; set; }
+        public List<InformalBlogViewModel> Posts { get; set; }
         public HttpPostedFileBase File { get; set; }
 
         [StringLength(int.MaxValue, ErrorMessage = "{0} måste vara minst {2} tecken långt.", MinimumLength = 6)]
@@ -22,8 +22,5 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public string Title { get; set; }
 
         public string SenderId { get; set; }
-
-        public int PostId { get; set; }
-        public DateTime Timestamp { get; set; }
     }
 }
