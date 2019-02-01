@@ -132,5 +132,53 @@ namespace Kommunikationsverktyg.Controllers
 
             return Json("success");
         }
+
+        public ActionResult InformalBlog()
+        {
+
+            try
+            {
+                var helper = new InformalBlogRepository();
+                var model = helper.GetInformalPosts();
+                return View(model);
+            }
+            catch
+            {
+                var model = new ListInformalBlogViewModel
+                {
+                    Posts = new List<InformalBlogViewModel>()
+                };
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult InformalBlog(ListInformalBlogViewModel BlogList)
+        {
+            var helper = new InformalBlogRepository();
+
+            if (!ModelState.IsValid)
+            {
+                var model = helper.GetInformalPosts();
+                return View(model);
+            }
+
+            try
+            {
+                BlogList.SenderId = User.Identity.GetUserId();
+                helper.SavePost(BlogList);
+                var model = helper.GetInformalPosts();
+                return RedirectToAction("InformalBlog");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Något gick fel.");
+                var model = helper.GetInformalPosts();
+                return View(model);
+
+            }
+        }
+
+        
     }
 }
