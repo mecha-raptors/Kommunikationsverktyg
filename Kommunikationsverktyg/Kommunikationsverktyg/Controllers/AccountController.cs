@@ -544,10 +544,12 @@ namespace Kommunikationsverktyg.Controllers
 
         public ActionResult ViewExternProfile(string id)
         {
-            var userId = User.Identity.GetUserId();
+            if (id == User.Identity.GetUserId()) {
+                return RedirectToAction("ViewProfile");
+            }
             var userRepository = new UserRepository();
 
-            var user = userRepository.GetUser(userId);
+            var user = userRepository.GetUser(id);
             var rvm = new RegisterViewModel();
             var profileModel = new ProfileViewModel();
 
