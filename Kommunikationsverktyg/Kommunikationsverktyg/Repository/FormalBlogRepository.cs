@@ -31,7 +31,8 @@ namespace Kommunikationsverktyg.Repository
                         Fullname = item.User.Firstname + " " + item.User.Lastname,
                         Timestamp = item.Timestamp,
                         Title = item.Title,
-                        UserId = item.User.Id
+                        UserId = item.User.Id,
+                        PostId = item.FormalBlogModelId
                     };
                     list.Add(m);
                 }
@@ -99,6 +100,22 @@ namespace Kommunikationsverktyg.Repository
                     
                 }
 
+        
+        public void DeletePost(int id)
+        {
+           
+            try
+            {
+                var db = new ApplicationDbContext();
+                var post = db.FormalBlogPosts.Find(id);
+                db.FormalBlogPosts.Remove(post);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
                 if (!IsComitted) { 
                 filteredContent += item + " ";
                 }
