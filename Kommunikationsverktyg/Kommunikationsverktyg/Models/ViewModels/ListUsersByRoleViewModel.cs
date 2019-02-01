@@ -7,6 +7,7 @@ namespace Kommunikationsverktyg.Models.ViewModels
 {
     public class ListUsersByRoleViewModel
     {
-        public List<ApplicationUser> Users { get; set; }
+        public List<ApplicationUser> PendingUsers { get; set; }
+        public List<ApplicationUser> ActiveUsers { get; set; }
     }
 }
