@@ -84,22 +84,15 @@ namespace Kommunikationsverktyg.Repository
         }
 
         
-        public void DeletePost(ListFormalBlogViewModel list)
+        public void DeletePost(int id)
         {
+           
             try
             {
-                var model = new FormalBlogModel
-                {
-                    FilePath = SaveFile(list.File),
-                    Message = list.Message,
-                    Title = list.Title,
-                    Timestamp = list.Timestamp,
-                    Id = list.SenderId,
-                    FormalBlogModelId = list.PostId
-                };
-                _db.FormalBlogPosts.Attach(model);
-                _db.FormalBlogPosts.Remove(model);
-                _db.SaveChanges();
+                var db = new ApplicationDbContext();
+                var post = db.FormalBlogPosts.Find(id);
+                db.FormalBlogPosts.Remove(post);
+                db.SaveChanges();
             }
             catch (Exception ex)
             {
