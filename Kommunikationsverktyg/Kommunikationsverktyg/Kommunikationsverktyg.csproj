@@ -292,6 +292,7 @@
     <Content Include="Views\Account\ViewProfile.cshtml" />
     <Content Include="Views\Account\EditProfileView.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\ViewExternProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

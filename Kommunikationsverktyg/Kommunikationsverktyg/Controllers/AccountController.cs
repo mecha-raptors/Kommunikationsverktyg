@@ -480,7 +480,7 @@ namespace Kommunikationsverktyg.Controllers
             pvm.ApplicationUser = user;
             
             ModelState["RegisterViewModel.Password"].Errors.Clear();
-
+            if(ModelState["RegisterViewModel.ConfirmPassword"] != null)
             ModelState["RegisterViewModel.ConfirmPassword"].Errors.Clear();
             ModelState["RegisterViewModel.Email"].Errors.Clear();
             if (ModelState.IsValid)
@@ -513,12 +513,13 @@ namespace Kommunikationsverktyg.Controllers
     }
 
 
-
-        public ActionResult ViewProfile(string id)
+        
+        public ActionResult ViewProfile()
         {
+            var userId = User.Identity.GetUserId();
             var userRepository = new UserRepository();
 
-            var user = userRepository.GetUser(id);
+            var user = userRepository.GetUser(userId);
             var rvm = new RegisterViewModel();
             var profileModel = new ProfileViewModel();
 
@@ -541,11 +542,35 @@ namespace Kommunikationsverktyg.Controllers
             }
         }
 
-        public ActionResult ProfileRedirect()
+        public ActionResult ViewExternProfile(string id)
         {
-            var user = User.Identity.GetUserId();
-            return RedirectToAction("ViewProfile", new { id = user });
+            var userId = User.Identity.GetUserId();
+            var userRepository = new UserRepository();
+
+            var user = userRepository.GetUser(userId);
+            var rvm = new RegisterViewModel();
+            var profileModel = new ProfileViewModel();
+
+            profileModel.ApplicationUser = user;
+            profileModel.RegisterViewModel = rvm;
+
+            rvm.Email = user.Email;
+            rvm.Firstname = user.Firstname;
+            rvm.Lastname = user.Lastname;
+            rvm.Title = user.Title;
+            rvm.Phone = user.Phone;
+
+            if (profileModel.ApplicationUser == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                return View(profileModel);
+            }
         }
+
+        
 
         public ActionResult ViewUserProfile(ApplicationUser user)
         {

@@ -28,12 +28,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Hem", "Index", "Home")</li>
                     <li>@Html.ActionLink("Formell Blogg", "FormalBlog", "Home")</li>
- 
+
                     @if (User.IsInRole("admin"))
                     {
                         <li>@Html.ActionLink("Acceptera Användare", "ListPendingUsers", "Admin")</li>
                     }
-                    <li>@Html.ActionLink("Min profil", "ProfileRedirect", "Account")</li>
+                    <li>@Html.ActionLink("Min Profil", "ViewProfile", "Account")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
