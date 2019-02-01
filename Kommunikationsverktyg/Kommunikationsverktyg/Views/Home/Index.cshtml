@@ -3,24 +3,23 @@
     ViewBag.Title = "Home Page";
 }
 
-<div id="calender"></div>
+<div id='wrap'>
+    <div id='external-events'>
+        <h4>Draggable Events</h4>
 
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><span id="eventTitle"></span></h4>
-            </div>
-            <div class="modal-body">
-                <p id="pDetails"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
-            </div>
-        </div>
+        <div class='fc-event' id="1">Möte</div>
+        <div class='fc-event' id="2">Lunch</div>
+        <div class='fc-event' id="3">Annat</div>
+        <p>
+            <input type='checkbox' id='drop-remove' />
+            <label for='drop-remove'>remove after drop</label>
+        </p>
     </div>
+    <div id='calender'></div>
+    <div style='clear:both'></div>
 </div>
+
+
 
 <div id="createMeeting" class="modal fade" role="dialog" style="width: 600px; height: 500px; background-color: white; margin: auto; border-radius: 25px; padding: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <div class="modal-header">
@@ -28,6 +27,7 @@
         <h4 class="modal-title">Skapa Ny Händelse</h4>
     </div>
     <div class="modal-body">
+        
         @using (Html.BeginForm("AddEvent", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="form-horizontal">
@@ -58,9 +58,7 @@
                         @Html.TextBoxFor(m => m.TimeSuggestions[0].EndTime, new { @class = "form-control", id = "endTime" })
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-default" id="NewTimeBtn">Välj en till tid</button>
-                </div>
+               
                 <div class="form-group">
                     <div class="col-md-10">
                     </div>
@@ -80,10 +78,12 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css" rel="stylesheet" media="print" />
-
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 
     <script>
         $(document).ready(function () {
@@ -107,11 +107,24 @@
                     alert('failed');
                 }
             })
+            $('#external-events .fc-event').each(function () {
 
-            $("#NewTimeBtn").click(function () {
-                $("#NewTimeBtn").after("")
-                $("#createMeeting").modal('toggle')
-            })
+                // store data so the calendar knows to render an event upon drop
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true, // maintain when user navigates (see docs on the renderEvent method)
+                    id: $(this).attr('id')
+                });
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,
+                    revertDuration: 0
+                });
+
+            });
+
 
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
@@ -121,7 +134,7 @@
                     axisFormat: 'H(:mm)',
                     timeFormat: 'H(:mm)',
                     defaultView: 'agendaWeek',
-                    unselectAuto: false,
+                    unselectAuto: true,
                     selectable: true,
                     minTime: '08:00:00',
                     maxTime: '20:00:00',
@@ -134,17 +147,18 @@
                     eventLimit: true,
                     eventColor: '#378006',
                     events: events,
+                    editable: true,
+                    droppable: true,
                     eventClick: function (calEvent, jsEvent, view) {
-                        $('#myModal #eventTitle').text(calEvent.title);
+                        $('#createMeeting #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>Börjar: </b>' + calEvent.start.format("DD-MMM-YYYY HH:mm")));
                         if (calEvent.end != null) {
                             $description.append($('<p/>').html('<b>Slutar: </b>' + calEvent.end.format("DD-MMM-YYYY HH:mm")));
                         }
                         $description.append($('<p/>').html('<b>Beskrivning: </b>' + calEvent.description));
-                        $('#myModal #pDetails').empty().html($description);
-
-                        $('#myModal').modal();
+                        $('#createMeeting #pDetails').empty().html($description);
+                        $('#createMeeting').modal();
                     },
                     dayClick: function (date, jsEvent, view, resourceObj) {
                         $('#createMeeting').modal();
@@ -155,10 +169,44 @@
                         document.getElementById('startTime').value = start.format();
                         document.getElementById('endTime').value = end.format();
                         $('#createMeeting').modal();
+                    },
+                    eventDrop: function (calEvent, delta, revertFunc) {
+                        //inner column movement drop so get start and call the ajax function......
+                        console.log(calEvent.start.format());
+                        console.log(calEvent.id);
+                        var defaultDuration = moment.duration($('#calender').fullCalendar('option', 'defaultTimedEventDuration'));
+                        var end = calEvent.end || calEvent.start.clone().add(defaultDuration);
+                        console.log('end is ' + end.format());
+
+                        //alert(event.title + " was dropped on " + event.start.format());
+
+                    },
+                    eventResize: function (calEvent, delta, revertFunc) {
+                        console.log(event.id);
+                        console.log("Start time: " + calEvent.start.format() + "end time: " + calEvent.end.format());
+
+                    },
+                    drop: function (date) {
+
+                        //Call when you drop any red/green/blue class to the week table.....first time runs only.....
+                        console.log("dropped");
+                        console.log(date.format());
+                        console.log(this.id);
+                        var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+                        var end = date.clone().add(defaultDuration); // on drop we only have date given to us
+                        console.log('end is ' + end.format());
+
+                        // is the "remove after drop" checkbox checked?
+                        if ($('#drop-remove').is(':checked')) {
+                            $(this).remove();
+                        }
+                    },
+                    eventRender: function (event, element) {
+
                     }
                 })
             }
-        })
-    </script>)
+        });
+    </script>
 
 }
