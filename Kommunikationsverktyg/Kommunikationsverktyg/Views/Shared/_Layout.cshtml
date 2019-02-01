@@ -26,14 +26,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Hem", "Index", "Home")</li>
                     <li>@Html.ActionLink("Formell Blogg", "FormalBlog", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+ 
                     @if (User.IsInRole("admin"))
                     {
-                        <li>@Html.ActionLink("Admin", "ListPendingUsers", "Admin")</li>
+                        <li>@Html.ActionLink("Acceptera Användare", "ListPendingUsers", "Admin")</li>
                     }
-                    <li>@Html.ActionLink("My Profile", "ProfileRedirect", "Profile")</li>
+                    <li>@Html.ActionLink("Min profil", "ProfileRedirect", "Account")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
