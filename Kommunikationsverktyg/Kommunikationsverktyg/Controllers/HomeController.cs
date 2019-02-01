@@ -2,6 +2,7 @@
 using Kommunikationsverktyg.Models.ViewModels;
 using Kommunikationsverktyg.Repository;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,7 @@ namespace Kommunikationsverktyg.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult FormalBlog(ListFormalBlogViewModel BlogList)
         {
@@ -104,6 +106,31 @@ namespace Kommunikationsverktyg.Controllers
                 return View(model);
                 
             }
+        }
+
+        //[HttpPost]
+        //public ActionResult DeletePost(ListFormalBlogViewModel blogModel)
+        //{
+        //    var helper = new FormalBlogRepository();
+        //    helper.DeletePost(blogModel);
+        //    var model = helper.GetFormalPosts();
+            
+        //    return RedirectToAction("FormalBlog");
+        //}
+
+        public JsonResult SaveData(string getepassdata)//WebMethod to Save the data  
+        {
+            try
+            {
+                //var serializeData = JsonConvert.DeserializeObject<List<FormalBlogModel>>(getepassdata);
+                //Console.WriteLine(serializeData);
+            }
+            catch (Exception)
+            {
+                return Json("fail");
+            }
+
+            return Json("success");
         }
 
         public ActionResult InformalBlog()
