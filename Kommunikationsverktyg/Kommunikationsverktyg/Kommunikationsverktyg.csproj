@@ -194,7 +194,6 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,8 +276,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\WaitForVerification.cshtml" />
     <Content Include="Views\Home\FormalBlog.cshtml" />
-    <Content Include="Views\Profile\ViewProfile.cshtml" />
-    <Content Include="Views\Profile\EditProfileView.cshtml" />
     <Content Include="Views\Account\ViewProfile.cshtml" />
     <Content Include="Views\Account\EditProfileView.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />

@@ -12,6 +12,7 @@ using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Repository;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Kommunikationsverktyg.Models.ViewModels;
+using System.Data.Entity.Migrations;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -21,6 +22,8 @@ namespace Kommunikationsverktyg.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext _db = new ApplicationDbContext();
+
+        #region Scaffold
 
         public AccountController()
         {
@@ -138,6 +141,8 @@ namespace Kommunikationsverktyg.Controllers
             }
         }
 
+        #endregion
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -204,6 +209,8 @@ namespace Kommunikationsverktyg.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        #region Scaffold
 
         //
         // GET: /Account/ConfirmEmail
@@ -436,36 +443,70 @@ namespace Kommunikationsverktyg.Controllers
             return View();
         }
 
+        #endregion
+
+        [HttpPost]
+        public ActionResult SaveImage(HttpPostedFileBase Image)
+        {
+            var helper = new UserRepository();
+            var user = helper.GetUser(User.Identity.GetUserId());
+            var model = new ProfileViewModel
+            {
+                ApplicationUser = user,
+                RegisterViewModel = new RegisterViewModel()
+            };
+            try {
+                
+                var imagePath = helper.SaveImage(Image);
+                user.Image = imagePath;
+                _db.Users.AddOrUpdate(user);
+                _db.SaveChanges();
+                return View("ViewProfile",model);
+            }
+            catch(Exception exc)
+            {
+                ModelState.AddModelError("", "Det måste vara en bild");
+                return View("ViewProfile", model);
+            }
+            
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditUser(ProfileViewModel pvm)
         {
             var userRepository = new UserRepository();
-            pvm.ApplicationUser = userRepository.GetUser(User.Identity.GetUserId());
+            var user = userRepository.GetUser(User.Identity.GetUserId());
+            pvm.ApplicationUser = user;
+            
+            ModelState["RegisterViewModel.Password"].Errors.Clear();
 
+            ModelState["RegisterViewModel.ConfirmPassword"].Errors.Clear();
+            ModelState["RegisterViewModel.Email"].Errors.Clear();
             if (ModelState.IsValid)
             {
-                pvm.ApplicationUser.Firstname = pvm.RegisterViewModel.Firstname;
-                pvm.ApplicationUser.Lastname = pvm.RegisterViewModel.Lastname;
-                pvm.ApplicationUser.Title = pvm.RegisterViewModel.Title;
-                pvm.ApplicationUser.Phone = pvm.RegisterViewModel.Phone;
-                pvm.ApplicationUser.Description = pvm.RegisterViewModel.Description;
+                user.Firstname = pvm.RegisterViewModel.Firstname;
+                user.Lastname = pvm.RegisterViewModel.Lastname;
+                user.Title = pvm.RegisterViewModel.Title;
+                user.Phone = pvm.RegisterViewModel.Phone;
+                user.Description = pvm.RegisterViewModel.Description;
 
-                if (pvm.RegisterViewModel.Password != null)
-                {
-                    pvm.ApplicationUser.PasswordHash = UserManager.PasswordHasher.HashPassword(pvm.RegisterViewModel.Password);
-                }
+                //if (pvm.RegisterViewModel.Password != null)
+                //{
+                //    pvm.ApplicationUser.PasswordHash = UserManager.PasswordHasher.HashPassword(pvm.RegisterViewModel.Password);
+                //}
 
                 //Causes exception:
                 //_db.Entry(pvm.ApplicationUser).State = System.Data.Entity.EntityState.Modified;
 
                 //Changes aren't getting saved in the database...
+                _db.Users.AddOrUpdate(user);
                 _db.SaveChanges();
 
                 UserManager.UpdateAsync(pvm.ApplicationUser);
 
             return RedirectToAction("ViewProfile", new { id = pvm.ApplicationUser.Id });
-        }
+            }
 
             
             return View("ViewProfile", pvm);
