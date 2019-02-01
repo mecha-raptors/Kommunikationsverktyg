@@ -4,13 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Kommunikationsverktyg.Repository;
 
 namespace Kommunikationsverktyg.Models.DbInitializer
 {
-    public class ApplicationDbInitializer : System.Data.Entity.CreateDatabaseIfNotExists<ApplicationDbContext>
+    public class ApplicationDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext db)
         {
+            var WordFilter = new WordFilter();
+
             var Event = new EventModel
             {
                 EventId = 1,
@@ -38,6 +41,21 @@ namespace Kommunikationsverktyg.Models.DbInitializer
             var user = new ApplicationUser { Email = "admin@admin.se", UserName = "admin@admin.se", PasswordHash = hasher.HashPassword("password") };
             userManager.Create(user);
             userManager.AddToRole(user.Id, "admin");
+
+            List<string> words = WordFilter.Words();
+            foreach (var i in words)
+            {
+                if (i == "")
+                continue;
+
+                var badWord = new BadWords
+                {
+                    Word = i
+                };
+            db.BadWords.Add(badWord);
+            };
+          
+
             db.SaveChanges();
             base.Seed(db);
         }

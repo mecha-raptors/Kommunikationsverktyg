@@ -28,5 +28,21 @@ namespace Kommunikationsverktyg.Controllers.Api
                 return BadRequest();
             }
         }
+
+        [Route("giveadmin")]
+        [HttpPost]
+        public IHttpActionResult GiveAdmin(List<string> userId)
+        {
+            try
+            {
+                _rolemanager.AddUserToRole(userId[0], "admin");
+                _rolemanager.RemoveUserFromRole(userId[0], "user");
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

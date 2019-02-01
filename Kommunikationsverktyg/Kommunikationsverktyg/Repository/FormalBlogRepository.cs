@@ -48,8 +48,8 @@ namespace Kommunikationsverktyg.Repository
                 var model = new FormalBlogModel
                 {
                     FilePath = SaveFile(list.File),
-                    Message = list.Message,
-                    Title = list.Title,
+                    Message = FilterContent(list.Message),
+                    Title = FilterContent(list.Title),
                     Timestamp = DateTime.Now,
                     Id = list.SenderId
 
@@ -81,6 +81,43 @@ namespace Kommunikationsverktyg.Repository
 
             return userPath;
         }
+        public string FilterContent(string content)
+        {
+            var words = content.Split(' ');
+            var badWords = _db.BadWords.ToList();
+            string filteredContent = "";
+            foreach(var item in words)
+            {
+                var IsComitted = false;
+                foreach(var badword in badWords) { 
+                    if (item.ToLower().Contains(badword.Word))
+                    {
+                        filteredContent += item.Mask() + " ";
+                        IsComitted = true;
+                        break;
+                    }
+                    
+                }
 
+                if (!IsComitted) { 
+                filteredContent += item + " ";
+                }
+            }
+            return filteredContent;
+        }
+    }
+    public static class StringExtensions
+    {
+        public static string Mask(this string str)
+        {
+            var characters = str.ToCharArray();
+            var maskedString = "";
+            for(var i = 1; i < characters.Count() - 1; i++)
+            {
+                maskedString += "*";
+            }
+            return str.Substring(0, 1) + maskedString + str[str.Length - 1];
+            
+        }
     }
 }

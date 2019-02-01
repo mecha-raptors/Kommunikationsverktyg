@@ -22,9 +22,12 @@ namespace Kommunikationsverktyg.Controllers
         public ActionResult ListPendingUsers()
         {
             var model = new ListUsersByRoleViewModel {
-                Users = roleManager.GetUsersByRole("pending")
+                PendingUsers = roleManager.GetUsersByRole("pending"),
+                ActiveUsers = roleManager.GetUsersByRole("user")
             };
             return View(model);
         }
+
+
     }
 }

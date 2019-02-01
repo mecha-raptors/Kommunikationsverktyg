@@ -23,57 +23,58 @@
 </div>
 
 <div id="createMeeting" class="modal fade" role="dialog" style="width: 600px; height: 500px; background-color: white; margin: auto; border-radius: 25px; padding: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Skapa Ny Händelse</h4>
-            </div>
-            <div class="modal-body">
-                @using (Html.BeginForm("AddEvent", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <div class="form-horizontal">
-                        @Html.AntiForgeryToken()
-                        <hr />
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Start, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.Start, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.End, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.End, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" class="btn btn-primary" value="Spara Händelse" />
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
-                            </div>
-                        </div>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Skapa Ny Händelse</h4>
+    </div>
+    <div class="modal-body">
+        @using (Html.BeginForm("AddEvent", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-horizontal">
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
                     </div>
-                }
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Start, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Start, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.End, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.End, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="Spara Händelse" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                    </div>
+                </div>
             </div>
+        }
+    </div>
 </div>
 
-<button type="button" class="btn btn-default" id="newMeeting-btn">Skapa Ny Händelse</button>
+@Html.TextBoxFor(m => m.Start, new { @class = "form-control", id="startTime", style= "visibility: hidden"})
+@Html.TextBoxFor(m => m.End, new { @class = "form-control", id="endTime", style= "visibility: hidden"})
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
@@ -105,13 +106,19 @@
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
-                    contentHeight: 400,
+                    contentHeight: 580,
                     defaultDate: new Date(),
-                    timeFormat: 'h(:mm)a',
+                    axisFormat: 'H(:mm)',
+                    timeFormat: 'H(:mm)',
+                    slotLabelFormat: 'HH:mm',
+                    minTime: '08:00:00',
+                    maxTime: '20:00:00',
+                    defaultView: 'agendaWeek',
+                    selectable: true,
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay,agenda'
+                        right: 'agendaWeek'
                     },
                     eventLimit: true,
                     eventColor: '#378006',
@@ -127,15 +134,18 @@
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
+                    },
+                    dayClick: function (date, jsEvent, view, resourceObj) {
+                        document.getElementById('testboy').value = date.format();
+                        document.getElementById('testboy').style.visibility = 'visible';
+                    },
+                    select: function (start, end, jsEvent, view, resourceObj) {
+                        console.log(start.format());
+                        console.log(end.format());
                     }
                 })
             }
-
-            $('#newMeeting-btn').click(function () {
-                $('#createMeeting').modal();
-            });
-            
         })
     </script>
-    
+
 }
