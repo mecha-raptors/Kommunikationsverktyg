@@ -198,15 +198,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902011330307_fixatliteirepository.cs" />
-    <Compile Include="Migrations\201902011330307_fixatliteirepository.Designer.cs">
-      <DependentUpon>201902011330307_fixatliteirepository.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902011220311_migration.cs" />
-    <Compile Include="Migrations\201902011220311_migration.Designer.cs">
-      <DependentUpon>201902011220311_migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
@@ -305,6 +296,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Views\Event\" />
     <Folder Include="XmlWordList\" />
   </ItemGroup>
@@ -320,14 +312,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902011330307_fixatliteirepository.resx">
-      <DependentUpon>201902011330307_fixatliteirepository.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902011220311_migration.resx">
-      <DependentUpon>201902011220311_migration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

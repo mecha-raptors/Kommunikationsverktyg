@@ -62,7 +62,7 @@
                     @Html.HiddenFor(m => m.Posts[i].Title)
                 </h3>
                 <p class="lead">
-                    by @Model.Posts[i].Fullname
+                    by <a href="Account/ViewExternProfile/@Model.Posts[i].UserId" @Model.Posts[i].Fullname
                     @Html.HiddenFor(m => m.Posts[i].Fullname)
                 </p>
                 <p>

@@ -17,11 +17,12 @@ namespace Kommunikationsverktyg.Models
         public virtual string Phone { get; set; }
         public string Title { get; set; }
         public ICollection<FormalBlogModel> Posts { get; set; }
-
+        public ICollection<InformalBlogModel> InformalPosts { get; set; }
         //Konstruktor
         public ApplicationUser() : base()
         {
             Posts = new List<FormalBlogModel>();
+            InformalPosts = new List<InformalBlogModel>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
