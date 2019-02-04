@@ -36,8 +36,7 @@ namespace Kommunikationsverktyg.Repository
                         Title = item.Title,
                         UserId = item.User.Id,
                         PostId = item.FormalBlogModelId,
-                        Category = item.Category.Type
-                        PostId = item.FormalBlogModelId,
+                        Category = item.Category.Type,
                         Likes = item.Likes
              
                     };
