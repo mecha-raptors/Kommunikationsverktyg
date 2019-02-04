@@ -18,7 +18,11 @@ namespace Kommunikationsverktyg.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
 
-            RequestedEventViewModel viewModel = new RequestedEventViewModel();
+            RequestedEventViewModel viewModel = new RequestedEventViewModel
+            {
+                InvitableUsers = new Dictionary<string, string>(),
+                Invitees = new List<string>()
+            };
 
             foreach (var u in db.Users)
             {

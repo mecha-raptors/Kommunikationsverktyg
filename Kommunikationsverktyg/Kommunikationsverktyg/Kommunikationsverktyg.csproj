@@ -222,6 +222,10 @@
     <Compile Include="Migrations\201901311152408_mig6.Designer.cs">
       <DependentUpon>201901311152408_mig6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902041225372_mig10.cs" />
+    <Compile Include="Migrations\201902041225372_mig10.Designer.cs">
+      <DependentUpon>201902041225372_mig10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
@@ -344,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901311152408_mig6.resx">
       <DependentUpon>201901311152408_mig6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041225372_mig10.resx">
+      <DependentUpon>201902041225372_mig10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

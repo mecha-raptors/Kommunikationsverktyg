@@ -23,12 +23,18 @@ namespace Kommunikationsverktyg.Controllers
                 {
                     Title = em.Title,
                     Description = em.Description,
-                    TimeSuggestions = new List<DateModel>()
+                    TimeSuggestions = new List<DateModel>(),
+                    Invitees = new List<ApplicationUser>()
                 };
 
                 foreach (DateModel dm in em.TimeSuggestions)
                 {
                     newEvent.TimeSuggestions.Add(dm);
+                }
+
+                foreach (string s in em.Invitees)
+                {
+                    newEvent.Invitees.Add(db.Users.Find(s));
                 }
 
                 db.RequestedEvents.Add(newEvent);
