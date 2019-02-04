@@ -60,7 +60,9 @@
                 </div>
                
                 <div class="form-group">
+                    @Html.LabelFor(m => m.Invitees, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
+                        @Html.ListBoxFor(m => m.Invitees, new SelectList(Model.InvitableUsers, "Text", "Value"))
                     </div>
                 </div>
 
@@ -177,13 +179,23 @@
                         var defaultDuration = moment.duration($('#calender').fullCalendar('option', 'defaultTimedEventDuration'));
                         var end = calEvent.end || calEvent.start.clone().add(defaultDuration);
                         console.log('end is ' + end.format());
+                        document.getElementById('startTime').value = calEvent.start.format();
+                        document.getElementById('endTime').value = end.format();
+                        $('#createMeeting').modal();
+
+
 
                         //alert(event.title + " was dropped on " + event.start.format());
 
                     },
+
                     eventResize: function (calEvent, delta, revertFunc) {
                         console.log(event.id);
                         console.log("Start time: " + calEvent.start.format() + "end time: " + calEvent.end.format());
+                        document.getElementById('startTime').value = calEvent.start.format();
+                        document.getElementById('endTime').value = calEvent.end.format();
+                        $('#createMeeting').modal();
+
 
                     },
                     drop: function (date) {
@@ -192,9 +204,13 @@
                         console.log("dropped");
                         console.log(date.format());
                         console.log(this.id);
-                        var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+                        var defaultDuration = moment.duration($('#calender').fullCalendar('option', 'defaultTimedEventDuration'));
                         var end = date.clone().add(defaultDuration); // on drop we only have date given to us
                         console.log('end is ' + end.format());
+                        document.getElementById('startTime').value = date.format();
+                        document.getElementById('endTime').value = end.format();
+                        $('#createMeeting').modal();
+
 
                         // is the "remove after drop" checkbox checked?
                         if ($('#drop-remove').is(':checked')) {

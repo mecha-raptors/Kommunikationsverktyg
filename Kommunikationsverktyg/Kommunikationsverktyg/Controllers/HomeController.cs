@@ -10,16 +10,31 @@ using System.Web.Mvc;
 
 namespace Kommunikationsverktyg.Controllers
 {
-    
+
     [Authorize(Roles = "user,admin")]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            var viewModel = new RequestedEventViewModel();
-            
+            ApplicationDbContext db = new ApplicationDbContext();
+            List<SelectListItem> test = new List<SelectListItem>();
+
+            foreach(var user in db.Users)
+            {
+                SelectListItem testet = new SelectListItem()
+                {
+                    Text = user.Id,
+                    Value = user.Firstname + " " + user.Lastname
+                };
+                test.Add(testet);
+            }
+
+            RequestedEventViewModel viewModel = new RequestedEventViewModel();
+            viewModel.InvitableUsers = test;
             return View(viewModel);
         }
+    
+
 
         public ActionResult FormalBlog()
         {
