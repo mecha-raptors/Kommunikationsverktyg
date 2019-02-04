@@ -17,7 +17,7 @@
     <table class="table table-striped">
         <tr>
             <th>Kategori</th>
-            <th>Ta Bort</th>
+            <th></th>
         </tr>
         @foreach (var item in Model.Categories)
         {
@@ -26,7 +26,7 @@
                     @item.Type
                 </td>
                 <td>
-                    <button class="btn btn-danger delete-btn" id="@item.CategoryModelId">Ta Bort</button>
+                    @*<button class="btn btn-danger delete-btn" id="@item.CategoryModelId">Ta Bort</button>*@
                 </td>
             </tr>
         }
