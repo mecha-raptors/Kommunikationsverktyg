@@ -62,7 +62,7 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Invitees, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.ListBoxFor(m => m.Invitees, new SelectList(Model.InvitableUsers, "Text", "Value"))
+                        @Html.ListBoxFor(m => m.Invitees, new MultiSelectList(Model.InvitableUsers, "Key", "Value"), new { @class = "form-control" })
                     </div>
                 </div>
 
@@ -141,6 +141,7 @@
                     minTime: '08:00:00',
                     maxTime: '20:00:00',
                     slotLabelFormat: 'HH:mm',
+                    editable: false,
                     header: {
                         left: 'prev,next today',
                         center: 'title',

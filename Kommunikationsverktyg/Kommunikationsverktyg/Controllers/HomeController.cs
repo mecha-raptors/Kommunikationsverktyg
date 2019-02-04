@@ -17,20 +17,14 @@ namespace Kommunikationsverktyg.Controllers
         public ActionResult Index()
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            List<SelectListItem> test = new List<SelectListItem>();
-
-            foreach(var user in db.Users)
-            {
-                SelectListItem testet = new SelectListItem()
-                {
-                    Text = user.Id,
-                    Value = user.Firstname + " " + user.Lastname
-                };
-                test.Add(testet);
-            }
 
             RequestedEventViewModel viewModel = new RequestedEventViewModel();
-            viewModel.InvitableUsers = test;
+
+            foreach (var u in db.Users)
+            {
+                viewModel.InvitableUsers.Add(u.Id, u.Firstname + " " + u.Lastname);
+            }
+
             return View(viewModel);
         }
     

@@ -18,8 +18,8 @@ namespace Kommunikationsverktyg.Models.ViewModels
         [Required]
         public virtual List<DateModel> TimeSuggestions { get; set; }
         [Required]
-        public virtual IEnumerable<int> Invitees { get; set; }
-        public virtual List<SelectListItem> InvitableUsers { get; set; }
+        public virtual List<int> Invitees { get; set; }
+        public virtual Dictionary<string, string> InvitableUsers { get; set; }
         
     }
 }
