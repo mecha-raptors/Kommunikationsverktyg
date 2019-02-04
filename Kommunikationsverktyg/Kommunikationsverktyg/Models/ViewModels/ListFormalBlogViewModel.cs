@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Kommunikationsverktyg.Models.ViewModels
 {
@@ -25,5 +26,17 @@ namespace Kommunikationsverktyg.Models.ViewModels
 
         public int PostId { get; set; }
         public DateTime Timestamp { get; set; }
+
+        [Required(ErrorMessage = "Du måste välja en kategori!")]
+        public int CategoryModelId { get; set; }
+
+        public List<CategoryModel> Categories { get; set; }
+
+        public IEnumerable<SelectListItem> CategoryList
+        {
+            get { return new SelectList(Categories, "CategoryModelId", "Type"); }
+
+        }
+
     }
 }
