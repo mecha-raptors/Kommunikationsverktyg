@@ -21,5 +21,7 @@ namespace Kommunikationsverktyg.Models
 
         public virtual string Id  { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public virtual int Likes { get; set; }
+        
     }
 }

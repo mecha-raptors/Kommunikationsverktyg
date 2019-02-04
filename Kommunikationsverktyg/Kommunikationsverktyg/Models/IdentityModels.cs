@@ -18,6 +18,7 @@ namespace Kommunikationsverktyg.Models
         public string Title { get; set; }
         public ICollection<FormalBlogModel> Posts { get; set; }
         public ICollection<InformalBlogModel> InformalPosts { get; set; }
+        
         //Konstruktor
         public ApplicationUser() : base()
         {
@@ -39,6 +40,7 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<FormalBlogModel> FormalBlogPosts { get; set; }
         public virtual DbSet<BadWords> BadWords { get; set; }
         public virtual DbSet<InformalBlogModel> InformalBlogPosts { get; set; }
+        public virtual DbSet<LikeModel> Likes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

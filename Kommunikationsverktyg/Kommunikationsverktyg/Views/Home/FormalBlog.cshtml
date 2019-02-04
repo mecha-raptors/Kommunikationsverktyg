@@ -1,4 +1,5 @@
 ﻿@model Kommunikationsverktyg.Models.ViewModels.ListFormalBlogViewModel
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Formell blogg";
@@ -62,12 +63,15 @@
                     @Html.HiddenFor(m => m.Posts[i].Title)
                 </h3>
                 <p class="lead">
-                    by <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a> 
+                    by <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
                     @Html.HiddenFor(m => m.Posts[i].Fullname)
                 </p>
                 <p>
                     <span class="timestamp glyphicon glyphicon-time"></span> Skapad @Model.Posts[i].Timestamp.ToString()
                     '@Html.HiddenFor(m => m.Posts[i].Timestamp)
+                </p>
+                <p>
+                    <span id="likes">@Model.Posts[i].Likes</span> personer gillar detta
                 </p>
                 <hr>
                 <p class="message">
@@ -84,6 +88,17 @@
                     }
                 </p>
                 <hr>
+                @*@foreach (var user in Model.Posts[i].Like)
+                {
+                    if (User.Identity.Name.Equals(user.Email))
+                    {
+                        <p>Du gillar det här inlägget</p>
+                    }
+                    else
+                    {*@
+                        <button type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+                    @*}*@
+                @*}*@
                 @if (User.IsInRole("admin"))
                 {
                     <button type="submit" class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
@@ -106,6 +121,7 @@
             $("#File").on("click", function () {
                 $("#File").val("");
             });
+            
         });
         $(".deleteButton").on("click", function (e) {
             var value = e.target.getAttribute("id");
@@ -123,6 +139,27 @@
                 }
 
             }) 
+
+        });
+
+        $(".likeButton").on("click", function (e) {
+            var value = e.target.getAttribute("id");
+            //var currentUser = ;
+            var likes = parseInt($('#likes').text(), 10) + 1;
+            $.ajax({
+                url: "/api/blog/like",
+                type: "Post",
+                data: JSON.stringify([value, "@User.Identity.GetUserName()"]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    $('#likes').text(likes);
+                    $(".likeButton").prop("disabled", true);
+                },
+                error: function () {
+                    alert("Något har gått fel, kontakta systemadmin!");
+                }
+
+            })
 
         });
     </script>

@@ -201,6 +201,7 @@
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
+    <Compile Include="Models\LikeModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DbInitializer\ApplicationDbInitializer.cs" />
     <Compile Include="Models\EventModel.cs" />

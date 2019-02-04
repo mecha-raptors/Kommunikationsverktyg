@@ -7,6 +7,7 @@ namespace Kommunikationsverktyg.Models.ViewModels
 {
     public class FormalBlogViewModel
     {
+
         public virtual DateTime Timestamp { get; set; }
         public virtual string Message { get; set; }
         public virtual string Title { get; set; }
@@ -15,5 +16,8 @@ namespace Kommunikationsverktyg.Models.ViewModels
 
         public virtual string UserId { get; set; }
         public string Fullname { get; set; }
+        public int Likes { get; set; }
+        public virtual List<ApplicationUser> Likers { get; set; }
+        public LikeModel Like { get; set; }
     }
 }
