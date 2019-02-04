@@ -32,10 +32,13 @@ namespace Kommunikationsverktyg.Repository
                         Timestamp = item.Timestamp,
                         Title = item.Title,
                         UserId = item.User.Id,
-                        PostId = item.FormalBlogModelId
+                        PostId = item.FormalBlogModelId,
+                        Category = item.Category.Type
                     };
                     list.Add(m);
                 }
+                var helper = new CategoryRepository();
+                model.Categories = helper.GetCategories();
                 model.Posts = list;
                 return model;
             }
@@ -55,8 +58,8 @@ namespace Kommunikationsverktyg.Repository
                     Message = FilterContent(list.Message),
                     Title = FilterContent(list.Title),
                     Timestamp = DateTime.Now,
-                    Id = list.SenderId
-
+                    Id = list.SenderId,
+                    CategoryModelId = list.CategoryModelId
                 };
                 _db.FormalBlogPosts.Add(model);
                 _db.SaveChanges();
@@ -131,6 +134,41 @@ namespace Kommunikationsverktyg.Repository
                 throw new Exception();
             }
         }
+        public List<FormalBlogViewModel> GetPostById(int id)
+        {
+            {
+                try
+                {
+                    var model = new ListFormalBlogViewModel();
+                    var localDb = new ApplicationDbContext();
+
+                    var posts = localDb.FormalBlogPosts.OrderByDescending(i => i.Timestamp).Where(i => i.CategoryModelId == id).ToList();
+                    var list = new List<FormalBlogViewModel>();
+                    foreach (var item in posts)
+                    {
+                        var m = new FormalBlogViewModel
+                        {
+                            FilePath = item.FilePath,
+                            Message = item.Message,
+                            Fullname = item.User.Firstname + " " + item.User.Lastname,
+                            Timestamp = item.Timestamp,
+                            Title = item.Title,
+                            UserId = item.User.Id,
+                            PostId = item.FormalBlogModelId,
+                            Category = item.Category.Type
+                        };
+
+                        list.Add(m);
+                    }
+                    return list;
+                }
+                catch (Exception exc)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
     }
     public static class StringExtensions
     {

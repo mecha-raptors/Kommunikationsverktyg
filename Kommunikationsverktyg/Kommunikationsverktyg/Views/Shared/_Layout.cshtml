@@ -32,6 +32,7 @@
                     @if (User.IsInRole("admin"))
                     {
                         <li>@Html.ActionLink("Acceptera Användare", "ListPendingUsers", "Admin")</li>
+                        <li>@Html.ActionLink("Kategorier", "ListCategory", "Admin")</li>
                     }
                     <li>@Html.ActionLink("Min Profil", "ViewProfile", "Account")</li>
                 </ul>

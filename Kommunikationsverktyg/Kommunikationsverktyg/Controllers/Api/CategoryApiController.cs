@@ -8,17 +8,18 @@ using System.Web.Http;
 
 namespace Kommunikationsverktyg.Controllers.Api
 {
-    [RoutePrefix("api/blog")]
-    public class FormalBlogApiController : ApiController
+    [RoutePrefix("api/category")]
+    public class CategoryApiController : ApiController
     {
-        [Route("delete")]
+        [Route("add")]
         [HttpPost]
-        public IHttpActionResult RemovePost(List<string> blogid)
+        public IHttpActionResult AddCategory(List<string> content)
         {
             try
             {
-                var helper = new FormalBlogRepository();
-                helper.DeletePost(int.Parse(blogid[0]));
+                var helper = new CategoryRepository();
+
+                helper.AddCategory(content[0]); 
                 return Ok();
             }
             catch
@@ -26,16 +27,16 @@ namespace Kommunikationsverktyg.Controllers.Api
                 return BadRequest();
             }
         }
-
-        [Route("filter")]
+        [Route("delete")]
         [HttpPost]
-        public IHttpActionResult GetPostsById(List<string> id)
+        public IHttpActionResult RemoveCategory(List<string> id)
         {
             try
             {
-                var helper = new FormalBlogRepository();
-                var model = helper.GetPostById(int.Parse(id[0]));
-                return Ok(model);
+                var helper = new CategoryRepository();
+
+                helper.DeleteCategory(int.Parse(id[0]));
+                return Ok();
             }
             catch
             {

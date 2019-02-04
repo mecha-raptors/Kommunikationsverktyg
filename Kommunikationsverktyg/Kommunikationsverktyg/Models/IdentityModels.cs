@@ -39,6 +39,7 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<FormalBlogModel> FormalBlogPosts { get; set; }
         public virtual DbSet<BadWords> BadWords { get; set; }
         public virtual DbSet<InformalBlogModel> InformalBlogPosts { get; set; }
+        public virtual DbSet<CategoryModel> Categories { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
