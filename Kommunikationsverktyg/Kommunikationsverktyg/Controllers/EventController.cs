@@ -35,6 +35,8 @@ namespace Kommunikationsverktyg.Controllers
                 foreach (string s in em.Invitees)
                 {
                     newEvent.Invitees.Add(db.Users.Find(s));
+                    Console.WriteLine("Id: " + s);
+                    Console.WriteLine("Användare: " + db.Users.Find(s).Firstname);
                 }
 
                 db.RequestedEvents.Add(newEvent);
