@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201902041343277_mig13.Designer.cs">
       <DependentUpon>201902041343277_mig13.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902041358511_mig14.cs" />
+    <Compile Include="Migrations\201902041358511_mig14.Designer.cs">
+      <DependentUpon>201902041358511_mig14.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -396,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902041343277_mig13.resx">
       <DependentUpon>201902041343277_mig13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041358511_mig14.resx">
+      <DependentUpon>201902041358511_mig14.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
