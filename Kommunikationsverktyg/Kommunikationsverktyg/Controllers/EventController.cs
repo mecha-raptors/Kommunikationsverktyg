@@ -19,27 +19,30 @@ namespace Kommunikationsverktyg.Controllers
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var newEvent = new RequestedEventModel
+                var newEvent = new EventModel
                 {
                     Title = em.Title,
                     Description = em.Description,
-                    TimeSuggestions = new List<DateModel>(),
-                    Invitees = new List<ApplicationUser>()
+                    Start = em.TimeSuggestions[0].StartTime,
+                    End = em.TimeSuggestions[0].EndTime
                 };
 
-                foreach (DateModel dm in em.TimeSuggestions)
+                //foreach (DateModel dm in em.TimeSuggestions)
+                //{
+                //    newEvent.TimeSuggestions.Add(dm);
+                //}
+
+                if (em.Invitees != null)
                 {
-                    newEvent.TimeSuggestions.Add(dm);
+                    foreach (string s in em.Invitees)
+                    {
+                        //newEvent.Invitees.Add(db.Users.Find(s));
+                        System.Diagnostics.Debug.WriteLine("Id: " + s);
+                        System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
+                    }
                 }
 
-                foreach (string s in em.Invitees)
-                {
-                    newEvent.Invitees.Add(db.Users.Find(s));
-                    System.Diagnostics.Debug.WriteLine("Id: " + s);
-                    System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
-                }
-
-                db.RequestedEvents.Add(newEvent);
+                db.EventModels.Add(newEvent);
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "Home");

@@ -226,6 +226,18 @@
     <Compile Include="Migrations\201902041225372_mig10.Designer.cs">
       <DependentUpon>201902041225372_mig10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902041252084_mig11.cs" />
+    <Compile Include="Migrations\201902041252084_mig11.Designer.cs">
+      <DependentUpon>201902041252084_mig11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041338509_mig12.cs" />
+    <Compile Include="Migrations\201902041338509_mig12.Designer.cs">
+      <DependentUpon>201902041338509_mig12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041343277_mig13.cs" />
+    <Compile Include="Migrations\201902041343277_mig13.Designer.cs">
+      <DependentUpon>201902041343277_mig13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -277,6 +289,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\qTip\jquery.qtip.css" />
+    <Content Include="Scripts\qTip\jquery.qtip.js" />
+    <Content Include="Scripts\qTip\jquery.qtip.min.css" />
+    <Content Include="Scripts\qTip\jquery.qtip.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -323,12 +339,12 @@
     <Content Include="Views\Profile\ViewProfile.cshtml" />
     <Content Include="Views\Home\InformalBlog.cshtml" />
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
+    <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Views\Event\" />
     <Folder Include="XmlWordList\" />
   </ItemGroup>
@@ -366,6 +382,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902041225372_mig10.resx">
       <DependentUpon>201902041225372_mig10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041252084_mig11.resx">
+      <DependentUpon>201902041252084_mig11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041338509_mig12.resx">
+      <DependentUpon>201902041338509_mig12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041343277_mig13.resx">
+      <DependentUpon>201902041343277_mig13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
