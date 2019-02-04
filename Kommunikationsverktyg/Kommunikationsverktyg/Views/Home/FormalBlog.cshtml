@@ -11,34 +11,36 @@
 <h2 id="formalblogH2">Formell Blogg</h2>
 @using (Html.BeginForm("FormalBlog", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "formet" }))
 {
-    <div class="form-horizontal col-lg-12">
+<div class="form-horizontal col-lg-12">
 
-        <h4 id="formalblogH4">Gör ett inlägg</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group col-lg-12">
-            @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
-        </div>
-        <div class="form-group col-lg-12">
-            @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
-
-        </div>
-        <div class="col-lg-6" style="padding: 0 !important;">
-            <label class="btn btn-block btn-success" id="file-upload">
-                Lägg till fil
-                <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
-            </label>
-            @*<button class="btn btn-block btn-success" style="display: none;" id="change-file">Byt fil</button>*@
-        </div>
-
-        <div class="col-lg-6">
-            <button id="send-message" class="btn btn-block btn-primary" style=" margin-left: 0.1%;">Skicka</button>
-        </div>
-        <small id="file-path"></small>
-
-
+    <h4 id="formalblogH4">Gör ett inlägg</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group col-lg-12">
+        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
+    </div>
+    <div class="form-group col-lg-12">
+        @Html.DropDownListFor(m => m.CategoryModelId, Model.CategoryList, "Välj Kategori", new { @class = "form-control" })
+    </div>
+    <div class="form-group col-lg-12">
+        @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
 
     </div>
+    <div class="col-lg-6" style="padding: 0 !important;">
+        <label class="btn btn-block btn-success" id="file-upload">
+            Lägg till fil
+            <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
+        </label>
+    </div>
+
+    <div class="col-lg-6">
+        <button id="send-message" class="btn btn-block btn-primary" style=" margin-left: 0.1%;">Skicka</button>
+    </div>
+    <small id="file-path"></small>
+
+
+
+</div>
 
 }
 
@@ -53,7 +55,37 @@
                 <small>Se alla poster</small>
             </h1>
 
+            <div class="container">
+                <div class="form-inline" style="margin-bottom: 2%; margin-top: 2%;">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.CategoryModelId, Model.CategoryList, "Filtrera efter en kategori", new { @class = "form-control", id = "filter-category" })
 
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="filtered-result">
+                @for (int i = 0; i < Model.Posts.Count(); i++)
+                {
+                    <div class="post remove-post" style="border: 1px solid #000; padding: 1%; margin: 1%;">
+                        <h3 class="title">
+                            @Model.Posts[i].Title
+                            @Html.HiddenFor(m => m.Posts[i].Title)
+                        </h3>
+                        <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category</small>
+                        <p class="lead">
+                            av: <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
+                            @Html.HiddenFor(m => m.Posts[i].Fullname)
+                        </p>
+                        <p>
+                            <span class="timestamp glyphicon glyphicon-time"></span> Skapad @Model.Posts[i].Timestamp.ToString()
+                            @Html.HiddenFor(m => m.Posts[i].Timestamp)
+                        </p>
+                        <hr>
+                        <p class="message">
+                            @Model.Posts[i].Message
+                            @Html.HiddenFor(m => m.Posts[i].Message)
+                        </p>
             
             @for (int i = 0; i < Model.Posts.Count(); i++)
             {
@@ -79,6 +111,26 @@
                     @Html.HiddenFor(m => m.Posts[i].Message)
                 </p>
 
+                        <p>
+                            @if (Model.Posts[i].FilePath != null)
+                            {
+                                <hr />
+                                <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
+                                <small>@Model.Posts[i].FilePath</small>
+                            }
+                        </p>
+                        <hr>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
+                            <input type="text" value="true" id="check-admin" style="display: none !important;" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
                 <p>
                     @if (Model.Posts[i].FilePath != null)
                     {
@@ -112,7 +164,9 @@
 
 @section Scripts{
     <script type="text/javascript">
+       
         $(document).ready(function () {
+            
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
                 $("#file-path").empty();
@@ -141,6 +195,81 @@
             }) 
 
         });
+
+        var IsAdmin = false;
+
+        $("#filter-category").change(function () {
+            var value = $("#filter-category").val();
+            if (value.length > 0) {
+                var adminValue = $("#check-admin").val();
+                if (adminValue != null) {
+                    IsAdmin = true;
+                }
+                $(".remove-post").hide();
+            } else {
+                location.reload();
+                return;
+            };
+
+            $.ajax({
+                url: "/api/blog/filter",
+                type: "Post",
+                data: JSON.stringify([value]),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                   
+                    for (var i = 0; i < data.length; i++) {
+                        var HasImage = "";
+                        if (data[i].FilePath != null) {
+                            HasImage = "" +
+                                "<a class='btn btn-default' href='../" + data[i].FilePath + "' download id='DownloadLink'>Ladda ner mig</a>" +
+                                "<small>" + data[i].FilePath + "</small>"
+                        }
+                        var AdminBtn = "";
+                        if (IsAdmin) {
+                            AdminBtn = "<button class='deleteButton btn btn-danger' id='" + data[i].PostId + "' value='Delete'>Ta bort</button>";
+                        }
+
+                        $(".filtered-result").append(" <div class='post remove-post' style='border: 1px solid #000; padding: 1%; margin: 1%;'>" +
+                            " <h3 class='title'>" + data[i].Title + "</h3 >" +
+                            "<small class='text-info' style='border: 1px solid #808080'>Kategori: " + data[i].Category + "</small>" +
+                            "<p class='lead'>" +
+                            "av: <a href='../Account/ViewExternProfile/" + data[i].UserId + "'>" + data[i].Fullname + "</a>" +
+                            "</p>" +
+                            "<p>" +
+                            "<span class='timestamp glyphicon glyphicon-time'></span> Skapad " + data[i].Timestamp.substring(0,10) +
+                            " </p>" +  "<hr>" +
+                            "<p class='message'>" + data[i].Message +
+                            "</p>" +
+                            "<p>" + HasImage + "</p><hr>" + AdminBtn + "</div>");   
+                    }
+                    $(".deleteButton").on("click", function (e) {
+                        var value = e.target.getAttribute("id");
+                        $.ajax({
+                            url: "/api/blog/delete",
+                            type: "Post",
+                            data: JSON.stringify([value]),
+                            contentType: "application/json; charset=utf-8",
+                            success: function () {
+                                alert("Inlägget har raderats");
+                                location.reload();
+                            },
+                            error: function () {
+                                alert("Något har gått fel, kontakta systemadmin!");
+                            }
+
+                        })
+
+                    });
+                },
+                error: function () {
+                    alert("Inga inlägg har hittats.");
+                }
+
+            }) 
+        });
+
+
 
         $(".likeButton").on("click", function (e) {
             var value = e.target.getAttribute("id");

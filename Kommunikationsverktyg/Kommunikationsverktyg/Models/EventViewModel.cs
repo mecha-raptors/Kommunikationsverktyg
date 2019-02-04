@@ -20,5 +20,8 @@ namespace Kommunikationsverktyg.Models
         [Required]
         [Display(Name = "Slutar")]
         public virtual DateTime End { get; set; }
+        
+        [Display(Name = "Deltagare")]
+        public virtual List<ApplicationUser> Invitees { get; set; }
     }
 }

@@ -27,6 +27,22 @@ namespace Kommunikationsverktyg.Controllers.Api
             }
         }
 
+        [Route("filter")]
+        [HttpPost]
+        public IHttpActionResult GetPostsById(List<string> id)
+        {
+            try
+            {
+                var helper = new FormalBlogRepository();
+                var model = helper.GetPostById(int.Parse(id[0]));
+                return Ok(model);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [Route("like")]
         [HttpPost]
         public IHttpActionResult LikePost(List<string> postId)

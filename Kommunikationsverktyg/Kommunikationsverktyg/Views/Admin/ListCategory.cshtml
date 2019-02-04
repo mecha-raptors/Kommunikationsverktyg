@@ -1,0 +1,85 @@
+﻿@model Kommunikationsverktyg.Models.ViewModels.ListCategoryViewModel
+@{
+    ViewBag.Title = "Kategorier";
+}
+
+<h2>Hantera kategorier</h2>
+<div class="col-lg-12">
+    <div class="form-inline" style="margin-bottom: 5%;">
+
+        <h4>Lägg till kategori</h4>
+        <hr />
+        <div class="form-group">
+            <input type="text" class="form-control" id="create-category" />
+            <button class="btn btn-success" id="create-btn">Skapa</button>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Kategori</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @*<button class="btn btn-danger delete-btn" id="@item.CategoryModelId">Ta Bort</button>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(".delete-btn").on("click", function (e) {
+            var value = e.target.getAttribute("id");
+            alert(value);
+            {
+                $.ajax({
+                    url: "/api/category/delete",
+                    type: "Post",
+                    data: JSON.stringify([value]),
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        alert("Kategorin har tagits bort!");
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
+
+                })
+
+            }
+
+        })
+        $("#create-btn").on("click", function (e) {
+            var value = $("#create-category").val();
+            
+            if (value.length < 3 || value.length > 20) {
+                alert("Kategorin måste vara mellan 2 till 20 tecken")
+            } else {
+                  $.ajax({
+                url: "/api/category/add",
+                type: "Post",
+                data: JSON.stringify([value]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Kategorin har lagts till");
+                    location.reload();
+                },
+                error: function () {
+                    alert("Kategorin finns redan!");
+                }
+
+            })
+
+            } 
+          
+        });
+    </script>
+}

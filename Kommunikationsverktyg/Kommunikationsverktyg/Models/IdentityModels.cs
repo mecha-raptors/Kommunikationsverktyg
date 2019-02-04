@@ -37,9 +37,11 @@ namespace Kommunikationsverktyg.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<EventModel> EventModels { get; set; }
+        public virtual DbSet<RequestedEventModel> RequestedEvents { get; set; }
         public virtual DbSet<FormalBlogModel> FormalBlogPosts { get; set; }
         public virtual DbSet<BadWords> BadWords { get; set; }
         public virtual DbSet<InformalBlogModel> InformalBlogPosts { get; set; }
+        public virtual DbSet<CategoryModel> Categories { get; set; }
         public virtual DbSet<LikeModel> Likes { get; set; }
 
         public ApplicationDbContext()

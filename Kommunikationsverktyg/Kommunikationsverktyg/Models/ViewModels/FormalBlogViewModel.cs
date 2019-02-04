@@ -12,9 +12,10 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public virtual string Message { get; set; }
         public virtual string Title { get; set; }
         public virtual string FilePath { get; set; }
-        public virtual int PostId { get; set; }
+        public int PostId { get; set; }
 
-        public virtual string UserId { get; set; }
+        public string UserId { get; set; }
+        public string Category { get; set; }
         public string Fullname { get; set; }
         public int Likes { get; set; }
         public virtual List<ApplicationUser> Likers { get; set; }

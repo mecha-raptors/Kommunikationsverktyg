@@ -11,15 +11,32 @@ using System.Web.Mvc;
 
 namespace Kommunikationsverktyg.Controllers
 {
-    
+
     [Authorize(Roles = "user,admin")]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            var viewModel = new EventViewModel();
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            RequestedEventViewModel viewModel = new RequestedEventViewModel
+            {
+                InvitableUsers = new Dictionary<string, string>(),
+                Invitees = new List<string>()
+            };
+
+            foreach (var u in db.Users)
+            {
+                if (u.Id != User.Identity.GetUserId())
+                {
+                    viewModel.InvitableUsers.Add(u.Id, u.Firstname + " " + u.Lastname);
+                }
+            }
+
             return View(viewModel);
         }
+    
+
 
         public ActionResult FormalBlog()
         {

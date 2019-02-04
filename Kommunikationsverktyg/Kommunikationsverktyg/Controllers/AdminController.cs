@@ -28,6 +28,13 @@ namespace Kommunikationsverktyg.Controllers
             return View(model);
         }
 
+        public ActionResult ListCategory()
+        {
+            var helper = new CategoryRepository();
+            var model = helper.FillModel();
+            return View(model);
+        }
+
 
     }
 }
