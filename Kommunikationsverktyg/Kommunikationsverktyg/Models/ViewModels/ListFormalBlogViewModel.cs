@@ -22,5 +22,8 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public string Title { get; set; }
 
         public string SenderId { get; set; }
+
+        public int PostId { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Kommunikationsverktyg.Models.ViewModels;
 using Kommunikationsverktyg.Repository;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,8 @@ namespace Kommunikationsverktyg.Controllers
             ViewBag.Message = "Your contact page.";
 
             var viewModel = new RegisterViewModel();
+            var profileModel = new ProfileViewModel();
+            profileModel.RegisterViewModel = viewModel;
 
             using (ApplicationDbContext _db = new ApplicationDbContext())
             {
@@ -78,7 +81,7 @@ namespace Kommunikationsverktyg.Controllers
                 viewModel.Phone = currUser.Phone;
             }
 
-            return View(viewModel);
+            return View(profileModel);
         }
 
         public JsonResult GetEvents()
@@ -95,6 +98,7 @@ namespace Kommunikationsverktyg.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult FormalBlog(ListFormalBlogViewModel BlogList)
         {
@@ -120,5 +124,78 @@ namespace Kommunikationsverktyg.Controllers
                 
             }
         }
+
+        //[HttpPost]
+        //public ActionResult DeletePost(ListFormalBlogViewModel blogModel)
+        //{
+        //    var helper = new FormalBlogRepository();
+        //    helper.DeletePost(blogModel);
+        //    var model = helper.GetFormalPosts();
+            
+        //    return RedirectToAction("FormalBlog");
+        //}
+
+        public JsonResult SaveData(string getepassdata)//WebMethod to Save the data  
+        {
+            try
+            {
+                //var serializeData = JsonConvert.DeserializeObject<List<FormalBlogModel>>(getepassdata);
+                //Console.WriteLine(serializeData);
+            }
+            catch (Exception)
+            {
+                return Json("fail");
+            }
+
+            return Json("success");
+        }
+
+        public ActionResult InformalBlog()
+        {
+
+            try
+            {
+                var helper = new InformalBlogRepository();
+                var model = helper.GetInformalPosts();
+                return View(model);
+            }
+            catch
+            {
+                var model = new ListInformalBlogViewModel
+                {
+                    Posts = new List<InformalBlogViewModel>()
+                };
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult InformalBlog(ListInformalBlogViewModel BlogList)
+        {
+            var helper = new InformalBlogRepository();
+
+            if (!ModelState.IsValid)
+            {
+                var model = helper.GetInformalPosts();
+                return View(model);
+            }
+
+            try
+            {
+                BlogList.SenderId = User.Identity.GetUserId();
+                helper.SavePost(BlogList);
+                var model = helper.GetInformalPosts();
+                return RedirectToAction("InformalBlog");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Något gick fel.");
+                var model = helper.GetInformalPosts();
+                return View(model);
+
+            }
+        }
+
+        
     }
 }

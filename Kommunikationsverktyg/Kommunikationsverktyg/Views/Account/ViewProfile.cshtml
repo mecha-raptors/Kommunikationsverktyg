@@ -1,0 +1,121 @@
+﻿@model Kommunikationsverktyg.Models.ViewModels.ProfileViewModel
+@{
+    ViewBag.Title = "Min profil";
+}
+
+<style>
+    #details {
+        padding: 10px;
+        border: 1px;
+        border-radius: 5px;
+        background-color: #d1e2fc;
+        position: relative;
+        top: 50px;
+    }
+
+    #container {
+        padding-top: 70px;
+    }
+
+    #desc {
+        padding-left: 67px;
+    }
+
+    #description {
+        border: solid black 1px;
+        border-radius: 5px;
+        min-height: 12em;
+        max-width: 30em;
+    }
+</style>
+
+
+<div>
+    <h2>@Model.ApplicationUser.UserName</h2>
+    <h4>@Model.ApplicationUser.Title</h4>
+</div>
+@Html.ValidationSummary("", new { @class = "text-danger" })
+<div class="row" id="container">
+    <div class="col-xs-4" id="image">
+        <img class="img-circle" src="~/@Model.ApplicationUser.Image" id="profilepicture" height="250" width="250" />
+        @using (Html.BeginForm("SaveImage", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id = "formet" }))
+        {
+            <div class="col-xs-10">
+                <div class="col-md-6">
+                    <label class="btn btn-primary">
+                        Lägg till bild
+                        <input type="file" name="Image" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
+                    </label>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary">Spara</button>
+                </div>
+                <div class="col-md-6">
+                    <div id="image-preview" style="width: 40%; height: auto; margin-top: 1%;">
+                    </div>
+                    <small id="file-path"></small>
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+    <div class="col-xs-3" id="details">
+        <p>Förnamn: @Model.ApplicationUser.Firstname</p>
+        <p>Efternamn: @Model.ApplicationUser.Lastname</p>
+        <p>Telefonnummer: @Model.ApplicationUser.Phone</p>
+    </div>
+</div>
+<div class="row" id="desc">
+    <h3>Om mig</h3>
+    <div class="border">
+        <p id="description">@Model.ApplicationUser.Description</p>
+    </div>
+</div>
+
+@Html.Partial("EditProfileView")
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#testknappen').click(function () {
+                $('#editUser').modal();
+            });
+
+            $('input[type="file"]').change(function (e) {
+
+                if (typeof (FileReader) != 'undefined') {
+                    var image_holder = $("#image-preview");
+                    image_holder.empty();
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "img-thumbnail"
+                        }).appendTo(image_holder);
+                    }
+
+                };
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+
+                var fileName = e.target.files[0].name;
+                $("#file-path").empty();
+                $("#file-path").append(fileName + ' har valts.');
+
+            });
+
+            $("#File").on("click", function () {
+                $("#File").val("");
+            });
+        })
+
+
+    </script>
+}
+

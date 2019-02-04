@@ -17,11 +17,12 @@ namespace Kommunikationsverktyg.Models
         public virtual string Phone { get; set; }
         public string Title { get; set; }
         public ICollection<FormalBlogModel> Posts { get; set; }
-
+        public ICollection<InformalBlogModel> InformalPosts { get; set; }
         //Konstruktor
         public ApplicationUser() : base()
         {
             Posts = new List<FormalBlogModel>();
+            InformalPosts = new List<InformalBlogModel>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -37,6 +38,8 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<EventModel> EventModels { get; set; }
         public virtual DbSet<RequestedEventModel> RequestedEvents { get; set; }
         public virtual DbSet<FormalBlogModel> FormalBlogPosts { get; set; }
+        public virtual DbSet<BadWords> BadWords { get; set; }
+        public virtual DbSet<InformalBlogModel> InformalBlogPosts { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

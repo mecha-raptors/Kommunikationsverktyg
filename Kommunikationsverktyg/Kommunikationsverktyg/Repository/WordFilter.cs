@@ -14,7 +14,7 @@ namespace Kommunikationsverktyg.Repository
         {
             List<string> BadWords = new List<string>();
 
-            string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/XmlWordList/"));
+            string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/XmlWordList/"), "WordListFormell.xml");
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
             settings.IgnoreComments = true;
@@ -23,11 +23,15 @@ namespace Kommunikationsverktyg.Repository
 
             if (xmlIn.ReadToDescendant("WordList"))
             {
+                xmlIn.ReadStartElement("WordList");
                 do
                 {
-                    BadWords.Add(xmlIn["word"]);
+
+                    var value = xmlIn.ReadElementContentAsString();
+
+                    BadWords.Add(value.ToLower());
                 }
-                while (xmlIn.ReadToNextSibling("word"));
+                while (xmlIn.Name == "word");
 
             }
 
