@@ -26,7 +26,10 @@ namespace Kommunikationsverktyg.Controllers
 
             foreach (var u in db.Users)
             {
-                viewModel.InvitableUsers.Add(u.Id, u.Firstname + " " + u.Lastname);
+                if (u.Id != User.Identity.GetUserId())
+                {
+                    viewModel.InvitableUsers.Add(u.Id, u.Firstname + " " + u.Lastname);
+                }
             }
 
             return View(viewModel);
