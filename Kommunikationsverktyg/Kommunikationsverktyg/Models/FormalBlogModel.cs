@@ -24,5 +24,7 @@ namespace Kommunikationsverktyg.Models
 
         public virtual int CategoryModelId { get; set; }
         public virtual CategoryModel Category { get; set; }
+        public virtual int Likes { get; set; }
+        
     }
 }

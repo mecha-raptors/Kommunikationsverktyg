@@ -1,49 +1,41 @@
 ﻿@model Kommunikationsverktyg.Models.ViewModels.ListFormalBlogViewModel
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Formell blogg";
 }
 <head>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 </head>
-
 <h2 id="formalblogH2">Formell Blogg</h2>
 @using (Html.BeginForm("FormalBlog", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "formet" }))
 {
-<div class="form-horizontal col-lg-12">
+    <div class="form-horizontal col-lg-12">
+        <h4 id="formalblogH4">Gör ett inlägg</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group col-lg-12">
+            @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
+        </div>
+        <div class="form-group col-lg-12">
+            @Html.DropDownListFor(m => m.CategoryModelId, Model.CategoryList, "Välj Kategori", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-lg-12">
+            @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
+        </div>
+        <div class="col-lg-6" style="padding: 0 !important;">
+            <label class="btn btn-block btn-success" id="file-upload">
+                Lägg till fil
+                <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
+            </label>
+        </div>
+        <div class="col-lg-6">
+            <button id="send-message" class="btn btn-block btn-primary" style=" margin-left: 0.1%;">Skicka</button>
+        </div>
+        <small id="file-path"></small>
 
-    <h4 id="formalblogH4">Gör ett inlägg</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group col-lg-12">
-        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
     </div>
-    <div class="form-group col-lg-12">
-        @Html.DropDownListFor(m => m.CategoryModelId, Model.CategoryList, "Välj Kategori", new { @class = "form-control" })
-    </div>
-    <div class="form-group col-lg-12">
-        @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
-
-    </div>
-    <div class="col-lg-6" style="padding: 0 !important;">
-        <label class="btn btn-block btn-success" id="file-upload">
-            Lägg till fil
-            <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
-        </label>
-    </div>
-
-    <div class="col-lg-6">
-        <button id="send-message" class="btn btn-block btn-primary" style=" margin-left: 0.1%;">Skicka</button>
-    </div>
-    <small id="file-path"></small>
-
-
-
-</div>
 
 }
-
-
 
 <div class="container">
     <div class="row">
@@ -53,12 +45,10 @@
                 Formell Blogg
                 <small>Se alla poster</small>
             </h1>
-
             <div class="container">
                 <div class="form-inline" style="margin-bottom: 2%; margin-top: 2%;">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.CategoryModelId, Model.CategoryList, "Filtrera efter en kategori", new { @class = "form-control", id = "filter-category" })
-
                     </div>
                 </div>
             </div>
@@ -80,12 +70,14 @@
                             <span class="timestamp glyphicon glyphicon-time"></span> Skapad @Model.Posts[i].Timestamp.ToString()
                             @Html.HiddenFor(m => m.Posts[i].Timestamp)
                         </p>
+                        <p>
+                            <span id="likes">@Model.Posts[i].Likes</span> personer gillar detta
+                        </p>
                         <hr>
                         <p class="message">
                             @Model.Posts[i].Message
                             @Html.HiddenFor(m => m.Posts[i].Message)
                         </p>
-
                         <p>
                             @if (Model.Posts[i].FilePath != null)
                             {
@@ -95,6 +87,7 @@
                             }
                         </p>
                         <hr>
+                        <button type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
                         @if (User.IsInRole("admin"))
                         {
                             <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
@@ -106,12 +99,11 @@
         </div>
     </div>
 </div>
-
 @section Scripts{
     <script type="text/javascript">
-       
+
         $(document).ready(function () {
-            
+
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
                 $("#file-path").empty();
@@ -136,7 +128,7 @@
                     alert("Något har gått fel, kontakta systemadmin!");
                 }
 
-            }) 
+            })
 
         });
 
@@ -161,7 +153,7 @@
                 data: JSON.stringify([value]),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                   
+
                     for (var i = 0; i < data.length; i++) {
                         var HasImage = "";
                         if (data[i].FilePath != null) {
@@ -181,11 +173,11 @@
                             "av: <a href='../Account/ViewExternProfile/" + data[i].UserId + "'>" + data[i].Fullname + "</a>" +
                             "</p>" +
                             "<p>" +
-                            "<span class='timestamp glyphicon glyphicon-time'></span> Skapad " + data[i].Timestamp.substring(0,10) +
-                            " </p>" +  "<hr>" +
+                            "<span class='timestamp glyphicon glyphicon-time'></span> Skapad " + data[i].Timestamp.substring(0, 10) +
+                            " </p>" + "<hr>" +
                             "<p class='message'>" + data[i].Message +
                             "</p>" +
-                            "<p>" + HasImage + "</p><hr>" + AdminBtn + "</div>");   
+                            "<p>" + HasImage + "</p><hr>" + AdminBtn + "</div>");
                     }
                     $(".deleteButton").on("click", function (e) {
                         var value = e.target.getAttribute("id");
@@ -210,9 +202,29 @@
                     alert("Inga inlägg har hittats.");
                 }
 
-            }) 
+            })
         });
 
+         $(".likeButton").on("click", function (e) {
+            var value = e.target.getAttribute("id");
+            //var currentUser = ;
+            var likes = parseInt($('#likes').text(), 10) + 1;
+            $.ajax({
+                url: "/api/blog/like",
+                type: "Post",
+                data: JSON.stringify([value, "@User.Identity.GetUserName()"]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    $('#likes').text(likes);
+                    $(".likeButton").prop("disabled", true);
+                },
+                error: function () {
+                    alert("Något har gått fel, kontakta systemadmin!");
+                }
+
+            })
+
+        });
 
     </script>
 }

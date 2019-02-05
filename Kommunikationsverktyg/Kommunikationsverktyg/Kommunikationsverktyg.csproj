@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201902041358511_mig14.Designer.cs">
       <DependentUpon>201902041358511_mig14.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902041423145_migrationes.cs" />
+    <Compile Include="Migrations\201902041423145_migrationes.Designer.cs">
+      <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -269,6 +273,7 @@
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
+    <Compile Include="Models\LikeModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DbInitializer\ApplicationDbInitializer.cs" />
     <Compile Include="Models\EventModel.cs" />
@@ -423,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902041358511_mig14.resx">
       <DependentUpon>201902041358511_mig14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041423145_migrationes.resx">
+      <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

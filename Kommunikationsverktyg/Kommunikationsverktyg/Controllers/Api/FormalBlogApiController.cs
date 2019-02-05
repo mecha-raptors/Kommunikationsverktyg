@@ -42,5 +42,21 @@ namespace Kommunikationsverktyg.Controllers.Api
                 return BadRequest();
             }
         }
+
+        [Route("like")]
+        [HttpPost]
+        public IHttpActionResult LikePost(List<string> postId)
+        {
+            try
+            {
+                var helper = new FormalBlogRepository();
+                helper.LikePost(int.Parse(postId[0]), postId[1]);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

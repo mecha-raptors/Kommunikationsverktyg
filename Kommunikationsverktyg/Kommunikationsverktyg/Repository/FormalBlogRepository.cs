@@ -2,6 +2,7 @@
 using Kommunikationsverktyg.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,11 +20,13 @@ namespace Kommunikationsverktyg.Repository
             {
                 var model = new ListFormalBlogViewModel();
                 var localDb = new ApplicationDbContext();
+                var likers = new List<ApplicationUser>();
 
                 var posts = localDb.FormalBlogPosts.OrderByDescending(i => i.Timestamp).ToList();
                 var list = new List<FormalBlogViewModel>();
                 foreach (var item in posts)
                 {
+                    
                     var m = new FormalBlogViewModel
                     {
                         FilePath = item.FilePath,
@@ -33,8 +36,11 @@ namespace Kommunikationsverktyg.Repository
                         Title = item.Title,
                         UserId = item.User.Id,
                         PostId = item.FormalBlogModelId,
-                        Category = item.Category.Type
+                        Category = item.Category.Type,
+                        Likes = item.Likes
+             
                     };
+
                     list.Add(m);
                 }
                 var helper = new CategoryRepository();
@@ -131,6 +137,34 @@ namespace Kommunikationsverktyg.Repository
             }
             catch (Exception ex)
             {
+                throw new Exception();
+            }
+        }
+
+        public void LikePost(int postId, string user)
+        {
+            try
+            {
+               
+                var db = new ApplicationDbContext();
+                var model = new LikeModel();
+                var post = db.FormalBlogPosts.Find(postId);
+                var liker = db.Users.FirstOrDefault(u => u.Email == user);
+                var result = from u in db.Likes
+                             where u.FormalPosts == post && u.Users == liker
+                             select u;
+
+                
+                if (result == null)
+                {
+                    model.FormalPosts.Id = post.Id;
+                    model.Users.Id = liker.Id;
+                    post.Likes++;
+                    db.Likes.Add(model);
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception e) {
                 throw new Exception();
             }
         }
