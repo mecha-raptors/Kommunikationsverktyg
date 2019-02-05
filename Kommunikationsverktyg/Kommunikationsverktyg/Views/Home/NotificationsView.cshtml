@@ -34,7 +34,6 @@
                 type: "GET",
                 url: "/Home/GetEventNotifications",
                 success: function (data) {
-
                     $.each(data, function (i, v) {
                         console.log(moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm'));
                         var btnIdAccept = 1;
