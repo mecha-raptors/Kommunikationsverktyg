@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Notiser";
+}
+
+<h2>Notiser</h2>
+
+<div>
+    <table class="table table-striped" id="events"></table>
+
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#events');
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetEventNotifications",
+                success: function (data) {
+
+                    $.each(data, function (i, v) {
+                        table.append('<tr><td>' + v.Title + '</td></tr>')
+                        console.log(v.Title);
+                        
+                    })
+
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+        });
+    </script>
+
+}
+

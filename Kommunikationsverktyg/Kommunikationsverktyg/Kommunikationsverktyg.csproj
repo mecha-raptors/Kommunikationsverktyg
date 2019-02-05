@@ -354,6 +354,7 @@
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
     <Content Include="Views\Admin\ListCategory.cshtml" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
+    <Content Include="Views\Home\NotificationsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

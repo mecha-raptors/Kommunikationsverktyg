@@ -93,6 +93,32 @@ namespace Kommunikationsverktyg.Controllers
             }
         }
 
+        public ActionResult NotificationsView()
+        {
+            return View();
+        }
+
+        public JsonResult GetEventNotifications()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            
+                var events = db.RequestedEvents.ToList();
+                var myEvents = new List<RequestedEventModel>();
+                foreach (var e in events)
+                {
+                    foreach (var u in e.Invitees)
+                    {
+                        if(u.Id == User.Identity.GetUserId())
+                        {
+                            myEvents.Add(e);
+                        }
+
+                    }
+                }
+                return new JsonResult { Data = myEvents, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            
+        }
+
         [AllowAnonymous]
         public ActionResult WaitForVerification()
         {
