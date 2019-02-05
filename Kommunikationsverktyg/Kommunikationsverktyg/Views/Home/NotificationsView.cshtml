@@ -7,6 +7,15 @@
 
 <div>
     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mötesnamn</th>
+                <th>Beskrivning</th>
+                <th>Börjar</th>
+                <th>Slutar</th>
+                <th>Kan du delta?</th>
+            </tr>
+        </thead>
         <tbody id="events">
 
         </tbody>
@@ -27,16 +36,22 @@
                 success: function (data) {
 
                     $.each(data, function (i, v) {
+                        console.log(moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm'));
+                        var btnIdAccept = 1;
+                        var btnIdDecline = 100;
                         table.append(
                             '<tr>' +
                             '<td>' + v.Title + '</td>' +
                             '<td>' + v.Description + '</td>' +
-                            '<td>' + moment(v.TimeSuggestions[0].StartTime) + '</td>' +
-                            '<td>' + moment(v.TimeSuggestions[0].EndTime) + '</td>' +
+                            '<td>' + moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm') + '</td>' +
+                            '<td>' + moment(v.TimeSuggestions[0].EndTime).format('MMM Do YYYY HH:mm') + '</td>' +
+                            '<td><button value="Yes" class="btn btn-primary" id="'+ btnIdAccept +'">Ja</button>' +
+                            '<button value="No" class="btn btn-danger" id="'+ btnIdDecline + '" style="margin-left: 5px;">Nej</button></td>' +
                             '</tr>'
                         );
                         console.log(v.Title);
-                        
+                        btnIdAccept++;
+                        btnIdDecline++;
                     })
 
                 },
@@ -45,6 +60,9 @@
                 }
             })
         });
+        $(".btn btn-primary").click (function () {
+            $(this).prop("disabled", true);
+        })
     </script>
 
 }
