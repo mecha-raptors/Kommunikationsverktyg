@@ -60,6 +60,12 @@
         }
 
     </div>
+    @using (Html.BeginForm("SendSmsNotification", "Account", FormMethod.Post, new { id = "SmsBtn" }))
+    {
+        <div class="col-md-6">
+            <button  class="btn btn-danger "id="SmsBtn">TEST FÖR SMS-NOTIS</button>
+        </div>
+    }
 
     <div class="col-xs-3" id="details">
         <p>Förnamn: @Model.ApplicationUser.Firstname</p>
