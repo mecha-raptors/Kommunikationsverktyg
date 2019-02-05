@@ -6,8 +6,11 @@
 <h2>Notiser</h2>
 
 <div>
-    <table class="table table-striped" id="events"></table>
+    <table class="table table-striped">
+        <tbody id="events">
 
+        </tbody>
+    </table>
 </div>
 
 @section Scripts{
@@ -24,7 +27,14 @@
                 success: function (data) {
 
                     $.each(data, function (i, v) {
-                        table.append('<tr><td>' + v.Title + '</td></tr>')
+                        table.append(
+                            '<tr>' +
+                            '<td>' + v.Title + '</td>' +
+                            '<td>' + v.Description + '</td>' +
+                            '<td>' + moment(v.TimeSuggestions[0].StartTime) + '</td>' +
+                            '<td>' + moment(v.TimeSuggestions[0].EndTime) + '</td>' +
+                            '</tr>'
+                        );
                         console.log(v.Title);
                         
                     })

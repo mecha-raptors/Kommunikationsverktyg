@@ -28,10 +28,7 @@ namespace Kommunikationsverktyg.Controllers
                     
                 };
 
-                foreach (DateModel dm in em.TimeSuggestions)
-                {
-                    newEvent.TimeSuggestions.Add(dm);
-                }
+                newEvent.TimeSuggestions = em.TimeSuggestions;
 
                 if (em.Invitees != null)
                 {
