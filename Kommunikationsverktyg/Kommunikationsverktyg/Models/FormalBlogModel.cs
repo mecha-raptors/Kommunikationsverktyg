@@ -19,12 +19,13 @@ namespace Kommunikationsverktyg.Models
         public virtual string Title { get; set; }
         public virtual string FilePath { get; set; }
 
-        public virtual string Id  { get; set; }
+        //public virtual string Id  { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        public virtual int CategoryModelId { get; set; }
+        //public virtual int CategoryModelId { get; set; }
         public virtual CategoryModel Category { get; set; }
         public virtual int Likes { get; set; }
+        public virtual ICollection<ApplicationUser> Likers { get; set; }
         
     }
 }

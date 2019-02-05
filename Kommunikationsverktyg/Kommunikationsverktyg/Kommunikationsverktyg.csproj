@@ -247,6 +247,14 @@
     <Compile Include="Migrations\201902041423145_migrationes.Designer.cs">
       <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902051031552_UsersInPosts.cs" />
+    <Compile Include="Migrations\201902051031552_UsersInPosts.Designer.cs">
+      <DependentUpon>201902051031552_UsersInPosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902051111185_MatchatModels.cs" />
+    <Compile Include="Migrations\201902051111185_MatchatModels.Designer.cs">
+      <DependentUpon>201902051111185_MatchatModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -411,6 +419,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902041423145_migrationes.resx">
       <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051031552_UsersInPosts.resx">
+      <DependentUpon>201902051031552_UsersInPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051111185_MatchatModels.resx">
+      <DependentUpon>201902051111185_MatchatModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
