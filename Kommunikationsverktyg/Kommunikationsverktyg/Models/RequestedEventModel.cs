@@ -18,6 +18,6 @@ namespace Kommunikationsverktyg.Models
         [Required]
         public virtual List<DateModel> TimeSuggestions { get; set; }
         [Required]
-        public virtual List<string> Invitees { get; set; }
+        public virtual List<ApplicationUser> Invitees { get; set; }
     }
 }

@@ -34,20 +34,20 @@
                 type: "GET",
                 url: "/Home/GetEventNotifications",
                 success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
+                    $.each(data, function (i, v) {
                         console.log(moment(data[i].TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm'));
                         table.append(
                             '<tr>' +
-                            '<td>' + data[i].Title + '</td>' +
-                            '<td>' + data[i].Description + '</td>' +
-                            '<td>' + moment(data[i].TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm') + '</td>' +
-                            '<td>' + moment(data[i].TimeSuggestions[0].EndTime).format('MMM Do YYYY HH:mm') + '</td>' +
+                            '<td>' + v.Title + '</td>' +
+                            '<td>' + v.Description + '</td>' +
+                            '<td>' + moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm') + '</td>' +
+                            '<td>' + moment(v.TimeSuggestions[0].EndTime).format('MMM Do YYYY HH:mm') + '</td>' +
                             '<td><button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>' +
                             '<button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button></td>' +
                             '</tr>'
                         );
                         console.log(data[i].Title);
-                    }
+                    })
                 },
                 error: function (error) {
                     alert('failed');

@@ -106,14 +106,17 @@ namespace Kommunikationsverktyg.Controllers
                 var myEvents = new List<RequestedEventModel>();
                 foreach (var e in events)
                 {
+                    if (e.Invitees != null)
+                {
                     foreach (var u in e.Invitees)
                     {
-                        if(u == User.Identity.GetUserId())
+                        if (u.Id.Equals(User.Identity.GetUserId()))
                         {
                             myEvents.Add(e);
                         }
 
                     }
+                }
                 }
                 return new JsonResult { Data = myEvents, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             

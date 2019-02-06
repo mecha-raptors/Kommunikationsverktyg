@@ -24,20 +24,15 @@ namespace Kommunikationsverktyg.Controllers
                     Title = em.Title,
                     Description = em.Description,
                     TimeSuggestions = new List<DateModel>(),
-                    Invitees = new List<string>()
+                    Invitees = new List<ApplicationUser>()
                     
                 };
 
                 newEvent.TimeSuggestions = em.TimeSuggestions;
-
-                if (em.Invitees != null)
+                
+                foreach (var i in em.Invitees)
                 {
-                    foreach (string s in em.Invitees)
-                    {
-                        newEvent.Invitees.Add(s);
-                        System.Diagnostics.Debug.WriteLine("Id: " + s);
-                        System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
-                    }
+                    newEvent.Invitees.Add(db.Users.Find(i));
                 }
 
                 db.RequestedEvents.Add(newEvent);
