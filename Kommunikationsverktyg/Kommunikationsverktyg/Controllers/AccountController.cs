@@ -541,6 +541,30 @@ namespace Kommunikationsverktyg.Controllers
                 return View(profileModel);
             }
         }
+        public ActionResult SendSmsNotification() {
+            try
+            {
+                var profileModel = new ProfileViewModel();
+                var userId = User.Identity.GetUserId();
+                var SmsRepository = new SmsNotification();
+                var userRepository = new UserRepository();
+                var user = userRepository.GetUser(userId);
+                string number = user.Phone;
+                string message = " Namn: " + user.Firstname.ToString() + user.Lastname.ToString() + " " +
+                                 " Mail " + user.Email.ToString() + " " +
+                                 " Telefonnr: " + user.Phone.ToString() + " " +
+                                 " Titel: " + user.Title.ToString();
+                SmsRepository.SendSmsNotification(number, message);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e) {
+                 
+                return View();
+            
+            }
+            
+
+        }
 
         public ActionResult ViewExternProfile(string id)
         {
