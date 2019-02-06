@@ -255,11 +255,20 @@
     <Compile Include="Migrations\201902061217265_mig100.Designer.cs">
       <DependentUpon>201902061217265_mig100.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.cs" />
+    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.Designer.cs">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902061236198_jdsdosd.cs" />
+    <Compile Include="Migrations\201902061236198_jdsdosd.Designer.cs">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
     <Compile Include="Models\LikeModel.cs" />
@@ -426,6 +435,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902061217265_mig100.resx">
       <DependentUpon>201902061217265_mig100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061223098_asdasdasdasdsa.resx">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

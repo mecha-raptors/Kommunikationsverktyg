@@ -103,7 +103,8 @@ namespace Kommunikationsverktyg.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             
                 var events = db.RequestedEvents.ToList();
-                var myEvents = new List<RequestedEventModel>();
+                //var myEvents = new List<RequestedEventModel>();
+                var testtest = new List<JsonEventRequestModel>();
                 foreach (var e in events)
                 {
                     if (e.Invitees != null)
@@ -112,13 +113,21 @@ namespace Kommunikationsverktyg.Controllers
                     {
                         if (u.Id.Equals(User.Identity.GetUserId()))
                         {
-                            myEvents.Add(e);
+                            //myEvents.Add(e);
+                            JsonEventRequestModel t = new JsonEventRequestModel
+                            {
+                                Title = e.Title,
+                                Description = e.Description,
+                                TimeSuggestions = e.TimeSuggestions
+                            };
+                            testtest.Add(t);
+                            
                         }
 
                     }
                 }
                 }
-                return new JsonResult { Data = myEvents, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult { Data = testtest, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             
         }
 

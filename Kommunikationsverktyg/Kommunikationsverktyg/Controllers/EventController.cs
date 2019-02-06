@@ -30,9 +30,12 @@ namespace Kommunikationsverktyg.Controllers
 
                 newEvent.TimeSuggestions = em.TimeSuggestions;
                 
-                foreach (var i in em.Invitees)
+                if (em.Invitees != null)
                 {
-                    newEvent.Invitees.Add(db.Users.Find(i));
+                    foreach (var i in em.Invitees)
+                    {
+                        newEvent.Invitees.Add(db.Users.Find(i));
+                    }
                 }
 
                 db.RequestedEvents.Add(newEvent);
