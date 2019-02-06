@@ -9,7 +9,7 @@ namespace Kommunikationsverktyg.Models.ViewModels
     public class ListInformalBlogViewModel
     {
         public List<InformalBlogViewModel> Posts { get; set; }
-        public HttpPostedFileBase File { get; set; }
+        public List<HttpPostedFileBase> File { get; set; }
 
         [StringLength(int.MaxValue, ErrorMessage = "{0} måste vara minst {2} tecken långt.", MinimumLength = 6)]
         [Display(Name = "Meddelande")]
