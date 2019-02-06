@@ -24,7 +24,7 @@ namespace Kommunikationsverktyg.Controllers
                     Title = em.Title,
                     Description = em.Description,
                     TimeSuggestions = new List<DateModel>(),
-                    Invitees = new List<ApplicationUser>()
+                    Invitees = new List<string>()
                     
                 };
 
@@ -34,7 +34,7 @@ namespace Kommunikationsverktyg.Controllers
                 {
                     foreach (string s in em.Invitees)
                     {
-                        newEvent.Invitees.Add(db.Users.Find(s));
+                        newEvent.Invitees.Add(s);
                         System.Diagnostics.Debug.WriteLine("Id: " + s);
                         System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
                     }

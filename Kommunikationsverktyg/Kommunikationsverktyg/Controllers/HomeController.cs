@@ -108,7 +108,7 @@ namespace Kommunikationsverktyg.Controllers
                 {
                     foreach (var u in e.Invitees)
                     {
-                        if(u.Id == User.Identity.GetUserId())
+                        if(u == User.Identity.GetUserId())
                         {
                             myEvents.Add(e);
                         }
