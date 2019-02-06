@@ -43,6 +43,8 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<InformalBlogModel> InformalBlogPosts { get; set; }
         public virtual DbSet<CategoryModel> Categories { get; set; }
         public virtual DbSet<LikeModel> Likes { get; set; }
+        public virtual DbSet<PlacardModel> Placards { get; set; }
+        public virtual DbSet<PlacardTypeModel> PlacardTypes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

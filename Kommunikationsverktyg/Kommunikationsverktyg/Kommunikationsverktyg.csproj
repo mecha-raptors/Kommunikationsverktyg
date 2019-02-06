@@ -196,6 +196,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlacardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,11 +256,29 @@
     <Compile Include="Migrations\201902051111185_MatchatModels.Designer.cs">
       <DependentUpon>201902051111185_MatchatModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902060901377_LagtTillPlacards.cs" />
+    <Compile Include="Migrations\201902060901377_LagtTillPlacards.Designer.cs">
+      <DependentUpon>201902060901377_LagtTillPlacards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902060935291_Placards.cs" />
+    <Compile Include="Migrations\201902060935291_Placards.Designer.cs">
+      <DependentUpon>201902060935291_Placards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902061337488_test.cs" />
+    <Compile Include="Migrations\201902061337488_test.Designer.cs">
+      <DependentUpon>201902061337488_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902061345102_Anslagstest.cs" />
+    <Compile Include="Migrations\201902061345102_Anslagstest.Designer.cs">
+      <DependentUpon>201902061345102_Anslagstest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\PlacardModel.cs" />
+    <Compile Include="Models\PlacardTypeModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
     <Compile Include="Models\LikeModel.cs" />
@@ -273,6 +292,7 @@
     <Compile Include="Models\ViewModels\ListCategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ListFormalBlogViewModel.cs" />
     <Compile Include="Models\ViewModels\ListInformalBlogViewModel.cs" />
+    <Compile Include="Models\ViewModels\ListPlacardViewModel.cs" />
     <Compile Include="Models\ViewModels\ListUsersByRoleViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\RequestedEventViewModel.cs" />
@@ -362,6 +382,7 @@
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
     <Content Include="Views\Admin\ListCategory.cshtml" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
+    <Content Include="Views\Placard\Placard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -425,6 +446,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902051111185_MatchatModels.resx">
       <DependentUpon>201902051111185_MatchatModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902060901377_LagtTillPlacards.resx">
+      <DependentUpon>201902060901377_LagtTillPlacards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902060935291_Placards.resx">
+      <DependentUpon>201902060935291_Placards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061337488_test.resx">
+      <DependentUpon>201902061337488_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061345102_Anslagstest.resx">
+      <DependentUpon>201902061345102_Anslagstest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

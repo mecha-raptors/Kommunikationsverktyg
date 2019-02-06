@@ -72,7 +72,17 @@ namespace Kommunikationsverktyg.Models.DbInitializer
                 };
             db.BadWords.Add(badWord);
             };
-          
+
+            var research = new PlacardTypeModel
+            {
+                Type = "Forskning"
+            };
+            var education = new PlacardTypeModel
+            {
+                Type = "Utbildning"
+            };
+            db.PlacardTypes.Add(research);
+            db.PlacardTypes.Add(education);
 
             db.SaveChanges();
             base.Seed(db);
