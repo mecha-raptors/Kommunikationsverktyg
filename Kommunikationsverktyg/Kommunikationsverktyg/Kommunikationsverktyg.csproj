@@ -296,6 +296,7 @@
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
@@ -402,6 +403,7 @@
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
     <Content Include="Views\Admin\ListCategory.cshtml" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
+    <Content Include="Views\Home\NotificationsView.cshtml" />
     <Content Include="Views\Placard\Placard.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +480,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902061345102_Anslagstest.resx">
       <DependentUpon>201902061345102_Anslagstest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051439379_mig141.resx">
+      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061217265_mig100.resx">
+      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061223098_asdasdasdasdsa.resx">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
