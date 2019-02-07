@@ -291,6 +291,10 @@
     <Compile Include="Migrations\201902061345102_Anslagstest.Designer.cs">
       <DependentUpon>201902061345102_Anslagstest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902071005184_JaffaCakesYummy.cs" />
+    <Compile Include="Migrations\201902071005184_JaffaCakesYummy.Designer.cs">
+      <DependentUpon>201902071005184_JaffaCakesYummy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -493,6 +497,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
       <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071005184_JaffaCakesYummy.resx">
+      <DependentUpon>201902071005184_JaffaCakesYummy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

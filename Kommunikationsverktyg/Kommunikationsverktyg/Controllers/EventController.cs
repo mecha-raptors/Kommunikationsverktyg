@@ -36,9 +36,7 @@ namespace Kommunikationsverktyg.Controllers
                     var emailNotification = new EmailNotification();
                     foreach (string s in em.Invitees)
                     {
-                        //newEvent.Invitees.Add(db.Users.Find(s));
-                        System.Diagnostics.Debug.WriteLine("Id: " + s);
-                        System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
+                        newEvent.Invitees.Add(db.Users.Find(s));
 
                         var invitee = db.Users.FirstOrDefault(u => u.Id == s);
                         emailNotification.SendEventInvitationEmail(invitee.Email);
