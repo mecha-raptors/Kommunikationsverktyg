@@ -20,7 +20,7 @@ namespace Kommunikationsverktyg.Repository
             {
                 var model = new ListFormalBlogViewModel();
                 var localDb = new ApplicationDbContext();
-                var likers = new List<ApplicationUser>();
+              
 
                 var posts = localDb.FormalBlogPosts.OrderByDescending(i => i.Timestamp).ToList();
                 var list = new List<FormalBlogViewModel>();
@@ -37,10 +37,14 @@ namespace Kommunikationsverktyg.Repository
                         UserId = item.User.Id,
                         PostId = item.FormalBlogModelId,
                         Category = item.Category.Type,
-                        Likes = item.Likes,
-                        Likers = item.Likers
-             
-                    };
+                        Likes = item.Likers.Count
+                };
+                    m.Likers = item.Likers.ToList();
+                   if(m.Likers == null)
+                    {
+                        m.Likers = new List<LikeModel>();
+                    }
+
 
                     list.Add(m);
                 }
@@ -144,28 +148,23 @@ namespace Kommunikationsverktyg.Repository
             }
         }
 
-        public void LikePost(int postId, string user)
+        public void LikePost(int postId, string email)
         {
             try
             {
                
                 var db = new ApplicationDbContext();
-                var model = new LikeModel();
-                var post = db.FormalBlogPosts.Find(postId);
-                var liker = db.Users.FirstOrDefault(u => u.Email == user);
-                var result = from u in db.Likes
-                             where u.FormalPosts == post && u.Users == liker
-                             select u;
                 
-                if (result != null)
+                var post = db.FormalBlogPosts.Find(postId);
+                var user = db.Users.Single(i => i.Email == email);
+
+                var like = new LikeModel
                 {
-                    //model.FormalPosts = post; 
-                    //model.Users = liker; 
-                    //db.Likes.Add(model);
-                    post.Likes++;
-                    post.Likers.Add(liker);
-                    db.SaveChanges();
-                }
+                    FormalBlogModelId = post.FormalBlogModelId,
+                    Id = user.Id
+                };
+                db.Likes.Add(like);
+                db.SaveChanges();
             }
             catch(Exception e) {
                 throw new Exception();

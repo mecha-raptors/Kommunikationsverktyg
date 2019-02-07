@@ -25,7 +25,8 @@ namespace Kommunikationsverktyg.Models
         //public virtual int CategoryModelId { get; set; }
         public virtual CategoryModel Category { get; set; }
         public virtual int Likes { get; set; }
-        public virtual ICollection<ApplicationUser> Likers { get; set; }
+
+        public virtual ICollection<LikeModel> Likers { get; set; }
         
     }
 }

@@ -71,8 +71,13 @@
                         @Html.HiddenFor(m => m.Posts[i].Timestamp)
                     </p>
                     <p>
-                        <span id="likes">@Model.Posts[i].Likes</span> personer gillar detta
+                        <a tabindex="0" class="btn btn-default likes-popover" role="button" data-toggle="popover" data-trigger="focus" title="Gillas av" data-content="<ul class='hidden-likes list-group'>@foreach (var list in Model.Posts[i].Likers)
+                            {
+                                <li class='list-group-item'><a href='~/Account/ViewExternProfile/@list.User.Id'>@list.User.UserName</a></li>
+                            }</ul>"><span id="likes">@Model.Posts[i].Likes</span> personer gillar detta</a>
+                        
                     </p>
+                    
                     <hr>
                     <p class="message">
                         @Model.Posts[i].Message
@@ -88,22 +93,21 @@
                     </p>
                     <hr>
 
-                    @if (Model.Posts[i].Likers.Any())
-                    {
-                        foreach (var user in Model.Posts[i].Likers)
+                    @{
+                      
+                        
+                        var IsUser = Model.Posts[i].Likers.Any(x => x.Id == User.Identity.GetUserId());
+                        if (IsUser)
                         {
-                            if (user.Id == User.Identity.GetUserId())
-                            {
-                                <p>Du gillar det här inlägget</p>
-                            }
-
+                            <p>Du gillar det här inlägget</p>
                         }
-                    } else
-                    {
-                    <p>Penis</p>
-                    <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
-
+                        else
+                        {
+                            <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+                            }
+                        
                     }
+
 
                     @if (User.IsInRole("admin"))
                     {
@@ -240,10 +244,20 @@
                 }
 
             })
-        });
+    });
+    $(".likes-popover").on("click", function (e) {
+        var target = $(e.target);
+        target.popover({
+            trigger: 'focus', 
+            html: true
+
+        })
+    })
+    
 
          $(".likeButton").on("click", function (e) {
-            var value = e.target.getAttribute("id");
+             var value = e.target.getAttribute("id");
+             var target = $(e.target);
             //var currentUser = ;
             var likes = parseInt($('#likes').text(), 10) + 1;
             $.ajax({
@@ -253,7 +267,8 @@
                 contentType: "application/json; charset=utf-8",
                 success: function () {
                     $('#likes').text(likes);
-                    $(".likeButton").prop("disabled", true);
+                    target.prop("disabled", true);
+                    
                 },
                 error: function () {
                     alert("Något har gått fel, kontakta systemadmin!");
