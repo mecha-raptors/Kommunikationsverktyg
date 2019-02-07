@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Models.ViewModels;
+using Kommunikationsverktyg.Repository;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -34,16 +35,22 @@ namespace Kommunikationsverktyg.Controllers
 
                 if (em.Invitees != null)
                 {
+                    var emailNotification = new EmailNotification();
                     foreach (string s in em.Invitees)
                     {
                         //newEvent.Invitees.Add(db.Users.Find(s));
                         System.Diagnostics.Debug.WriteLine("Id: " + s);
                         System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
+
+                        var invitee = db.Users.FirstOrDefault(u => u.Id == s);
+                        emailNotification.SendEventInvitationEmail(invitee.Email);
                     }
                 }
 
                 db.EventModels.Add(newEvent);
                 db.SaveChanges();
+
+
             }
             return RedirectToAction("Index", "Home");
         }

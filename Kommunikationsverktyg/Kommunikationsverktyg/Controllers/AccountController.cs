@@ -188,7 +188,7 @@ namespace Kommunikationsverktyg.Controllers
                 if (result.Succeeded)
                 {
                     var eN = new EmailNotification();
-                    eN.SendEmailRegister("kommunikationsverktyget@gmail.com", user.Email);
+                    eN.SendRegisterEmail(user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     var roleManager = new RoleRepository();

@@ -20,16 +20,29 @@ namespace Kommunikationsverktyg.Repository
        
             return email.ToString();
         }
+        
+        public void SendRegisterEmail(string recipientEmail) {
+            var content = "Tack för att du registrerar ditt konto! En administratör kommer nu godkänna din förfrågan";
+            var subject = "Registrering";
+            SendEmail(recipientEmail, content, subject);
+        }
 
-        public void SendEmailRegister(string sender, string recipient) {
+        public void SendEventInvitationEmail(string recipientEmail)
+        {
+            var content = "Du har fått en ny mötesinbjudan. Logga in på ditt konto och gå till flikjäveln eller nåt typ.";
+            var subject = "Mötesinbjudan";
+            SendEmail(recipientEmail, content, subject);
+        }
+
+        public void SendEmail (string recipientEmail, string content, string subject)
+        {
             try
             {
-                var viewModel = new RegisterViewModel();
-                var fromAddress = new MailAddress(sender, "Admin");
-                var toAddress = new MailAddress(recipient, viewModel.Firstname + ' ' + viewModel.Lastname);
+                var fromAddress = new MailAddress("kommunikationsverktyget@gmail.com", "The Mecha Raptors");
+                var toAddress = new MailAddress(recipientEmail, "You");
+                var body = content;
+
                 const string fromPassword = "Github2019";
-                const string subject = "Angående ditt konto";
-                const string body = "Vi har mottagit din förfrågan om konto på sidan. En administratör ska nu godkänna dig.";
 
                 var smtp = new SmtpClient
                 {
@@ -48,11 +61,11 @@ namespace Kommunikationsverktyg.Repository
                 {
                     smtp.Send(message);
                 }
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 Console.WriteLine(e);
             }
+            
         }
     }
 }
