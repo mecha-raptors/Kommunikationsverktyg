@@ -103,7 +103,6 @@ namespace Kommunikationsverktyg.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             
                 var events = db.RequestedEvents.ToList();
-                //var myEvents = new List<RequestedEventModel>();
                 var testtest = new List<JsonEventRequestModel>();
                 foreach (var e in events)
                 {
@@ -113,7 +112,6 @@ namespace Kommunikationsverktyg.Controllers
                     {
                         if (u.Id.Equals(User.Identity.GetUserId()))
                         {
-                            //myEvents.Add(e);
                             JsonEventRequestModel t = new JsonEventRequestModel
                             {
                                 Title = e.Title,
@@ -234,6 +232,18 @@ namespace Kommunikationsverktyg.Controllers
             }
         }
 
+        public ActionResult Search()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var model = new ListUsersByRoleViewModel
+            {
+                ActiveUsers = new List<ApplicationUser>()
+            };
+            var currUser = User.Identity.GetUserId();
+            model.ActiveUsers = db.Users.Where(u => u.Id != currUser).ToList();
+
+            return View(model);
+        }
         
     }
 }
