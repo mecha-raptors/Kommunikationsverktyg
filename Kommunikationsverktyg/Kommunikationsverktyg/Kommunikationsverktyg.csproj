@@ -219,12 +219,78 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901310938024_asdasd.cs" />
+    <Compile Include="Migrations\201901310938024_asdasd.Designer.cs">
+      <DependentUpon>201901310938024_asdasd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311008047_mig2.cs" />
+    <Compile Include="Migrations\201901311008047_mig2.Designer.cs">
+      <DependentUpon>201901311008047_mig2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311039210_mig3.cs" />
+    <Compile Include="Migrations\201901311039210_mig3.Designer.cs">
+      <DependentUpon>201901311039210_mig3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311053489_mig4.cs" />
+    <Compile Include="Migrations\201901311053489_mig4.Designer.cs">
+      <DependentUpon>201901311053489_mig4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311055320_mig5.cs" />
+    <Compile Include="Migrations\201901311055320_mig5.Designer.cs">
+      <DependentUpon>201901311055320_mig5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901311152408_mig6.cs" />
+    <Compile Include="Migrations\201901311152408_mig6.Designer.cs">
+      <DependentUpon>201901311152408_mig6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041225372_mig10.cs" />
+    <Compile Include="Migrations\201902041225372_mig10.Designer.cs">
+      <DependentUpon>201902041225372_mig10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041252084_mig11.cs" />
+    <Compile Include="Migrations\201902041252084_mig11.Designer.cs">
+      <DependentUpon>201902041252084_mig11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041338509_mig12.cs" />
+    <Compile Include="Migrations\201902041338509_mig12.Designer.cs">
+      <DependentUpon>201902041338509_mig12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041343277_mig13.cs" />
+    <Compile Include="Migrations\201902041343277_mig13.Designer.cs">
+      <DependentUpon>201902041343277_mig13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041358511_mig14.cs" />
+    <Compile Include="Migrations\201902041358511_mig14.Designer.cs">
+      <DependentUpon>201902041358511_mig14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041423145_migrationes.cs" />
+    <Compile Include="Migrations\201902041423145_migrationes.Designer.cs">
+      <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902051439379_mig141.cs" />
+    <Compile Include="Migrations\201902051439379_mig141.Designer.cs">
+      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902061217265_mig100.cs" />
+    <Compile Include="Migrations\201902061217265_mig100.Designer.cs">
+      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.cs" />
+    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.Designer.cs">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902061236198_jdsdosd.cs" />
+    <Compile Include="Migrations\201902061236198_jdsdosd.Designer.cs">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
     <Compile Include="Models\LikeModel.cs" />
@@ -329,6 +395,7 @@
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
     <Content Include="Views\Admin\ListCategory.cshtml" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
+    <Content Include="Views\Home\NotificationsView.cshtml" />
     <Content Include="Views\Placard\Placard.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +417,56 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901310938024_asdasd.resx">
+      <DependentUpon>201901310938024_asdasd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311008047_mig2.resx">
+      <DependentUpon>201901311008047_mig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311039210_mig3.resx">
+      <DependentUpon>201901311039210_mig3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311053489_mig4.resx">
+      <DependentUpon>201901311053489_mig4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311055320_mig5.resx">
+      <DependentUpon>201901311055320_mig5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311152408_mig6.resx">
+      <DependentUpon>201901311152408_mig6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041225372_mig10.resx">
+      <DependentUpon>201902041225372_mig10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041252084_mig11.resx">
+      <DependentUpon>201902041252084_mig11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041338509_mig12.resx">
+      <DependentUpon>201902041338509_mig12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041343277_mig13.resx">
+      <DependentUpon>201902041343277_mig13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041358511_mig14.resx">
+      <DependentUpon>201902041358511_mig14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041423145_migrationes.resx">
+      <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051439379_mig141.resx">
+      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061217265_mig100.resx">
+      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061223098_asdasdasdasdsa.resx">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
