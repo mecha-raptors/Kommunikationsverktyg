@@ -1,5 +1,7 @@
-﻿
+﻿@model List<Kommunikationsverktyg.Models.RequestedEventModel>
+@using Microsoft.AspNet.Identity;
 @{
+    
     ViewBag.Title = "Notiser";
 }
 
@@ -16,9 +18,30 @@
                 <th>Kan du delta?</th>
             </tr>
         </thead>
-        <tbody id="events">
+        @if (Model != null)
+        {
+            foreach (var e in Model)
+            {
+                
+                <tbody id="events">
+                    <tr data-eventId=@e.EventId>
+                        <td>@e.Title</td>
+                        <td>@e.Description</td>
 
-        </tbody>
+                        @foreach (var t in e.TimeSuggestions)
+                        {
+                            <td>@t.StartTime.ToString("dd MMM yyyy HH:mm")</td>
+                            <td>@t.EndTime.ToString("dd MMM yyyy HH:mm")</td>
+                            <td data-datemodel=@t.DateId>
+                                <button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>
+                                <button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button>
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            }
+        }
+
     </table>
 </div>
 
@@ -27,33 +50,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 
     <script>
-        $(document).ready(function () {
-            var table = $('#events');
-            var events = [];
+        //$(document).ready(function () {
+        //    var table = $('#events');
+        //    var events = [];
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/Home/GetEventNotifications",
+        //        success: function (data) {
+        //            $.each(data, function (i, v) {
+        //                console.log(moment(data[i].TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm'));
+        //                table.append(
+        //                    '<tr>' +
+        //                    '<td>' + v.Title + '</td>' +
+        //                    '<td>' + v.Description + '</td>' +
+        //                    '<td>' + moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm') + '</td>' +
+        //                    '<td>' + moment(v.TimeSuggestions[0].EndTime).format('MMM Do YYYY HH:mm') + '</td>' +
+        //                    '<td><button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>' +
+        //                    '<button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button></td>' +
+        //                    '</tr>'
+        //                );
+        //                console.log(data[i].Title);
+        //            })
+        //        },
+        //        error: function (error) {
+        //            alert('failed');
+        //        }
+        //    })
+        //});
+
+        $("#acceptEvent").on("click", function (e) {
+            var user = @User.Identity.GetUserId();
+            var dateId = e.target.parentNode.dateId;
+            var eventId = e.target.parentNode.parentNode.eventId;
+            var data = [user, dateId, eventId];
+
             $.ajax({
-                type: "GET",
-                url: "/Home/GetEventNotifications",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                        console.log(moment(data[i].TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm'));
-                        table.append(
-                            '<tr>' +
-                            '<td>' + v.Title + '</td>' +
-                            '<td>' + v.Description + '</td>' +
-                            '<td>' + moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm') + '</td>' +
-                            '<td>' + moment(v.TimeSuggestions[0].EndTime).format('MMM Do YYYY HH:mm') + '</td>' +
-                            '<td><button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>' +
-                            '<button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button></td>' +
-                            '</tr>'
-                        );
-                        console.log(data[i].Title);
-                    })
+                url: "/api/roles/add",
+                type: "Post",
+                data: JSON.stringify([data]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Användaren har accepterats");
+                    location.reload();
                 },
-                error: function (error) {
-                    alert('failed');
+                error: function () {
+                    alert("Något har gått fel, kontakta systemadmin!");
                 }
+
             })
-        });
+        }); 
     </script>
 
 }

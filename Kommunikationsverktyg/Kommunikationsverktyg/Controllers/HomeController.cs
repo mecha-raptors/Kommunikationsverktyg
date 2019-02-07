@@ -95,7 +95,7 @@ namespace Kommunikationsverktyg.Controllers
 
         public ActionResult NotificationsView()
         {
-            return View();
+            return View(new ApplicationDbContext().RequestedEvents.ToList());
         }
 
         public JsonResult GetEventNotifications()

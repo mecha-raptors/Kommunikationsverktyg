@@ -211,6 +211,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\AdminApiController.cs" />
     <Compile Include="Controllers\Api\CategoryApiController.cs" />
+    <Compile Include="Controllers\Api\EventApiController.cs" />
     <Compile Include="Controllers\Api\FormalBlogApiController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -294,6 +295,10 @@
     <Compile Include="Migrations\201902071005184_JaffaCakesYummy.cs" />
     <Compile Include="Migrations\201902071005184_JaffaCakesYummy.Designer.cs">
       <DependentUpon>201902071005184_JaffaCakesYummy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902071312214_migmigmigmigmigmimg.cs" />
+    <Compile Include="Migrations\201902071312214_migmigmigmigmigmimg.Designer.cs">
+      <DependentUpon>201902071312214_migmigmigmigmigmimg.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
@@ -500,6 +505,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902071005184_JaffaCakesYummy.resx">
       <DependentUpon>201902071005184_JaffaCakesYummy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071312214_migmigmigmigmigmimg.resx">
+      <DependentUpon>201902071312214_migmigmigmigmigmimg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
