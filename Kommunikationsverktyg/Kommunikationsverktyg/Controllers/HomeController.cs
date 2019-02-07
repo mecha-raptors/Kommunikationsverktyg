@@ -232,6 +232,18 @@ namespace Kommunikationsverktyg.Controllers
             }
         }
 
+        public ActionResult Search()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var model = new ListUsersByRoleViewModel
+            {
+                ActiveUsers = new List<ApplicationUser>()
+            };
+            var currUser = User.Identity.GetUserId();
+            model.ActiveUsers = db.Users.Where(u => u.Id != currUser).ToList();
+
+            return View(model);
+        }
         
     }
 }

@@ -224,6 +224,7 @@
     <Compile Include="Controllers\Api\AdminApiController.cs" />
     <Compile Include="Controllers\Api\CategoryApiController.cs" />
     <Compile Include="Controllers\Api\FormalBlogApiController.cs" />
+    <Compile Include="Controllers\Api\SearchApiController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -421,12 +422,14 @@
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
     <Content Include="Views\Home\NotificationsView.cshtml" />
     <Content Include="Views\Placard\Placard.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Event\" />
+    <Folder Include="Views\SearchApi\" />
     <Folder Include="XmlWordList\" />
   </ItemGroup>
   <ItemGroup>
