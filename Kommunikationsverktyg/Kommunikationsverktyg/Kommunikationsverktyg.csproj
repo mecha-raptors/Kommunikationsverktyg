@@ -267,29 +267,21 @@
     <Compile Include="Migrations\201902041423145_migrationes.Designer.cs">
       <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902051031552_UsersInPosts.cs" />
-    <Compile Include="Migrations\201902051031552_UsersInPosts.Designer.cs">
-      <DependentUpon>201902051031552_UsersInPosts.cs</DependentUpon>
+    <Compile Include="Migrations\201902051439379_mig141.cs" />
+    <Compile Include="Migrations\201902051439379_mig141.Designer.cs">
+      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902051111185_MatchatModels.cs" />
-    <Compile Include="Migrations\201902051111185_MatchatModels.Designer.cs">
-      <DependentUpon>201902051111185_MatchatModels.cs</DependentUpon>
+    <Compile Include="Migrations\201902061217265_mig100.cs" />
+    <Compile Include="Migrations\201902061217265_mig100.Designer.cs">
+      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902060901377_LagtTillPlacards.cs" />
-    <Compile Include="Migrations\201902060901377_LagtTillPlacards.Designer.cs">
-      <DependentUpon>201902060901377_LagtTillPlacards.cs</DependentUpon>
+    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.cs" />
+    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.Designer.cs">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902060935291_Placards.cs" />
-    <Compile Include="Migrations\201902060935291_Placards.Designer.cs">
-      <DependentUpon>201902060935291_Placards.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902061337488_test.cs" />
-    <Compile Include="Migrations\201902061337488_test.Designer.cs">
-      <DependentUpon>201902061337488_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902061345102_Anslagstest.cs" />
-    <Compile Include="Migrations\201902061345102_Anslagstest.Designer.cs">
-      <DependentUpon>201902061345102_Anslagstest.cs</DependentUpon>
+    <Compile Include="Migrations\201902061236198_jdsdosd.cs" />
+    <Compile Include="Migrations\201902061236198_jdsdosd.Designer.cs">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
@@ -298,6 +290,7 @@
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
     <Compile Include="Models\LikeModel.cs" />
@@ -403,6 +396,7 @@
     <Content Include="Views\Admin\ListCategory.cshtml" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
     <Content Include="Views\Placard\Placard.cshtml" />
+    <Content Include="Views\Home\NotificationsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -461,23 +455,17 @@
     <EmbeddedResource Include="Migrations\201902041423145_migrationes.resx">
       <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902051031552_UsersInPosts.resx">
-      <DependentUpon>201902051031552_UsersInPosts.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902051439379_mig141.resx">
+      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902051111185_MatchatModels.resx">
-      <DependentUpon>201902051111185_MatchatModels.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061217265_mig100.resx">
+      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902060901377_LagtTillPlacards.resx">
-      <DependentUpon>201902060901377_LagtTillPlacards.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061223098_asdasdasdasdsa.resx">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902060935291_Placards.resx">
-      <DependentUpon>201902060935291_Placards.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902061337488_test.resx">
-      <DependentUpon>201902061337488_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902061345102_Anslagstest.resx">
-      <DependentUpon>201902061345102_Anslagstest.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
