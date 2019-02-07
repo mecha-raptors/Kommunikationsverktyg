@@ -2,6 +2,7 @@
 using Kommunikationsverktyg.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -27,7 +28,7 @@ namespace Kommunikationsverktyg.Repository
                 {
                     var m = new InformalBlogViewModel
                     {
-                        FilePath = item.FilePath,
+                        Files = item.Files,
                         Message = item.Message,
                         Fullname = item.User.Firstname + " " + item.User.Lastname,
                         Timestamp = item.Timestamp,
@@ -47,17 +48,31 @@ namespace Kommunikationsverktyg.Repository
 
         public void SavePost(ListInformalBlogViewModel list)
         {
+            
             try
             {
                 var model = new InformalBlogModel
                 {
-                    FilePath = FormalBlogRepo.SaveFile(list.File),
+
+                    Files = new List<FileModel>(),
                     Message = list.Message,
                     Title = list.Title,
                     Timestamp = DateTime.Now,
-                    Id = list.SenderId
+                    Id = list.SenderId,
+                    User = _db.Users.FirstOrDefault(u => u.Id == list.SenderId)
 
                 };
+                foreach (var file in list.File)
+                {
+                    if (file != null)
+                    {
+                        var fileModel = new FileModel
+                        {
+                            FilePath = SaveFile(file)
+                        };
+                        model.Files.Add(fileModel);
+                    }
+                }
                 _db.InformalBlogPosts.Add(model);
                 _db.SaveChanges();
             }
@@ -65,6 +80,23 @@ namespace Kommunikationsverktyg.Repository
             {
                 throw new Exception();
             }
+        }
+
+        public string SaveFile(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return null;
+            }
+
+            string filePath = Guid.NewGuid().ToString() + "_" + Path.GetFileName(file.FileName);
+
+            string finalPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/"), filePath);
+            file.SaveAs(finalPath);
+
+            var userPath = @"Files/" + filePath;
+
+            return userPath;
         }
     }
 }

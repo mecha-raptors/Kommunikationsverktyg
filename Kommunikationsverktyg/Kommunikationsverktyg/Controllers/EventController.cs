@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Models.ViewModels;
+using Kommunikationsverktyg.Repository;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -19,31 +20,33 @@ namespace Kommunikationsverktyg.Controllers
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var newEvent = new EventModel
+                var newEvent = new RequestedEventModel
                 {
                     Title = em.Title,
                     Description = em.Description,
-                    Start = em.TimeSuggestions[0].StartTime,
-                    End = em.TimeSuggestions[0].EndTime
+                    TimeSuggestions = new List<DateModel>(),
+                    Invitees = new List<ApplicationUser>()
+                    
                 };
 
-                //foreach (DateModel dm in em.TimeSuggestions)
-                //{
-                //    newEvent.TimeSuggestions.Add(dm);
-                //}
-
+                newEvent.TimeSuggestions = em.TimeSuggestions;
+                
                 if (em.Invitees != null)
                 {
+                    var emailNotification = new EmailNotification();
                     foreach (string s in em.Invitees)
                     {
-                        //newEvent.Invitees.Add(db.Users.Find(s));
-                        System.Diagnostics.Debug.WriteLine("Id: " + s);
-                        System.Diagnostics.Debug.WriteLine(", Användare: " + db.Users.Find(s).Firstname);
+                        newEvent.Invitees.Add(db.Users.Find(s));
+
+                        var invitee = db.Users.FirstOrDefault(u => u.Id == s);
+                        emailNotification.SendEventInvitationEmail(invitee.Email);
                     }
                 }
 
-                db.EventModels.Add(newEvent);
+                db.RequestedEvents.Add(newEvent);
                 db.SaveChanges();
+
+
             }
             return RedirectToAction("Index", "Home");
         }

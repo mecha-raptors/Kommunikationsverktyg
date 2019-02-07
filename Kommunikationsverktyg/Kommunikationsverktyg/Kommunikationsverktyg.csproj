@@ -283,11 +283,17 @@
     <Compile Include="Migrations\201902061236198_jdsdosd.Designer.cs">
       <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902071005184_JaffaCakesYummy.cs" />
+    <Compile Include="Migrations\201902071005184_JaffaCakesYummy.Designer.cs">
+      <DependentUpon>201902071005184_JaffaCakesYummy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
     <Compile Include="Models\JsonEventRequestModel.cs" />
@@ -395,6 +401,7 @@
     <Content Include="Views\Account\ViewExternProfile.cshtml" />
     <Content Include="Views\Admin\ListCategory.cshtml" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
+    <Content Include="Views\Home\NotificationsView.cshtml" />
     <Content Include="Views\Placard\Placard.cshtml" />
     <Content Include="Views\Home\NotificationsView.cshtml" />
   </ItemGroup>
@@ -466,6 +473,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
       <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051439379_mig141.resx">
+      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061217265_mig100.resx">
+      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061223098_asdasdasdasdsa.resx">
+      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
+      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071005184_JaffaCakesYummy.resx">
+      <DependentUpon>201902071005184_JaffaCakesYummy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

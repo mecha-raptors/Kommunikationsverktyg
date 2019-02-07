@@ -30,7 +30,7 @@
         <div class="col-lg-6" style="padding: 0 !important;">
             <label class="btn btn-block btn-danger" id="file-upload">
                 Lägg till fil
-                <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
+                <input type="file" name="File[0]" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
             </label>
             @*<button class="btn btn-block btn-success" style="display: none;" id="change-file">Byt fil</button>*@
         </div>
@@ -69,12 +69,18 @@
                     <hr>
                     <p>@item.Message</p>
                     <p>
-                        @if (item.FilePath != null)
+                        @if (item.Files != null)
                         {
                             <hr />
+                            foreach (var file in item.Files)
+                            {
 
-                            <a class="btn btn-default" href="../@item.FilePath" download id="DownloadLink">Ladda ner mig</a>
-                            <small>@item.FilePath</small>
+
+                                <a class="btn btn-default" href="../@file.FilePath" download id="DownloadLink">Ladda ner mig</a>
+                                <small>@file.FilePath</small>
+                            }
+
+
                         }
                     </p>
                     <hr>
@@ -90,7 +96,7 @@
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
                 $("#file-path").empty();
-                $("#file-path").append(fileName + '" har valts.');
+                $("#file-path").append(fileName + ' har valts.');
             });
             $("#File").on("click", function () {
                 $("#File").val("");

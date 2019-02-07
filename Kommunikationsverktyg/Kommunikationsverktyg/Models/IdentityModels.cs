@@ -18,6 +18,7 @@ namespace Kommunikationsverktyg.Models
         public string Title { get; set; }
         public ICollection<FormalBlogModel> Posts { get; set; }
         public ICollection<InformalBlogModel> InformalPosts { get; set; }
+        public ICollection<RequestedEventModel> EventRequests { get; set; }
         
         //Konstruktor
         public ApplicationUser() : base()
