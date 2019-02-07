@@ -56,53 +56,90 @@
             <div class="filtered-result">
                 @for (int i = 0; i < Model.Posts.Count(); i++)
                 {
-                    <div class="post remove-post" style="border: 1px solid #000; padding: 1%; margin: 1%;">
-                        <h3 class="title">
-                            @Model.Posts[i].Title
-                            @Html.HiddenFor(m => m.Posts[i].Title)
-                        </h3>
-                        <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category</small>
-                        <p class="lead">
-                            av: <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
-                            @Html.HiddenFor(m => m.Posts[i].Fullname)
-                        </p>
-                        <p>
-                            <span class="timestamp glyphicon glyphicon-time"></span> Skapad @Model.Posts[i].Timestamp.ToString()
-                            @Html.HiddenFor(m => m.Posts[i].Timestamp)
-                        </p>
-                        <p>
-                            <span id="likes">@Model.Posts[i].Likes</span> personer gillar detta
-                        </p>
-                        <hr>
-                        <p class="message">
-                            @Model.Posts[i].Message
-                            @Html.HiddenFor(m => m.Posts[i].Message)
-                        </p>
-                        <p>
-                            @if (Model.Posts[i].FilePath != null)
-                            {
-                                <hr />
-                                <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
-                                <small>@Model.Posts[i].FilePath</small>
-                            }
-                        </p>
-                        <hr>
-                        <button type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
-                        @if (User.IsInRole("admin"))
+                <div class="post remove-post" style="border: 1px solid #000; padding: 1%; margin: 1%;">
+                    <h3 class="title">
+                        @Model.Posts[i].Title
+                        @Html.HiddenFor(m => m.Posts[i].Title)
+                    </h3>
+                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category</small>
+                    <p class="lead">
+                        av: <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
+                        @Html.HiddenFor(m => m.Posts[i].Fullname)
+                    </p>
+                    <p>
+                        <span class="timestamp glyphicon glyphicon-time"></span> Skapad @Model.Posts[i].Timestamp.ToString()
+                        @Html.HiddenFor(m => m.Posts[i].Timestamp)
+                    </p>
+                    <p>
+                        <span id="likes">@Model.Posts[i].Likes</span> personer gillar detta
+                    </p>
+                    <hr>
+                    <p class="message">
+                        @Model.Posts[i].Message
+                        @Html.HiddenFor(m => m.Posts[i].Message)
+                    </p>
+                    <p>
+                        @if (Model.Posts[i].FilePath != null)
                         {
-                            <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
-                            <input type="text" value="true" id="check-admin" style="display: none !important;" />
+                            <hr />
+                            <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
+                            <small>@Model.Posts[i].FilePath</small>
                         }
-                    </div>
+                    </p>
+                    <hr>
+
+                    @if (Model.Posts[i].Likers.Any())
+                    {
+                        foreach (var user in Model.Posts[i].Likers)
+                        {
+                            if (user.Id == User.Identity.GetUserId())
+                            {
+                                <p>Du gillar det här inlägget</p>
+                            }
+
+                        }
+                    } else
+                    {
+                    <p>Penis</p>
+                    <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+
+                    }
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
+                        <input type="text" value="true" id="check-admin" style="display: none !important;" />
+                    }
+                </div>
                 }
             </div>
         </div>
     </div>
 </div>
 @section Scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
 
         $(document).ready(function () {
+
+         @*@foreach (var post in Model.Posts)
+         {
+             foreach (var user in post.Likers)
+             {
+                 if (user.Id == User.Identity.GetUserId())
+                 {
+                     <text>
+                        var postId = $(".likeButton").getAttribute("data-post-id");
+                        
+                        $(".likeButton").addClass("disabledButton");
+
+                        
+                    </text>
+                 }
+             }
+
+         }*@
+
+            $(".disabledButton").prop("disabled", true);
 
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
@@ -226,5 +263,5 @@
 
         });
 
-    </script>
+</script>
 }

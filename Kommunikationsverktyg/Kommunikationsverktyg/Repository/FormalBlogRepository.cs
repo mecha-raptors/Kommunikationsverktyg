@@ -37,7 +37,8 @@ namespace Kommunikationsverktyg.Repository
                         UserId = item.User.Id,
                         PostId = item.FormalBlogModelId,
                         Category = item.Category.Type,
-                        Likes = item.Likes
+                        Likes = item.Likes,
+                        Likers = item.Likers
              
                     };
 
@@ -58,14 +59,16 @@ namespace Kommunikationsverktyg.Repository
         {
             try
             {
+                var user = _db.Users.FirstOrDefault(u => u.Id == list.SenderId);
+                var category = _db.Categories.FirstOrDefault(c => c.CategoryModelId == list.CategoryModelId);
                 var model = new FormalBlogModel
                 {
                     FilePath = SaveFile(list.File),
                     Message = FilterContent(list.Message),
                     Title = FilterContent(list.Title),
                     Timestamp = DateTime.Now,
-                    Id = list.SenderId,
-                    CategoryModelId = list.CategoryModelId
+                    User = user,
+                    Category = category
                 };
                 _db.FormalBlogPosts.Add(model);
                 _db.SaveChanges();
@@ -153,14 +156,14 @@ namespace Kommunikationsverktyg.Repository
                 var result = from u in db.Likes
                              where u.FormalPosts == post && u.Users == liker
                              select u;
-
                 
-                if (result == null)
+                if (result != null)
                 {
-                    model.FormalPosts.Id = post.Id;
-                    model.Users.Id = liker.Id;
+                    //model.FormalPosts = post; 
+                    //model.Users = liker; 
+                    //db.Likes.Add(model);
                     post.Likes++;
-                    db.Likes.Add(model);
+                    post.Likers.Add(liker);
                     db.SaveChanges();
                 }
             }
@@ -175,8 +178,9 @@ namespace Kommunikationsverktyg.Repository
                 {
                     var model = new ListFormalBlogViewModel();
                     var localDb = new ApplicationDbContext();
+                    var category = _db.Categories.FirstOrDefault(c => c.CategoryModelId == id);
 
-                    var posts = localDb.FormalBlogPosts.OrderByDescending(i => i.Timestamp).Where(i => i.CategoryModelId == id).ToList();
+                    var posts = localDb.FormalBlogPosts.OrderByDescending(i => i.Timestamp).Where(i => i.Category.CategoryModelId == id).ToList();
                     var list = new List<FormalBlogViewModel>();
                     foreach (var item in posts)
                     {

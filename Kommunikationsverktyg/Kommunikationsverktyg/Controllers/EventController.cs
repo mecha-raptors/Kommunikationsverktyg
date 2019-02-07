@@ -20,19 +20,17 @@ namespace Kommunikationsverktyg.Controllers
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var newEvent = new EventModel
+                var newEvent = new RequestedEventModel
                 {
                     Title = em.Title,
                     Description = em.Description,
-                    Start = em.TimeSuggestions[0].StartTime,
-                    End = em.TimeSuggestions[0].EndTime
+                    TimeSuggestions = new List<DateModel>(),
+                    Invitees = new List<ApplicationUser>()
+                    
                 };
 
-                //foreach (DateModel dm in em.TimeSuggestions)
-                //{
-                //    newEvent.TimeSuggestions.Add(dm);
-                //}
-
+                newEvent.TimeSuggestions = em.TimeSuggestions;
+                
                 if (em.Invitees != null)
                 {
                     var emailNotification = new EmailNotification();
@@ -47,7 +45,7 @@ namespace Kommunikationsverktyg.Controllers
                     }
                 }
 
-                db.EventModels.Add(newEvent);
+                db.RequestedEvents.Add(newEvent);
                 db.SaveChanges();
 
 
