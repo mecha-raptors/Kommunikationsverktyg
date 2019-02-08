@@ -9,9 +9,13 @@ namespace Kommunikationsverktyg.Models
     public class LikeModel
     {
         [Key]
-        public int Id { get; set; }
+        public int LikeModelId { get; set; }
 
-        public FormalBlogModel FormalPosts { get; set; }
-        public ApplicationUser Users { get; set; }
+        public virtual int FormalBlogModelId { get; set; }
+        public virtual FormalBlogModel FormalPosts { get; set; }
+
+        public virtual string Id { get; set; }
+        public virtual ApplicationUser User { get; set; }
+        
     }
 }

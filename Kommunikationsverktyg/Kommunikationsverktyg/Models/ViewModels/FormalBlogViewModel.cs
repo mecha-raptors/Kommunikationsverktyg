@@ -18,7 +18,8 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public string Category { get; set; }
         public string Fullname { get; set; }
         public int Likes { get; set; }
-        public virtual ICollection<ApplicationUser> Likers { get; set; }
+        public List<LikeModel> Likers { get; set; }
+
         //public LikeModel Like { get; set; }
     }
 }

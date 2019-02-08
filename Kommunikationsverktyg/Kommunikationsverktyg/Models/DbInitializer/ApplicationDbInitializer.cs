@@ -45,6 +45,7 @@ namespace Kommunikationsverktyg.Models.DbInitializer
             var user2 = new ApplicationUser { Email = "user@user.se",
                                               UserName = "user@user.se",
                                               PasswordHash = hasher.HashPassword("password"),
+                                              Title = "Rektor",
                                               Firstname = "John",
                                               Lastname = "Holmes"};
             var user3 = new ApplicationUser
@@ -52,6 +53,7 @@ namespace Kommunikationsverktyg.Models.DbInitializer
                 Email = "user1@user.se",
                 UserName = "user1@user.se",
                 PasswordHash = hasher.HashPassword("password"),
+                Title = "Lektor",
                 Firstname = "Ron",
                 Lastname = "Jeremy"
             };

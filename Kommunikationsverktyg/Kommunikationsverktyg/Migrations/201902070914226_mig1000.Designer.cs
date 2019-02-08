@@ -7,13 +7,13 @@ namespace Kommunikationsverktyg.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class mig11 : IMigrationMetadata
+    public sealed partial class mig1000 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(mig11));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(mig1000));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902041252084_mig11"; }
+            get { return "201902070914226_mig1000"; }
         }
         
         string IMigrationMetadata.Source
