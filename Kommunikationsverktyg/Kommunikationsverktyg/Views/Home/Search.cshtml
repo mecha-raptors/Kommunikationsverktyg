@@ -1,0 +1,64 @@
+﻿@model Kommunikationsverktyg.Models.ViewModels.ListUsersByRoleViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+<div class="d-flex justify-content-left h-100" style="max-width:100%">
+    <div class="searchbar">
+        <input class="search_input" id="srcProfiles" type="text" name="" placeholder="Sök...">
+    </div>
+</div>
+<div class="col-lg-12" style="max-width:100%">
+    <table class="table">
+        <tr>
+            <th>Titel</th>
+            <th>Förnamn</th>
+            <th>Efternamn</th>
+        </tr>
+        @foreach (var item in Model.ActiveUsers)
+        {
+            <tr class="removeData">
+                <td class="removeData">@item.Title</td>
+                <td class="removeData">@item.Firstname</td>
+                <td class="removeData">@item.Lastname</td>
+                <td class="removeData">@Html.ActionLink("Besök", "ViewProfile", new { username = item.UserName }, htmlAttributes: new { @class = "btn btn-primary" })</td>
+            </tr>
+        }
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        var items = null;
+        $(document).ready(function () {
+            $.get("/api/search/users",
+                function (data) {
+                    items = data;
+                })
+
+            $("#srcProfiles").on("keyup", function () {
+                $(".removeData").remove();
+                var text = $("#srcProfiles").val();
+                if (text == "") {
+                    for (var i = 0; i < items.length; i++) {
+                        $(".table").append(
+                            "<tr class='removeData'><td class='removeData'>" + items[i].Title + "</td><td class='removeData'>" + items[i].Firstname + "</td><td class='removeData' id='match'>" + items[i].Lastname + "</td><td class='removeData'><td class='removeData'><a class='btn btn-primary' href=" + " /Search/ViewProfile?username=" + items[i].UserName + "> Besök</a ></td></tr> "
+                        );
+
+
+                    }
+                } else {
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].Firstname.startsWith(text) || items[i].Lastname.startsWith(text) || items[i].Title.startsWith(text) || (items[i].Firstname + " " + items[i].Lastname).startsWith(text)) {
+                            $(".table").append(
+                                "<tr class='removeData'><td class='removeData'>" + items[i].Title + "</td><td class='removeData'>" + items[i].Firstname + "</td><td class='removeData' id='match'>" + items[i].Lastname + "</td><td class='removeData'><td class='removeData'><a class='btn btn-primary' href=" + " /Search/ViewProfile?username=" + items[i].UserName + "> Besök</a ></td></tr> "
+                            );
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+}
+
