@@ -48,6 +48,31 @@ namespace Kommunikationsverktyg.Controllers
         [HttpPost]
         public ActionResult Placard(ListPlacardViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var dbList = _db.Placards.OrderByDescending(i => i.Timestamp).ToList();
+                var list = new List<PlacardModel>();
+                var viewModel = new ListPlacardViewModel();
+
+                foreach (var item in dbList)
+                {
+                    var pModel = new PlacardModel
+                    {
+                        Type = item.Type,
+                        Message = item.Message,
+                        PlacardId = item.PlacardId,
+                        Timestamp = item.Timestamp,
+                        Title = item.Title,
+                        User = item.User,
+                        Fullname = item.User.Firstname + " " + item.User.Lastname,
+                        TypeName = item.Type.Type
+
+                    };
+                    list.Add(pModel);
+                }
+                viewModel.Placards = list;
+                return View(viewModel);
+            }
             try
             {
                 var pType = model.PlacardType.ToString();
