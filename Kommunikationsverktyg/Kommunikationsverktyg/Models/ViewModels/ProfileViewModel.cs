@@ -10,5 +10,7 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public ApplicationUser ApplicationUser {get; set;}
 
         public RegisterViewModel RegisterViewModel { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
     }
 }
