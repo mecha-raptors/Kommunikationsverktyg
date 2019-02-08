@@ -15,80 +15,82 @@
 <h2 id="formalblogH2">Informell Blogg</h2>
 @using (Html.BeginForm("InformalBlog", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "formet" }))
 {
-    <div class="form-horizontal col-lg-12">
+<div class="form-horizontal col-lg-12">
 
-        <h4 id="formalblogH4">Gör ett inlägg</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group col-lg-12">
-            @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
-        </div>
-        <div class="form-group col-lg-12">
-            @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
+    <h4 id="formalblogH4">Gör ett inlägg</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group col-lg-12">
+        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Titel", @style = "width: 100% !important", @value = "" })
+    </div>
+    <div class="form-group col-lg-12">
+        @Html.TextAreaFor(m => m.Message, 5, 10, new { @class = "form-control", @placeholder = "Meddelande", @value = "" })
 
         </div>
         <div class="col-lg-6" style="padding: 0 !important;">
             <label class="btn btn-block btn-danger" id="file-upload">
                 Lägg till fil
-                <input type="file" name="File[0]" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
+                <input type="file" name="File" id="File" class="btn btn-group-sm" hidden style="display: none !important;">
             </label>
             @*<button class="btn btn-block btn-success" style="display: none;" id="change-file">Byt fil</button>*@
         </div>
 
-        <div class="col-lg-6">
+    <div class="form-group">
+        <div class="col-lg-10">
+            @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple", @class = "custom-file-input" })
+            @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-2">
             <button id="send-message" class="btn btn-block btn-warning" style=" margin-left: 0.1%;">Skicka</button>
         </div>
-        <small id="file-path"></small>
+    </div>
 
 
 
     </div>
 
-}
+    }
 
 
 
-<div class="container" id="colorButtons">
-    <div class="row">
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-            <h1 class="page-header">
-                Informell Blogg
-                <small>Se alla poster</small>
-            </h1>
-            @foreach (var item in Model.Posts)
-            {
-                <div style="border: 1px solid #000; padding: 1%; margin: 1%;">
-                    <h3>
-                        @item.Title
-                    </h3>
-                    <p class="lead">
-                        by <a href="~/Account/ViewExternProfile/@item.UserId">@item.Fullname</a>
-                    </p>
-                    <p><span class="glyphicon glyphicon-time"></span> Skapad @item.Timestamp.ToString()</p>
-                    <hr>
-                    <p>@item.Message</p>
-                    <p>
-                        @if (item.Files != null)
-                        {
-                            <hr />
-                            foreach (var file in item.Files)
+    <div class="container" id="colorButtons">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <h1 class="page-header">
+                    Informell Blogg
+                    <small>Se alla poster</small>
+                </h1>
+                @foreach (var item in Model.Posts)
+                {
+                    <div  style="border: 1px solid #000; padding: 1%; margin: 1%;">
+                        <h3>
+                            @item.Title
+                        </h3>
+                        <p class="lead">
+                            by <a href="~/Account/ViewExternProfile/@item.UserId">@item.Fullname</a>
+                        </p>
+                        <p><span class="glyphicon glyphicon-time"></span> Skapad @item.Timestamp.ToString()</p>
+                        <hr>
+                        <p>@item.Message</p>
+                        <p>
+                            @if (item.ImagePaths != null)
                             {
-
-
-                                <a class="btn btn-default" href="../@file.FilePath" download id="DownloadLink">Ladda ner mig</a>
-                                <small>@file.FilePath</small>
+                                <hr />
+                                foreach (var i in item.ImagePaths)
+                                {
+                                    <img src="../@i" class="img-thumbnail" style="max-height: 150px; min-height: 150px;" />
+                                }
                             }
-
-
-                        }
-                    </p>
-                    <hr>
-                </div>
-            }
+                        </p>
+                        <hr>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>
 
 @section Scripts{
     <script type="text/javascript">
@@ -96,7 +98,7 @@
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
                 $("#file-path").empty();
-                $("#file-path").append(fileName + ' har valts.');
+                $("#file-path").append(fileName + '" har valts.');
             });
             $("#File").on("click", function () {
                 $("#File").val("");
