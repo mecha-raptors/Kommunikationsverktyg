@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -219,75 +221,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901310938024_asdasd.cs" />
-    <Compile Include="Migrations\201901310938024_asdasd.Designer.cs">
-      <DependentUpon>201901310938024_asdasd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901311008047_mig2.cs" />
-    <Compile Include="Migrations\201901311008047_mig2.Designer.cs">
-      <DependentUpon>201901311008047_mig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901311039210_mig3.cs" />
-    <Compile Include="Migrations\201901311039210_mig3.Designer.cs">
-      <DependentUpon>201901311039210_mig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901311053489_mig4.cs" />
-    <Compile Include="Migrations\201901311053489_mig4.Designer.cs">
-      <DependentUpon>201901311053489_mig4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901311055320_mig5.cs" />
-    <Compile Include="Migrations\201901311055320_mig5.Designer.cs">
-      <DependentUpon>201901311055320_mig5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901311152408_mig6.cs" />
-    <Compile Include="Migrations\201901311152408_mig6.Designer.cs">
-      <DependentUpon>201901311152408_mig6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041225372_mig10.cs" />
-    <Compile Include="Migrations\201902041225372_mig10.Designer.cs">
-      <DependentUpon>201902041225372_mig10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041252084_mig11.cs" />
-    <Compile Include="Migrations\201902041252084_mig11.Designer.cs">
-      <DependentUpon>201902041252084_mig11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041338509_mig12.cs" />
-    <Compile Include="Migrations\201902041338509_mig12.Designer.cs">
-      <DependentUpon>201902041338509_mig12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041343277_mig13.cs" />
-    <Compile Include="Migrations\201902041343277_mig13.Designer.cs">
-      <DependentUpon>201902041343277_mig13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041358511_mig14.cs" />
-    <Compile Include="Migrations\201902041358511_mig14.Designer.cs">
-      <DependentUpon>201902041358511_mig14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041423145_migrationes.cs" />
-    <Compile Include="Migrations\201902041423145_migrationes.Designer.cs">
-      <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902051439379_mig141.cs" />
-    <Compile Include="Migrations\201902051439379_mig141.Designer.cs">
-      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902061217265_mig100.cs" />
-    <Compile Include="Migrations\201902061217265_mig100.Designer.cs">
-      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.cs" />
-    <Compile Include="Migrations\201902061223098_asdasdasdasdsa.Designer.cs">
-      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902061236198_jdsdosd.cs" />
-    <Compile Include="Migrations\201902061236198_jdsdosd.Designer.cs">
-      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
     <Compile Include="Models\JsonEventRequestModel.cs" />
@@ -322,16 +260,37 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="algot2.png" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="algot.ico" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="algot.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -343,10 +302,18 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\qTip\jquery.qtip.css" />
     <Content Include="Scripts\qTip\jquery.qtip.js" />
     <Content Include="Scripts\qTip\jquery.qtip.min.css" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -397,6 +364,15 @@
     <Content Include="Scripts\qTip\jquery.qtip.min.js.map" />
     <Content Include="Views\Home\NotificationsView.cshtml" />
     <Content Include="Views\Placard\Placard.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -406,73 +382,22 @@
     <Folder Include="XmlWordList\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901310938024_asdasd.resx">
-      <DependentUpon>201901310938024_asdasd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901311008047_mig2.resx">
-      <DependentUpon>201901311008047_mig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901311039210_mig3.resx">
-      <DependentUpon>201901311039210_mig3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901311053489_mig4.resx">
-      <DependentUpon>201901311053489_mig4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901311055320_mig5.resx">
-      <DependentUpon>201901311055320_mig5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901311152408_mig6.resx">
-      <DependentUpon>201901311152408_mig6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041225372_mig10.resx">
-      <DependentUpon>201902041225372_mig10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041252084_mig11.resx">
-      <DependentUpon>201902041252084_mig11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041338509_mig12.resx">
-      <DependentUpon>201902041338509_mig12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041343277_mig13.resx">
-      <DependentUpon>201902041343277_mig13.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041358511_mig14.resx">
-      <DependentUpon>201902041358511_mig14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041423145_migrationes.resx">
-      <DependentUpon>201902041423145_migrationes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902051439379_mig141.resx">
-      <DependentUpon>201902051439379_mig141.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902061217265_mig100.resx">
-      <DependentUpon>201902061217265_mig100.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902061223098_asdasdasdasdsa.resx">
-      <DependentUpon>201902061223098_asdasdasdasdsa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902061236198_jdsdosd.resx">
-      <DependentUpon>201902061236198_jdsdosd.cs</DependentUpon>
-    </EmbeddedResource>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

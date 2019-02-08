@@ -27,7 +27,7 @@ namespace Kommunikationsverktyg.Repository
                 {
                     var m = new InformalBlogViewModel
                     {
-                        FilePath = item.FilePath,
+                        ImagePaths = localDb.Images.Where(i => i.InformalBlogModelId == item.InformalBlogModelId).Select(i => i.Path).ToList(),
                         Message = item.Message,
                         Fullname = item.User.Firstname + " " + item.User.Lastname,
                         Timestamp = item.Timestamp,
@@ -49,13 +49,23 @@ namespace Kommunikationsverktyg.Repository
         {
             try
             {
+                var helper = new UserRepository();
+                var images = new List<ImageModel>();
+                foreach(var item in list.files)
+                {
+                    var img = new ImageModel
+                    {
+                        Path = helper.SaveImage(item)
+                    };
+                    images.Add(img);
+                }
                 var model = new InformalBlogModel
                 {
-                    FilePath = FormalBlogRepo.SaveFile(list.File),
                     Message = list.Message,
                     Title = list.Title,
                     Timestamp = DateTime.Now,
-                    Id = list.SenderId
+                    Id = list.SenderId,
+                    Images = images
 
                 };
                 _db.InformalBlogPosts.Add(model);

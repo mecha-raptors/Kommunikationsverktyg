@@ -24,7 +24,9 @@ namespace Kommunikationsverktyg
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/bootstrap-grid.css",
+                      "~/bootstrap-reboot.css"));
         }
     }
 }
