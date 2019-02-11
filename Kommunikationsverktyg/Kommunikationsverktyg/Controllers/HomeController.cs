@@ -103,7 +103,7 @@ namespace Kommunikationsverktyg.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             
                 var events = db.RequestedEvents.ToList();
-                var jsonViewData = new List<JsonEvenRequestModel>();
+                var jsonViewData = new List<JsonEventRequestModel>();
                 foreach (var e in events)
                 {
                     if (e.Invitees != null)
@@ -112,7 +112,7 @@ namespace Kommunikationsverktyg.Controllers
                     {
                         if (u.Id.Equals(User.Identity.GetUserId()))
                         {
-                            JsonEvenRequestModel t = new JsonEvenRequestModel
+                            JsonEventRequestModel t = new JsonEventRequestModel
                             {
                                 Title = e.Title,
                                 Description = e.Description,
