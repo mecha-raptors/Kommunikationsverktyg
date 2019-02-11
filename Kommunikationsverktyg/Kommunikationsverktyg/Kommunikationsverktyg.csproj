@@ -239,8 +239,9 @@
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\FormalCommentModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
-    <Compile Include="Models\JsonEvenRequestModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />

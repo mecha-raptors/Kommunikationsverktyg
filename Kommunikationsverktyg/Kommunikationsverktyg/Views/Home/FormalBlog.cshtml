@@ -74,47 +74,50 @@
                         <a tabindex="0" class="btn btn-default likes-popover" role="button" data-toggle="popover" data-trigger="focus" title="Gillas av" data-content="<ul class='hidden-likes list-group'>@foreach (var list in Model.Posts[i].Likers)
                             {
                                 <li class='list-group-item'><a href='~/Account/ViewExternProfile/@list.User.Id'>@list.User.UserName</a></li>
-                            }</ul>"><span id="likes">@Model.Posts[i].Likes</span> personer gillar detta</a>
-                        
-                    </p>
-                    
-                    <hr>
-                    <p class="message">
-                        @Model.Posts[i].Message
-                        @Html.HiddenFor(m => m.Posts[i].Message)
-                    </p>
-                    <p>
-                        @if (Model.Posts[i].FilePath != null)
-                        {
-                            <hr />
-                            <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
-                            <small>@Model.Posts[i].FilePath</small>
-                        }
-                    </p>
-                    <hr>
+                            }</ul>"><span id="likes">@Model.Posts[i].Likes</span>personer gillar detta</a>
 
-                    @{
-                      
-                        
-                        var IsUser = Model.Posts[i].Likers.Any(x => x.Id == User.Identity.GetUserId());
-                        if (IsUser)
-                        {
-                            <p>Du gillar det här inlägget</p>
-                        }
-                        else
-                        {
-                            <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+                        </p>
+
+                        <hr>
+                        <p class="message">
+                            @Model.Posts[i].Message
+                            @Html.HiddenFor(m => m.Posts[i].Message)
+                        </p>
+                        <p>
+                            @if (Model.Posts[i].FilePath != null)
+                            {
+                                <hr />
+                                <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
+                                <small>@Model.Posts[i].FilePath</small>
                             }
-                        
-                    }
+                        </p>
+                        <hr>
+
+                        @{
 
 
-                    @if (User.IsInRole("admin"))
-                    {
+                            var IsUser = Model.Posts[i].Likers.Any(x => x.Id == User.Identity.GetUserId());
+                            if (IsUser)
+                            {
+                                <p>Du gillar det här inlägget</p>
+                            }
+                            else
+                            {
+                                <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+                            }
+
+                        }
                         <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
                         <input type="text" value="true" id="check-admin" style="display: none !important;" />
-                    }
-                </div>
+                        
+
+
+                        @if (User.IsInRole("admin"))
+                        {
+                            <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
+                            <input type="text" value="true" id="check-admin" style="display: none !important;" />
+                        }
+                    </div>
                 }
             </div>
         </div>
