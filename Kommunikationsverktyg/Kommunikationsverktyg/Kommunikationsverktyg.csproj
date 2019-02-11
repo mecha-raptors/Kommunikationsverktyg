@@ -249,7 +249,6 @@
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
-    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
     <Compile Include="Models\InformalBlogModel.cs" />
     <Compile Include="Models\LikeModel.cs" />
@@ -358,11 +357,13 @@
     <Content Include="Views\Placard\Placard.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\NotificationsView.cshtml" />
+    <Content Include="Views\Account\ContactPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Views\Event\" />
     <Folder Include="Views\SearchApi\" />
     <Folder Include="XmlWordList\" />

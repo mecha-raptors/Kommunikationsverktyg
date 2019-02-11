@@ -596,6 +596,26 @@ namespace Kommunikationsverktyg.Controllers
             }
         }
 
+        public ActionResult SendContactEmail(string userId, string title, string body)
+        {
+            var rvm = new RegisterViewModel();
+            var profileModel = new ProfileViewModel();
+            var emailRepo = new EmailNotification();
+            var userRepository = new UserRepository();
+            var myId = User.Identity.GetUserId();
+            var myUser = userRepository.GetUser(myId);
+            var sender = myUser.Firstname + " " + myUser.Lastname;
+            var user = userRepository.GetUser(userId);
+            profileModel.ApplicationUser = user;
+            profileModel.RegisterViewModel = rvm;
+
+
+
+            emailRepo.SendContactEmail(sender, profileModel.ApplicationUser.UserName, body + "\n" + "\n" + " Skicka eventuellt svar till  " + myUser.UserName, title);
+
+            return RedirectToAction("ViewExternProfile", new { id = userId});
+        }
+
         
 
         public ActionResult ViewUserProfile(ApplicationUser user)
