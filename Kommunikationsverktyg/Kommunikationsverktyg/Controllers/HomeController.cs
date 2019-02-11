@@ -101,36 +101,36 @@ namespace Kommunikationsverktyg.Controllers
             return View(events);
         }
 
-        public JsonResult GetEventNotifications()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
+        //public JsonResult GetEventNotifications()
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
             
-                var events = db.RequestedEvents.ToList();
-                var testtest = new List<JsonEventRequestModel>();
-                foreach (var e in events)
-                {
-                    if (e.Invitees != null)
-                {
-                    foreach (var u in e.Invitees)
-                    {
-                        if (u.Id.Equals(User.Identity.GetUserId()))
-                        {
-                            JsonEventRequestModel t = new JsonEventRequestModel
-                            {
-                                Title = e.Title,
-                                Description = e.Description,
-                                TimeSuggestions = e.TimeSuggestions
-                            };
-                            testtest.Add(t);
+        //        var events = db.RequestedEvents.ToList();
+        //        var testtest = new List<JsonEventRequestModel>();
+        //        foreach (var e in events)
+        //        {
+        //            if (e.Invitees != null)
+        //        {
+        //            foreach (var u in e.Invitees)
+        //            {
+        //                if (u.Id.Equals(User.Identity.GetUserId()))
+        //                {
+        //                    JsonEventRequestModel t = new JsonEventRequestModel
+        //                    {
+        //                        Title = e.Title,
+        //                        Description = e.Description,
+        //                        TimeSuggestions = e.TimeSuggestions
+        //                    };
+        //                    testtest.Add(t);
                             
-                        }
+        //                }
 
-                    }
-                }
-                }
-            return new JsonResult { Data = testtest, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //            }
+        //        }
+        //        }
+        //    return new JsonResult { Data = testtest, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             
-        }
+        //}
 
         [AllowAnonymous]
         public ActionResult WaitForVerification()

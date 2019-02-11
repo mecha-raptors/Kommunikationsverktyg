@@ -27,5 +27,7 @@ namespace Kommunikationsverktyg.Models
             }
         }
         public virtual ICollection<ApplicationUser> Voters { get; set; }
+        public virtual ICollection<ApplicationUser> VotersAgainst { get; set; }
+
     }
 }

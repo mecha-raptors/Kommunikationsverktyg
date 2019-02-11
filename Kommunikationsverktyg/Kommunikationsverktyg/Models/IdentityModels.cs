@@ -21,7 +21,10 @@ namespace Kommunikationsverktyg.Models
         public ICollection<RequestedEventModel> EventRequests { get; set; }
 
         //This user's votes for event dates/times
-        public ICollection<DateModel> EventRequestDateVotes { get; set; }
+        public ICollection<DateModel> EventRequestDateVotesFor { get; set; }
+
+        //This user's votes against event dates/times
+        public ICollection<DateModel> EventRequestDateVotesAgainst { get; set; }
         
         //Konstruktor
         public ApplicationUser() : base()

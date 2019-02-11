@@ -16,6 +16,9 @@
                 <th>Börjar</th>
                 <th>Slutar</th>
                 <th>Kan du delta?</th>
+                <th>Har tackat ja</th>
+                <th>Har tackat nej</th>
+                <th>Har ej svarat</th>
             </tr>
         </thead>
         @if (Model != null)
@@ -35,16 +38,28 @@
                             <td data-datemodel=@t.DateId>
                                 <button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>
                                 <button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button>
-                                @foreach(var u in t.Voters)
+                            </td>
+
+                            <td>
+                                @foreach (var u in t.Voters)
                                 {
-                                    <p>@u.Firstname @u.Lastname har tackat ja</p>
+                                    @u.Firstname @u.Lastname <br />
                                 }
-                                @foreach(var u in e.Invitees)
+                            </td>
+                            <td>
+                                @foreach (var u in t.VotersAgainst)
                                 {
-                                    if (!t.Voters.Contains(u))
+                                    @u.Firstname @u.Lastname <br />
+                                }
+                            </td>
+                            <td>
+                                @foreach (var u in e.Invitees)
+                                {
+                                    if (!t.Voters.Contains(u) && !t.VotersAgainst.Contains(u))
                                     {
-                                        <p>@u.Firstname @u.Lastname har inte tackat ja</p>
+                                        @u.Firstname @u.Lastname <br />
                                     }
+
                                 }
                             </td>
                         }
@@ -99,7 +114,6 @@
                 data: JSON.stringify([data]),
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    alert("Du har tackat ja");
                     location.reload();
                 },
                 error: function () {
@@ -117,7 +131,6 @@
                 data: JSON.stringify([data]),
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    alert("Du har tackat nej");
                     location.reload();
                 },
                 error: function () {
