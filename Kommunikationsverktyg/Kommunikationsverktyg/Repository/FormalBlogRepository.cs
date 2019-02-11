@@ -37,7 +37,9 @@ namespace Kommunikationsverktyg.Repository
                         UserId = item.User.Id,
                         PostId = item.FormalBlogModelId,
                         Category = item.Category.Type,
-                        Likes = item.Likers.Count
+                        Likes = item.Likers.Count,
+                        CategoryId = item.Category.CategoryModelId,
+                        Followers = localDb.Followers.Where(f => f.CategoryModelId == item.Category.CategoryModelId).ToList()
                 };
                     m.Likers = item.Likers.ToList();
                    if(m.Likers == null)
@@ -74,6 +76,7 @@ namespace Kommunikationsverktyg.Repository
                     User = user,
                     Category = category
                 };
+                NotifyFollower(category);
                 _db.FormalBlogPosts.Add(model);
                 _db.SaveChanges();
             }
@@ -82,6 +85,17 @@ namespace Kommunikationsverktyg.Repository
                 throw new Exception();
             }
 
+
+        }
+
+        private void NotifyFollower(CategoryModel category)
+        {
+            var helper = new EmailNotification();
+
+            foreach(var item in category.Followers)
+            {
+                helper.SendEmail(item.User.Email, "Ett nytt inlägg i kategorin " + category.Type + " är tillgängligt", "Nytt inlägg");
+            }
 
         }
 

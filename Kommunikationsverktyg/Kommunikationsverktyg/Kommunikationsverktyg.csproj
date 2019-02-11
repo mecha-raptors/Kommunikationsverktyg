@@ -238,9 +238,10 @@
     <Compile Include="Models\BadWords.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\FollowersModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
-    <Compile Include="Models\JsonEvenRequestModel.cs" />
+    <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
     <Compile Include="Models\RequestedEventModel.cs" />
@@ -273,7 +274,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="algot2.png" />
     <Content Include="algot.ico" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -307,6 +307,8 @@
     <Content Include="Scripts\qTip\jquery.qtip.js" />
     <Content Include="Scripts\qTip\jquery.qtip.min.css" />
     <Content Include="Scripts\qTip\jquery.qtip.min.js" />
+    <Content Include="algot2.png" />
+    <Content Include="algot.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
