@@ -19,6 +19,9 @@ namespace Kommunikationsverktyg.Models
         public ICollection<FormalBlogModel> Posts { get; set; }
         public ICollection<InformalBlogModel> InformalPosts { get; set; }
         public ICollection<RequestedEventModel> EventRequests { get; set; }
+
+        //This user's votes for event dates/times
+        public ICollection<DateModel> EventRequestDateVotes { get; set; }
         
         //Konstruktor
         public ApplicationUser() : base()
@@ -46,6 +49,7 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<LikeModel> Likes { get; set; }
         public virtual DbSet<PlacardModel> Placards { get; set; }
         public virtual DbSet<PlacardTypeModel> PlacardTypes { get; set; }
+        public virtual DbSet<DateModel> Dates { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

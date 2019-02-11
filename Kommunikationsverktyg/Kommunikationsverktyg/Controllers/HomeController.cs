@@ -95,7 +95,10 @@ namespace Kommunikationsverktyg.Controllers
 
         public ActionResult NotificationsView()
         {
-            return View();
+            var db = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var events = db.RequestedEvents.Where(e => e.Invitees.Select(u => u.Id).Contains(userId)).ToList();
+            return View(events);
         }
 
         public JsonResult GetEventNotifications()
