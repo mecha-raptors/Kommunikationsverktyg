@@ -223,6 +223,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\AdminApiController.cs" />
     <Compile Include="Controllers\Api\CategoryApiController.cs" />
+    <Compile Include="Controllers\Api\EventApiController.cs" />
     <Compile Include="Controllers\Api\FormalBlogApiController.cs" />
     <Compile Include="Controllers\Api\SearchApiController.cs" />
     <Compile Include="Controllers\EventController.cs" />
