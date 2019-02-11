@@ -49,6 +49,9 @@
                 <div class="form-inline" style="margin-bottom: 2%; margin-top: 2%;">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.CategoryModelId, Model.CategoryList, "Filtrera efter en kategori", new { @class = "form-control", id = "filter-category" })
+                        <div class="searchbar">
+                            <input class="search_input" id="srcProfiles" type="text" name="" placeholder="Sök...">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -276,7 +279,35 @@
 
             })
 
-        });
+    });
+
+    $("#srcProfiles").on("keyup", function () {
+        $(".removeData").remove();
+        var text = $("#srcProfiles").val();
+
+        if (text != "") {
+            $(".post").each(function () {
+                var post = $(this);
+                var message = post.message;
+                if (!message.Contains.text) {
+                    post.hide();
+                }
+            })
+            else {
+                $(".post").each(function () {
+                    $(this).show();
+                });
+            }
+
+            @*for (var i = 0; i < @Model.Posts.Count; i++) {
+                if (post.Message.Contains.){
+                    $(".table").append(
+                        "<tr class='removeData'><td class='removeData'>" + items[i].Title + "</td><td class='removeData'>" + items[i].Firstname + "</td><td class='removeData' id='match'>" + items[i].Lastname + "</td><td class='removeData'><td class='removeData'><a class='btn btn-primary' href=" + " /Search/ViewProfile?username=" + items[i].UserName + "> Besök</a ></td></tr> "
+                    );
+                }
+            }*@
+        }
+    });
 
 </script>
 }
