@@ -22,7 +22,7 @@
                 <td class="removeData">@item.Title</td>
                 <td class="removeData">@item.Firstname</td>
                 <td class="removeData">@item.Lastname</td>
-                <td class="removeData">@Html.ActionLink("Besök", "ViewProfile", new { username = item.UserName }, htmlAttributes: new { @class = "btn btn-primary" })</td>
+                <td class="removeData">@Html.ActionLink("Besök", "ViewExternProfile", "Account", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })</td>
             </tr>
         }
     </table>

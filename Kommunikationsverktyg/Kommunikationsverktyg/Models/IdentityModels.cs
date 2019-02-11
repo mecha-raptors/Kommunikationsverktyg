@@ -46,6 +46,7 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<LikeModel> Likes { get; set; }
         public virtual DbSet<PlacardModel> Placards { get; set; }
         public virtual DbSet<PlacardTypeModel> PlacardTypes { get; set; }
+        public virtual DbSet<ImageModel> Images { get; set; }
         public virtual DbSet<DateModel> Dates { get; set; }
 
         public ApplicationDbContext()

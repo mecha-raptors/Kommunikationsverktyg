@@ -271,6 +271,7 @@
                 success: function () {
                     $('#likes').text(likes);
                     target.prop("disabled", true);
+                    location.reload();
                     
                 },
                 error: function () {

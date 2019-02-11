@@ -67,5 +67,40 @@ namespace Kommunikationsverktyg.Repository
             }
             
         }
+
+        public void SendContactEmail(string sender, string recipientEmail, string content, string subject)
+        {
+            try
+            {
+                var fromAddress = new MailAddress("kommunikationsverktyget@gmail.com", sender);
+                var toAddress = new MailAddress(recipientEmail, "You");
+                var body = content;
+
+                const string fromPassword = "Github2019";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+        }
     }
 }
