@@ -8,7 +8,7 @@ using Kommunikationsverktyg.Repository;
 
 namespace Kommunikationsverktyg.Models.DbInitializer
 {
-    public class ApplicationDbInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class ApplicationDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<ApplicationDbContext>
     {
         public IEnumerable<object> ValidationErrors { get; private set; }
 
@@ -46,16 +46,16 @@ namespace Kommunikationsverktyg.Models.DbInitializer
                                               UserName = "user@user.se",
                                               PasswordHash = hasher.HashPassword("password"),
                                               Title = "Rektor",
-                                              Firstname = "John",
-                                              Lastname = "Holmes"};
+                                              Firstname = "Darth",
+                                              Lastname = "Vader"};
             var user3 = new ApplicationUser
             {
                 Email = "user1@user.se",
                 UserName = "user1@user.se",
                 PasswordHash = hasher.HashPassword("password"),
                 Title = "Lektor",
-                Firstname = "Ron",
-                Lastname = "Jeremy"
+                Firstname = "James",
+                Lastname = "RavenLord"
             };
             userManager.Create(user2);
             userManager.Create(user3);

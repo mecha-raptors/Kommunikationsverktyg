@@ -57,6 +57,26 @@ namespace Kommunikationsverktyg.Repository
             var type = str.ToCapitalize();
             return db.Categories.Any(i => i.Type == type);
         }
+        public void FollowCategory(string user, int categoryId)
+        {
+            var follower = new FollowersModel
+            {
+                CategoryModelId = categoryId,
+                Id = user
+            };
+            var db = new ApplicationDbContext();
+            db.Followers.Add(follower);
+            db.SaveChanges();
+
+        }
+        public void UnfollowCategory(string user, int categoryId)
+        {
+            var db = new ApplicationDbContext();
+            var follower = db.Followers.Single(f => f.Id == user && f.CategoryModelId == categoryId);
+
+            db.Followers.Remove(follower);
+            db.SaveChanges();
+        }
 
     }
 }

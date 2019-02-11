@@ -12,6 +12,8 @@ namespace Kommunikationsverktyg.Models
         public virtual int CategoryModelId { get; set; }
         public virtual string Type { get; set; }
 
+        public virtual ICollection<FollowersModel> Followers { get; set; }
+
         public virtual ICollection<FormalBlogModel> Posts { get; set; }
     }
 }

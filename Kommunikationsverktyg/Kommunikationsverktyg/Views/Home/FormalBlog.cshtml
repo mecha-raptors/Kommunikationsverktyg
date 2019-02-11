@@ -61,7 +61,7 @@
                         @Model.Posts[i].Title
                         @Html.HiddenFor(m => m.Posts[i].Title)
                     </h3>
-                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category</small>
+                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category </small>@if (!Model.Posts[i].Followers.Any(f => f.Id == User.Identity.GetUserId())) { <button class="badge badge-primary add-follower" id="@Model.Posts[i].CategoryId" style="background-color: #3bc212;">Följ Kategori</button> } else { <button class="badge badge-primary remove-follower" id="@Model.Posts[i].CategoryId" style="background-color: #ff0000;">Avfölj Kategori</button> }
                     <p class="lead">
                         av: <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
                         @Html.HiddenFor(m => m.Posts[i].Fullname)
@@ -145,7 +145,38 @@
              }
 
          }*@
+            $(".add-follower").on("click", function (e) {
+                var value = e.target.getAttribute("id");
+                $.ajax({
+                    url: "/api/category/follow/",
+                    type: "Post",
+                    data: value ,
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
 
+                })
+            });
+            $(".remove-follower").on("click", function (e) {
+                var value = e.target.getAttribute("id");
+                $.ajax({
+                    url: "/api/category/unfollow/",
+                    type: "Post",
+                    data: value,
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
+
+                })
+            });
             $(".disabledButton").prop("disabled", true);
 
             $('input[type="file"]').change(function (e) {
