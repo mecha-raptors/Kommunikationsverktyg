@@ -58,5 +58,21 @@ namespace Kommunikationsverktyg.Controllers.Api
                 return BadRequest();
             }
         }
+
+        [Route("comment")]
+        [HttpPost]
+        public IHttpActionResult Comment (List<string> funThings)
+        {
+            try
+            {
+                var helper = new FormalBlogRepository();
+                helper.SaveComment(funThings[0], funThings[1], funThings[2]);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
