@@ -53,6 +53,9 @@ namespace Kommunikationsverktyg.Repository
                 var images = new List<ImageModel>();
                 foreach (var item in list.files)
                 {
+                    if (item == null)
+                        continue;
+                        
                     var img = new ImageModel
                     {
                         Path = helper.SaveImage(item)

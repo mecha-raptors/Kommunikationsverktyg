@@ -526,7 +526,7 @@ namespace Kommunikationsverktyg.Controllers
             profileModel.ApplicationUser = user;
             profileModel.RegisterViewModel = rvm;
 
-            rvm.Email = user.Email;
+            rvm.Email = user.Email != null ? user.Email : "" ;
             rvm.Firstname = user.Firstname;
             rvm.Lastname = user.Lastname;
             rvm.Title = user.Title;

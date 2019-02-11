@@ -17,7 +17,6 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public virtual string Description { get; set; }
         [Required]
         public virtual List<DateModel> TimeSuggestions { get; set; }
-        [Required]
         public virtual List<string> Invitees { get; set; }
         public virtual Dictionary<string, string> InvitableUsers { get; set; }
         
