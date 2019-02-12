@@ -226,6 +226,7 @@
     <Compile Include="Controllers\Api\AdminApiController.cs" />
     <Compile Include="Controllers\Api\CategoryApiController.cs" />
     <Compile Include="Controllers\Api\FormalBlogApiController.cs" />
+    <Compile Include="Controllers\Api\InformalBlogApiController.cs" />
     <Compile Include="Controllers\Api\SearchApiController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Models\FormalBlogModel.cs" />
     <Compile Include="Models\FormalCommentModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\InformalCommentModel.cs" />
     <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
     <Compile Include="Models\PlacardTypeModel.cs" />
