@@ -27,12 +27,14 @@ namespace Kommunikationsverktyg.Repository
                 {
                     var m = new InformalBlogViewModel
                     {
+                        PostID = item.InformalBlogModelId,
                         ImagePaths = localDb.Images.Where(i => i.InformalBlogModelId == item.InformalBlogModelId).Select(i => i.Path).ToList(),
                         Message = item.Message,
                         Fullname = item.User.Firstname + " " + item.User.Lastname,
                         Timestamp = item.Timestamp,
                         Title = item.Title,
-                        UserId = item.User.Id
+                        UserId = item.User.Id,
+                        Comments = item.Comments.ToList()
                     };
                     list.Add(m);
                 }
@@ -78,6 +80,31 @@ namespace Kommunikationsverktyg.Repository
             {
                 throw new Exception();
             }
+        }
+        public void SaveComment(string postId, string userID, string content)
+        {
+            var blogID = int.Parse(postId);
+            try
+            {
+                var user = _db.Users.FirstOrDefault(u => u.Id == userID);
+                var post = _db.InformalBlogPosts.Find(blogID);
+                var answer = new InformalCommentModel
+                {
+                    BlogModel  = post,
+                    BlogID = post.InformalBlogModelId,
+                    userId = user.Id,
+                    Message = content,
+                    Timestamp = DateTime.Now
+                };
+
+                _db.InformalComments.Add(answer);
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
         }
     }
 }

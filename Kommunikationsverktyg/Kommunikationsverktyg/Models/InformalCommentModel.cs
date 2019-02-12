@@ -13,7 +13,7 @@ namespace Kommunikationsverktyg.Models
         public int FormalBlogCommentId { get; set; }
 
         public virtual int BlogID { get; set; }
-        public virtual FormalBlogModel BlogModel { get; set; }
+        public virtual InformalBlogModel BlogModel { get; set; }
 
         public virtual string userId { get; set; }
         public virtual ApplicationUser User { get; set; }
