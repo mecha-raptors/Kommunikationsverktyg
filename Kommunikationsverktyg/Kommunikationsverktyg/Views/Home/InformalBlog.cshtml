@@ -70,12 +70,25 @@
                         <hr>
                         <p>@item.Message</p>
                         <p>
-                            @if (item.ImagePaths != null)
-                            {
-                                <hr />
-                                foreach (var i in item.ImagePaths)
+                            @{ if (item.ImagePaths != null)
                                 {
-                                    <img src="../@i" class="img-thumbnail" style="max-height: 150px; min-height: 150px;" />
+                                    <hr />
+                                    foreach (var i in item.ImagePaths)
+                                    {
+
+                                        if (i.ToUpper().EndsWith(".MP4"))
+                                        {
+                                            <video  class="img-thumbnail" controls>
+                                                <source src="../@i" type="video/mp4">
+                                                <source src="../@i" type="video/ogg">
+                                            </video>
+                                        }
+                                        else
+                                        {
+                                            <img src="../@i" class="img-thumbnail" style="max-height: 150px; min-height: 150px;" />
+                                        }
+
+                                    }
                                 }
                             }
                         </p>
