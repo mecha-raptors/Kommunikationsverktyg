@@ -83,6 +83,11 @@ namespace Kommunikationsverktyg.Models.DbInitializer
             {
                 Type = "Utbildning"
             };
+            var category = new CategoryModel
+            {
+                Type = "Övrigt"
+            };
+            db.Categories.Add(category);
             db.PlacardTypes.Add(research);
             db.PlacardTypes.Add(education);
 

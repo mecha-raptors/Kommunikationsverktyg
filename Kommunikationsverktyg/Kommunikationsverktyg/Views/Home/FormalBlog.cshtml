@@ -61,7 +61,10 @@
                         @Model.Posts[i].Title
                         @Html.HiddenFor(m => m.Posts[i].Title)
                     </h3>
-                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category </small>@if (!Model.Posts[i].Followers.Any(f => f.Id == User.Identity.GetUserId())) { <button class="badge badge-primary add-follower" id="@Model.Posts[i].CategoryId" style="background-color: #3bc212;">Följ Kategori</button> } else { <button class="badge badge-primary remove-follower" id="@Model.Posts[i].CategoryId" style="background-color: #ff0000;">Avfölj Kategori</button> }
+                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category </small>@if (!Model.Posts[i].Followers.Any(f => f.Id == User.Identity.GetUserId()))
+                    {<button class="badge badge-primary add-follower" id="@Model.Posts[i].CategoryId" style="background-color: #3bc212;">Följ Kategori</button> }
+                    else
+                    { <button class="badge badge-primary remove-follower" id="@Model.Posts[i].CategoryId" style="background-color: #ff0000;">Avfölj Kategori</button>}
                     <p class="lead">
                         av: <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
                         @Html.HiddenFor(m => m.Posts[i].Fullname)
@@ -99,11 +102,11 @@
                             var IsUser = Model.Posts[i].Likers.Any(x => x.Id == User.Identity.GetUserId());
                             if (IsUser)
                             {
-                                <p>Du gillar det här inlägget</p>
+                                <button data-post-id=@Model.Posts[i].PostId  type="submit" class="dislike-btn btn btn-danger glyphicon glyphicon-thumbs-down" id="@Model.Posts[i].PostId">Dislike</button>
                             }
                             else
                             {
-                                <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+                                <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Like</button>
                             }
 
                         }
@@ -113,7 +116,7 @@
 
 
 
-                        @if (User.IsInRole("admin"))
+                        @if (User.IsInRole("admin") || Model.Posts[i].UserId == User.Identity.GetUserId())
                         {
                             <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
                             <input type="text" value="true" id="check-admin" style="display: none !important;" />
@@ -121,18 +124,18 @@
                         <h5>Kommentarer</h5>
                         @if (Model.Posts[i].Comments != null)
                         {
-                        foreach (var comment in Model.Posts[i].Comments)
-                        {
-                        <div class="container">
-                            <div class="col-md-5" style="border: 1px solid black; border-radius: 3px; margin-bottom: 5px;">
-                                <a href="~/Account/ViewExternProfile/@comment.User.Id">@comment.User.Firstname @comment.User.Lastname</a>
-                                <p>@comment.Message</p>
-                                <p>@comment.Timestamp.ToString()</p>
-                            </div>
+                            foreach (var comment in Model.Posts[i].Comments)
+                            {
+                                <div class="container">
+                                    <div class="col-md-5" style="border: 1px solid black; border-radius: 3px; margin-bottom: 5px;">
+                                        <a href="~/Account/ViewExternProfile/@comment.User.Id">@comment.User.Firstname @comment.User.Lastname</a>
+                                        <p>@comment.Message</p>
+                                        <p>@comment.Timestamp.ToString()</p>
+                                    </div>
 
-                        </div>
+                                </div>
 
-                        }
+                            }
                         }
                     </div>
                    
@@ -350,7 +353,7 @@
         })
     })
 
-
+         
          $(".likeButton").on("click", function (e) {
              var value = e.target.getAttribute("id");
              var target = $(e.target);
@@ -362,18 +365,38 @@
                 data: JSON.stringify([value, "@User.Identity.GetUserName()"]),
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    $('#likes').text(likes);
-                    target.prop("disabled", true);
+                    
                     location.reload();
 
                 },
                 error: function () {
-                    alert("Något har gått fel, kontakta systemadmin!");
+                    
+                }
+
+            })
+
+            });
+            $(document).ready(function(){
+
+                $(".dislike-btn").on("click", function (e) {
+                    var value = e.target.getAttribute("id");
+                        
+                         var target = $(e.target);
+            $.ajax({
+                url: "/api/blog/dislike/",
+                type: "Post",
+                data: value, 
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    location.reload();
                 }
 
             })
 
         });
-
+            })
         </script>
     }

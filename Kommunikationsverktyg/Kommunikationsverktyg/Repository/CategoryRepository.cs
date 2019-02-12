@@ -27,6 +27,11 @@ namespace Kommunikationsverktyg.Repository
         public void DeleteCategory(int id)
         {
             var db = new ApplicationDbContext();
+            var posts = db.FormalBlogPosts.Where(i => i.Category.CategoryModelId == id).ToList();
+            var defaultCategory = db.Categories.Single(i => i.Type == "Övrigt");
+            posts.ForEach(i => i.Category = defaultCategory);
+
+            
             var category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();

@@ -152,6 +152,9 @@ namespace Kommunikationsverktyg.Repository
 
             try
             {
+                var comments = _db.FormalComments.Where(i => i.BlogModel.FormalBlogModelId == id).ToList();
+                _db.FormalComments.RemoveRange(comments);
+                _db.SaveChanges();
                 var db = new ApplicationDbContext();
                 var post = db.FormalBlogPosts.Find(id);
                 db.FormalBlogPosts.Remove(post);
@@ -182,6 +185,23 @@ namespace Kommunikationsverktyg.Repository
                 db.SaveChanges();
             }
             catch(Exception e) {
+                throw new Exception();
+            }
+        }
+
+        public void DisLikePost(int postId, string UserId)
+        {
+            try
+            {
+
+                var db = new ApplicationDbContext();
+
+                var like = db.Likes.Single(i => i.FormalBlogModelId == postId && i.Id == UserId);
+                db.Likes.Remove(like);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
                 throw new Exception();
             }
         }

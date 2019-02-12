@@ -27,7 +27,7 @@ namespace Kommunikationsverktyg.Models
         public virtual int Likes { get; set; }
 
         public virtual ICollection<LikeModel> Likers { get; set; }
-        //public virtual ICollection<FormalCommentModel> Comments { get; set; }
+        public virtual ICollection<FormalCommentModel> Comments { get; set; }
         
     }
 }

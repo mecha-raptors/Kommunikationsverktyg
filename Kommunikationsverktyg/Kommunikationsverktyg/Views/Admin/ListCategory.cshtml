@@ -25,9 +25,12 @@
                 <td>
                     @item.Type
                 </td>
+                @if(item.Type  != "Övrigt") { 
                 <td>
-                    @*<button class="btn btn-danger delete-btn" id="@item.CategoryModelId">Ta Bort</button>*@
+                    <button class="btn btn-danger delete-btn" id="@item.CategoryModelId">Ta Bort</button>
                 </td>
+                }
+                        
             </tr>
         }
 
