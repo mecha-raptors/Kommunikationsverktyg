@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -19,12 +20,7 @@ namespace Kommunikationsverktyg.Models
         public ICollection<FormalBlogModel> Posts { get; set; }
         public ICollection<InformalBlogModel> InformalPosts { get; set; }
         public ICollection<RequestedEventModel> EventRequests { get; set; }
-
-        //This user's votes for event dates/times
-        public virtual ICollection<DateModel> EventRequestDateVotesFor { get; set; }
-
-        //This user's votes against event dates/times
-        public virtual ICollection<DateModel> EventRequestDateVotesAgainst { get; set; }
+        public ICollection<VoteModel> Votes { get; set; }
         
         //Konstruktor
         public ApplicationUser() : base()
@@ -53,6 +49,7 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<PlacardModel> Placards { get; set; }
         public virtual DbSet<PlacardTypeModel> PlacardTypes { get; set; }
         public virtual DbSet<DateModel> Dates { get; set; }
+        public virtual DbSet<VoteModel> Votes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

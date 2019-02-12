@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201902120859577_jfjfjfj.Designer.cs">
       <DependentUpon>201902120859577_jfjfjfj.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902121047339_VoteModel.cs" />
+    <Compile Include="Migrations\201902121047339_VoteModel.Designer.cs">
+      <DependentUpon>201902121047339_VoteModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -275,6 +279,7 @@
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\RequestedEventViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileViewModel.cs" />
+    <Compile Include="Models\VoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CategoryRepository.cs" />
     <Compile Include="Repository\EmailNotification.cs" />
@@ -399,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902120859577_jfjfjfj.resx">
       <DependentUpon>201902120859577_jfjfjfj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902121047339_VoteModel.resx">
+      <DependentUpon>201902121047339_VoteModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

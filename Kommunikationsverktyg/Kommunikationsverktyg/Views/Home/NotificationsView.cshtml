@@ -41,24 +41,42 @@
                             </td>
 
                             <td>
-                                @foreach (var u in t.Voters)
+                                @foreach (var v in t.Votes)
                                 {
-                                    @u.Firstname @u.Lastname <br />
+                                    if (v.VoteFor == true)
+                                    {
+                                        @v.Voter.Firstname @v.Voter.Lastname <br />
+                                    }
                                 }
                             </td>
                             <td>
-                                @foreach (var u in t.VotersAgainst)
+                                @foreach (var v in t.Votes)
                                 {
-                                    @u.Firstname @u.Lastname <br />
+                                    if (v.VoteFor == false)
+                                    {
+                                        @v.Voter.Firstname @v.Voter.Lastname <br />
+                                    }
+
                                 }
                             </td>
                             <td>
                                 @foreach (var u in e.Invitees)
                                 {
-                                    if (!t.Voters.Contains(u) && !t.VotersAgainst.Contains(u))
+                                    if (t.Votes != null && t.Votes.Count() > 0)
+                                    {
+                                        foreach (var v in t.Votes)
+                                        {
+                                            if (v.Voter.Id != u.Id)
+                                            {
+                                                @v.Voter.Firstname @v.Voter.Lastname <br />
+                                            }
+                                        }
+                                    }
+                                    else
                                     {
                                         @u.Firstname @u.Lastname <br />
                                     }
+
 
                                 }
                             </td>

@@ -17,17 +17,30 @@ namespace Kommunikationsverktyg.Controllers.Api
         public void VoteForTime(List<string> dateIdList)
         {
             var db = new ApplicationDbContext();
+
             var userId = User.Identity.GetUserId();
             var user = db.Users.FirstOrDefault(u => u.Id == userId);
+
             var dateId = int.Parse(dateIdList[0]);
             var date = db.Dates.FirstOrDefault(d => d.DateId == dateId);
-
-            if(date.VotersAgainst.Contains(user))
+            
+            //If user has already voted...
+            var existingVote = date.Votes.FirstOrDefault(v => v.Voter == user);
+            if (existingVote != null && existingVote.VoteFor == false)
             {
-                date.VotersAgainst.Remove(user);
+                existingVote.VoteFor = true;
             }
-
-            date.Voters.Add(user);
+            else
+            {
+                var vote = new VoteModel
+                {
+                    VoteFor = true,
+                    Voter = user,
+                    Date = date
+                };
+                db.Votes.Add(vote);
+            }
+            
             db.SaveChanges();
         }
 
@@ -36,17 +49,28 @@ namespace Kommunikationsverktyg.Controllers.Api
         public void VoteAgainstTime(List<string> dateIdList)
         {
             var db = new ApplicationDbContext();
+
             var userId = User.Identity.GetUserId();
             var user = db.Users.FirstOrDefault(u => u.Id == userId);
+
             var dateId = int.Parse(dateIdList[0]);
             var date = db.Dates.FirstOrDefault(d => d.DateId == dateId);
 
-            if(date.Voters.Contains(user))
+            var existingVote = date.Votes.FirstOrDefault(v => v.Voter == user);
+            if (existingVote != null && existingVote.VoteFor == true)
             {
-                date.Voters.Remove(user);
+                existingVote.VoteFor = false;
             }
-
-            date.VotersAgainst.Add(user);
+            else
+            {
+                var vote = new VoteModel
+                {
+                    VoteFor = false,
+                    Voter = user,
+                    Date = date
+                };
+                db.Votes.Add(vote);
+            }
 
             db.SaveChanges();
         }
