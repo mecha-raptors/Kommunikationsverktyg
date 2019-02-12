@@ -20,6 +20,7 @@ namespace Kommunikationsverktyg.Models.ViewModels
         public string Fullname { get; set; }
         public int Likes { get; set; }
         public List<LikeModel> Likers { get; set; }
+        public List<FormalCommentModel> Comments { get; set; }
         public virtual ICollection<FollowersModel> Followers { get; set; }
 
         //public LikeModel Like { get; set; }

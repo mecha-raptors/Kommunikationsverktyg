@@ -11,6 +11,7 @@ using Ical.Net.Serialization;
 using Kommunikationsverktyg.Models;
 using Kommunikationsverktyg.Models.ViewModels;
 using Kommunikationsverktyg.Repository;
+using Microsoft.AspNet.Identity;
 
 namespace Kommunikationsverktyg.Controllers
 {
@@ -23,21 +24,40 @@ namespace Kommunikationsverktyg.Controllers
 
         public ActionResult AddEvent(RequestedEventViewModel em)
         {
+           
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var newEvent = new RequestedEventModel
+                if (em.TimeSuggestions.Any(i => i.StartTime >= i.EndTime))
                 {
-                    Title = em.Title,
-                    Description = em.Description,
-                    TimeSuggestions = new List<DateModel>(),
-                    Invitees = new List<ApplicationUser>()
-                    
-                };
+                    ModelState.AddModelError("", "Startiden kan inte vara efter sluttiden");
+                }
+                if (!ModelState.IsValid)
+                {
+                    em.InvitableUsers = new Dictionary<string, string>();
+                    em.Invitees = new List<string>();
+                    foreach (var u in db.Users)
+                    {
+                        if (u.Id != User.Identity.GetUserId())
+                        {
+                            em.InvitableUsers.Add(u.Id, u.Firstname + " " + u.Lastname);
+                        }
+                    }
+                    return View("../Home/Index", em);
+                }
 
-                newEvent.TimeSuggestions = em.TimeSuggestions;
-                
                 if (em.Invitees != null)
                 {
+                    var newEvent = new RequestedEventModel
+                    {
+                        Title = em.Title,
+                        Description = em.Description,
+                        TimeSuggestions = new List<DateModel>(),
+                        Invitees = new List<ApplicationUser>()
+
+                    };
+
+                    newEvent.TimeSuggestions = em.TimeSuggestions;
+
                     var emailNotification = new EmailNotification();
                     foreach (string s in em.Invitees)
                     {
@@ -46,12 +66,21 @@ namespace Kommunikationsverktyg.Controllers
                         var invitee = db.Users.FirstOrDefault(u => u.Id == s);
                         emailNotification.SendEventInvitationEmail(invitee.Email);
                     }
+                    db.RequestedEvents.Add(newEvent);
+                    db.SaveChanges();
+                } else
+                {
+                    var newEvent = new EventModel
+                    {
+                        Title = em.Title,
+                        Description = em.Description,
+                        Start = em.TimeSuggestions[0].StartTime,
+                        End = em.TimeSuggestions[0].EndTime
+                    };
+
+                    db.EventModels.Add(newEvent);
+                    db.SaveChanges();
                 }
-
-                db.RequestedEvents.Add(newEvent);
-                db.SaveChanges();
-
-
             }
             return RedirectToAction("Index", "Home");
         }

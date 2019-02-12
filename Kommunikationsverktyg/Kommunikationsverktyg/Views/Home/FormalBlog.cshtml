@@ -107,9 +107,10 @@
                             }
 
                         }
-                        <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
-                        <input type="text" value="true" id="check-admin" style="display: none !important;" />
-                        
+
+                        <button class="commentBtn btn btn-default" id="@Model.Posts[i].PostId" value="Comment">Kommentera</button>
+                        <input type="text" value="true" style="display: none !important;" />
+
 
 
                         @if (User.IsInRole("admin"))
@@ -117,14 +118,47 @@
                             <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
                             <input type="text" value="true" id="check-admin" style="display: none !important;" />
                         }
+                        <h5>Kommentarer</h5>
+                        @if (Model.Posts[i].Comments != null)
+                        {
+                        foreach (var comment in Model.Posts[i].Comments)
+                        {
+                        <div class="container">
+                            <div class="col-md-5" style="border: 1px solid black; border-radius: 3px; margin-bottom: 5px;">
+                                <a href="~/Account/ViewExternProfile/@comment.User.Id">@comment.User.Firstname @comment.User.Lastname</a>
+                                <p>@comment.Message</p>
+                                <p>@comment.Timestamp.ToString()</p>
+                            </div>
+
+                        </div>
+
+                        }
+                        }
                     </div>
+                   
+
                 }
+
             </div>
         </div>
     </div>
 </div>
-@section Scripts{
-<script type="text/javascript">
+<div id="CommentModal" class="modal fade" role="dialog" style="width: 600px; height: 500px; background-color: white; margin: auto; border-radius: 25px; padding: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kommentera inlägget</h4>
+    </div>
+    <div class="modal-body">
+        <h3>Kommentar</h3>
+        <textarea id="commentText" rows="5" class="form-control" placeholder="Skriv din kommentar..." style="margin-bottom: 5%;">
+
+        </textarea>
+        <button class="btn btn-success" id="sendComment">Skicka kommentar</button>
+        <p class="hidden" id="postId"></p>
+    </div>
+</div>
+    @section Scripts{
+        <script type="text/javascript">
 
         $(document).ready(function () {
 
@@ -136,10 +170,10 @@
                  {
                      <text>
                         var postId = $(".likeButton").getAttribute("data-post-id");
-                        
+
                         $(".likeButton").addClass("disabledButton");
 
-                        
+
                     </text>
                  }
              }
@@ -187,7 +221,35 @@
             $("#File").on("click", function () {
                 $("#File").val("");
             });
-        });
+    });
+
+            $(".commentBtn").on("click", function (e) {
+                var value = e.target.getAttribute("id");
+                $("#CommentModal").modal();
+                $("#postId").text(value);
+            });
+
+            $("#sendComment").on("click", function (e) {
+                var value = $("#postId").text();
+                var content = $("#commentText").val();
+                var userId = "@User.Identity.GetUserId()";
+                $.ajax({
+                    url: "/api/blog/comment",
+                    type: "Post",
+                    data: JSON.stringify([value, userId, content]),
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
+
+                })
+
+            });
+
         $(".deleteButton").on("click", function (e) {
             var value = e.target.getAttribute("id");
             $.ajax({
@@ -282,12 +344,12 @@
     $(".likes-popover").on("click", function (e) {
         var target = $(e.target);
         target.popover({
-            trigger: 'focus', 
+            trigger: 'focus',
             html: true
 
         })
     })
-    
+
 
          $(".likeButton").on("click", function (e) {
              var value = e.target.getAttribute("id");
@@ -303,7 +365,7 @@
                     $('#likes').text(likes);
                     target.prop("disabled", true);
                     location.reload();
-                    
+
                 },
                 error: function () {
                     alert("Något har gått fel, kontakta systemadmin!");
@@ -313,5 +375,5 @@
 
         });
 
-</script>
-}
+        </script>
+    }

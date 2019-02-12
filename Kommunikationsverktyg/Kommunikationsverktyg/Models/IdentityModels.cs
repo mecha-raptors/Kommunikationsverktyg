@@ -48,6 +48,7 @@ namespace Kommunikationsverktyg.Models
         public virtual DbSet<PlacardTypeModel> PlacardTypes { get; set; }
         public virtual DbSet<ImageModel> Images { get; set; }
         public virtual DbSet<FollowersModel> Followers { get; set; }
+        public virtual DbSet<FormalCommentModel> FormalComments { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
