@@ -38,8 +38,7 @@ namespace Kommunikationsverktyg.Repository
                         PostId = item.FormalBlogModelId,
                         Category = item.Category.Type,
                         Likes = item.Likers.Count,
-                        Comments = item.Comments.ToList()
-                        Likes = item.Likers.Count,
+                        Comments = item.Comments.ToList(),
                         CategoryId = item.Category.CategoryModelId,
                         Followers = localDb.Followers.Where(f => f.CategoryModelId == item.Category.CategoryModelId).ToList()
                 };

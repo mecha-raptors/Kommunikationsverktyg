@@ -240,6 +240,7 @@
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\FollowersModel.cs" />
     <Compile Include="Models\FormalBlogModel.cs" />
+    <Compile Include="Models\FormalCommentModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\JsonEventRequestModel.cs" />
     <Compile Include="Models\PlacardModel.cs" />
