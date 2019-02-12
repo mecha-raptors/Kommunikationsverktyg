@@ -245,6 +245,10 @@
     <Compile Include="Migrations\201902111451480_tackaNej.Designer.cs">
       <DependentUpon>201902111451480_tackaNej.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902120859577_jfjfjfj.cs" />
+    <Compile Include="Migrations\201902120859577_jfjfjfj.Designer.cs">
+      <DependentUpon>201902120859577_jfjfjfj.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -392,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902111451480_tackaNej.resx">
       <DependentUpon>201902111451480_tackaNej.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902120859577_jfjfjfj.resx">
+      <DependentUpon>201902120859577_jfjfjfj.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
