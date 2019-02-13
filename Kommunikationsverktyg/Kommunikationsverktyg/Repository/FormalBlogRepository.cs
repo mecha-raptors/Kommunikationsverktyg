@@ -170,6 +170,9 @@ namespace Kommunikationsverktyg.Repository
                 var comments = _db.FormalComments.Where(i => i.BlogModel.FormalBlogModelId == id).ToList();
                 _db.FormalComments.RemoveRange(comments);
                 _db.SaveChanges();
+                var likes = _db.Likes.Where(i => i.FormalBlogModelId == id).ToList();
+                _db.Likes.RemoveRange(likes);
+                _db.SaveChanges();
                 var db = new ApplicationDbContext();
                 var post = db.FormalBlogPosts.Find(id);
                 db.FormalBlogPosts.Remove(post);

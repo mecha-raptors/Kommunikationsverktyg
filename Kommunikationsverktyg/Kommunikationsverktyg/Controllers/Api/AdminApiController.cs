@@ -44,5 +44,35 @@ namespace Kommunikationsverktyg.Controllers.Api
                 return BadRequest();
             }
         }
+        [Route("suspend")]
+        [HttpPost]
+        public IHttpActionResult Suspend(List<string> userId)
+        {
+            try
+            {
+                _rolemanager.AddUserToRole(userId[0], "pending");
+                _rolemanager.RemoveUserFromRole(userId[0], "user");
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [Route("remove")]
+        [HttpPost]
+        public IHttpActionResult Remove(List<string> userId)
+        {
+            var helper = new UserRepository();
+            try
+            {
+                helper.RemoveUser(userId[0]);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
