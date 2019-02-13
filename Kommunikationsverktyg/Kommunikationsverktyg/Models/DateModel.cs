@@ -15,7 +15,7 @@ namespace Kommunikationsverktyg.Models
         [Display(Name = "Slutar")]
         
         public virtual DateTime EndTime { get; set; }
-        public virtual int Votes { get; set; }
-        public virtual ICollection<ApplicationUser> Voters { get; set; }
+        public virtual ICollection<VoteModel> Votes { get; set; }
+
     }
 }

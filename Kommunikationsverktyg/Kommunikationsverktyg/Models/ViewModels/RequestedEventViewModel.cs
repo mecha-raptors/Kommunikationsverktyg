@@ -15,6 +15,7 @@ namespace Kommunikationsverktyg.Models.ViewModels
         [Required]
         [Display(Name = "Beskrivning")]
         public virtual string Description { get; set; }
+        public virtual string Location { get; set; }
         [Required]
         public virtual List<DateModel> TimeSuggestions { get; set; }
         public virtual List<string> Invitees { get; set; }

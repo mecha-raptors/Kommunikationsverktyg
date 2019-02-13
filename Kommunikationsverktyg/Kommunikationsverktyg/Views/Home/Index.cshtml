@@ -37,49 +37,55 @@
 
         @using (Html.BeginForm("AddEvent", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <div class="form-horizontal">
+        <div class="form-horizontal">
 
-                <hr />
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Titel", id = "titleBox" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Beskrivning", id = "descBox" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.TimeSuggestions[0].StartTime, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.TimeSuggestions[0].StartTime, new { @class = "form-control", id = "startTime" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.TimeSuggestions[0].EndTime, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.TimeSuggestions[0].EndTime, new { @class = "form-control", id = "endTime" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Invitees, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.ListBoxFor(m => m.Invitees, new MultiSelectList(Model.InvitableUsers, "Key", "Value"), new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" class="btn btn-primary" value="Spara Händelse" />
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
-                    </div>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Titel", id = "titleBox" })
                 </div>
             </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Location, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "Lokal", id = "LocationBox" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Beskrivning", id = "descBox" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.TimeSuggestions[0].StartTime, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.TimeSuggestions[0].StartTime, new { @class = "form-control", id = "startTime" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.TimeSuggestions[0].EndTime, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.TimeSuggestions[0].EndTime, new { @class = "form-control", id = "endTime" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Invitees, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.ListBoxFor(m => m.Invitees, new MultiSelectList(Model.InvitableUsers, "Key", "Value"), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-primary" value="Spara Händelse" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                </div>
+            </div>
+        </div>
         }
     </div>
 </div>

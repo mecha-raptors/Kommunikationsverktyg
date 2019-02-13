@@ -278,7 +278,7 @@ namespace Kommunikationsverktyg.Repository
                 _db.SaveChanges();
             }
             catch (Exception e) {
-
+                throw new Exception(e.Message);
             }
             
         }

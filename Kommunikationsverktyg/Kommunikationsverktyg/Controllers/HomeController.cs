@@ -95,39 +95,42 @@ namespace Kommunikationsverktyg.Controllers
 
         public ActionResult NotificationsView()
         {
-            return View();
+            var db = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var events = db.RequestedEvents.Where(e => e.Invitees.Select(u => u.Id).Contains(userId)).ToList();
+            return View(events);
         }
 
-        public JsonResult GetEventNotifications()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
+        //public JsonResult GetEventNotifications()
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
             
-                var events = db.RequestedEvents.ToList();
-                var jsonViewData = new List<JsonEventRequestModel>();
-                foreach (var e in events)
-                {
-                    if (e.Invitees != null)
-                {
-                    foreach (var u in e.Invitees)
-                    {
-                        if (u.Id.Equals(User.Identity.GetUserId()))
-                        {
-                            JsonEventRequestModel t = new JsonEventRequestModel
-                            {
-                                Title = e.Title,
-                                Description = e.Description,
-                                TimeSuggestions = e.TimeSuggestions
-                            };
-                            jsonViewData.Add(t);
+        //        var events = db.RequestedEvents.ToList();
+        //        var testtest = new List<JsonEventRequestModel>();
+        //        foreach (var e in events)
+        //        {
+        //            if (e.Invitees != null)
+        //        {
+        //            foreach (var u in e.Invitees)
+        //            {
+        //                if (u.Id.Equals(User.Identity.GetUserId()))
+        //                {
+        //                    JsonEventRequestModel t = new JsonEventRequestModel
+        //                    {
+        //                        Title = e.Title,
+        //                        Description = e.Description,
+        //                        TimeSuggestions = e.TimeSuggestions
+        //                    };
+        //                    testtest.Add(t);
                             
-                        }
+        //                }
 
-                    }
-                }
-                }
-            return new JsonResult { Data = jsonViewData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //            }
+        //        }
+        //        }
+        //    return new JsonResult { Data = testtest, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             
-        }
+        //}
 
         [AllowAnonymous]
         public ActionResult WaitForVerification()

@@ -15,6 +15,7 @@ namespace Kommunikationsverktyg.Models
         public virtual string Title { get; set; }
         [Required]
         public virtual string Description { get; set; }
+        public virtual string Location { get; set; }
         [Required]
         public virtual List<DateModel> TimeSuggestions { get; set; }
         [Required]
