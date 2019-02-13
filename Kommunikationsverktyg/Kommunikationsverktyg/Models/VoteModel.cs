@@ -9,7 +9,7 @@ namespace Kommunikationsverktyg.Models
     {
         public int Id { get; set; }
         public bool VoteFor { get; set; }
-        public ApplicationUser Voter { get; set; }
-        public DateModel Date { get; set; }
+        public virtual ApplicationUser Voter { get; set; }
+        public virtual DateModel Date { get; set; }
     }
 }

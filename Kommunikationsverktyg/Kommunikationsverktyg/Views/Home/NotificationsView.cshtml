@@ -12,13 +12,15 @@
         <thead>
             <tr>
                 <th>Mötesnamn</th>
+                <th>Lokal</th>
                 <th>Beskrivning</th>
                 <th>Börjar</th>
                 <th>Slutar</th>
                 <th>Kan du delta?</th>
                 <th>Har tackat ja</th>
                 <th>Har tackat nej</th>
-                <th>Har ej svarat</th>
+
+
             </tr>
         </thead>
         @if (Model != null)
@@ -28,7 +30,9 @@
 
                 <tbody id="events">
                     <tr data-eventId=@e.EventId>
+
                         <td>@e.Title</td>
+                        <td>@e.Location</td>
                         <td>@e.Description</td>
 
                         @foreach (var t in e.TimeSuggestions)
@@ -59,27 +63,26 @@
 
                                 }
                             </td>
-                            <td>
-                                @foreach (var u in e.Invitees)
+                            @*<td>
+
+                @foreach (var u in e.Invitees)
+                    {
+                        if (t.Votes != null && t.Votes.Count() > 0)
+                        {
+                            foreach (var v in t.Votes)
+                            {
+                                if (v.Voter.Id != u.Id)
                                 {
-                                    if (t.Votes != null && t.Votes.Count() > 0)
-                                    {
-                                        foreach (var v in t.Votes)
-                                        {
-                                            if (v.Voter.Id != u.Id)
-                                            {
-                                                @v.Voter.Firstname @v.Voter.Lastname <br />
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        @u.Firstname @u.Lastname <br />
-                                    }
-
-
+                                    @u.Firstname @u.Lastname <br />
                                 }
-                            </td>
+                            }
+                        }
+                        else
+                        {
+                        @u.Firstname @u.Lastname <br />
+                        }
+                    }
+            </td>*@
                         }
                     </tr>
                 </tbody>

@@ -51,6 +51,7 @@ namespace Kommunikationsverktyg.Controllers
                     {
                         Title = em.Title,
                         Description = em.Description,
+                        Location = em.Location,
                         TimeSuggestions = new List<DateModel>(),
                         Invitees = new List<ApplicationUser>()
 

@@ -256,6 +256,18 @@
     <Compile Include="Migrations\201902121047339_VoteModel.Designer.cs">
       <DependentUpon>201902121047339_VoteModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902130854032_lall.cs" />
+    <Compile Include="Migrations\201902130854032_lall.Designer.cs">
+      <DependentUpon>201902130854032_lall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902130905548_feck.cs" />
+    <Compile Include="Migrations\201902130905548_feck.Designer.cs">
+      <DependentUpon>201902130905548_feck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902131026219_fekc1.cs" />
+    <Compile Include="Migrations\201902131026219_fekc1.Designer.cs">
+      <DependentUpon>201902131026219_fekc1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\BadWords.cs" />
@@ -416,6 +428,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902121047339_VoteModel.resx">
       <DependentUpon>201902121047339_VoteModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902130854032_lall.resx">
+      <DependentUpon>201902130854032_lall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902130905548_feck.resx">
+      <DependentUpon>201902130905548_feck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902131026219_fekc1.resx">
+      <DependentUpon>201902131026219_fekc1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -30,6 +30,10 @@ namespace Kommunikationsverktyg.Controllers.Api
             {
                 existingVote.VoteFor = true;
             }
+            else if (existingVote != null && existingVote.VoteFor == true)
+            {
+                return;
+            }
             else
             {
                 var vote = new VoteModel
@@ -60,6 +64,10 @@ namespace Kommunikationsverktyg.Controllers.Api
             if (existingVote != null && existingVote.VoteFor == true)
             {
                 existingVote.VoteFor = false;
+            }
+            else if (existingVote != null && existingVote.VoteFor == false)
+            {
+                return;
             }
             else
             {
