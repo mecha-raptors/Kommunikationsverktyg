@@ -27,6 +27,11 @@ namespace Kommunikationsverktyg.Repository
         public void DeleteCategory(int id)
         {
             var db = new ApplicationDbContext();
+            var posts = db.FormalBlogPosts.Where(i => i.Category.CategoryModelId == id).ToList();
+            var defaultCategory = db.Categories.Single(i => i.Type == "Övrigt");
+            posts.ForEach(i => i.Category = defaultCategory);
+
+            
             var category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
@@ -56,6 +61,26 @@ namespace Kommunikationsverktyg.Repository
             var db = new ApplicationDbContext();
             var type = str.ToCapitalize();
             return db.Categories.Any(i => i.Type == type);
+        }
+        public void FollowCategory(string user, int categoryId)
+        {
+            var follower = new FollowersModel
+            {
+                CategoryModelId = categoryId,
+                Id = user
+            };
+            var db = new ApplicationDbContext();
+            db.Followers.Add(follower);
+            db.SaveChanges();
+
+        }
+        public void UnfollowCategory(string user, int categoryId)
+        {
+            var db = new ApplicationDbContext();
+            var follower = db.Followers.Single(f => f.Id == user && f.CategoryModelId == categoryId);
+
+            db.Followers.Remove(follower);
+            db.SaveChanges();
         }
 
     }

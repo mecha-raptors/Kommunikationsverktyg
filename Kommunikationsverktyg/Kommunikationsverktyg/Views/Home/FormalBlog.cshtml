@@ -61,7 +61,10 @@
                         @Model.Posts[i].Title
                         @Html.HiddenFor(m => m.Posts[i].Title)
                     </h3>
-                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category</small>
+                    <small class="text-info" style="border: 1px solid #808080">Kategori: @Model.Posts[i].Category </small>@if (!Model.Posts[i].Followers.Any(f => f.Id == User.Identity.GetUserId()))
+                    {<button class="badge badge-primary add-follower" id="@Model.Posts[i].CategoryId" style="background-color: #3bc212;">Följ Kategori</button> }
+                    else
+                    { <button class="badge badge-primary remove-follower" id="@Model.Posts[i].CategoryId" style="background-color: #ff0000;">Avfölj Kategori</button>}
                     <p class="lead">
                         av: <a href="~/Account/ViewExternProfile/@Model.Posts[i].UserId">@Model.Posts[i].Fullname</a>
                         @Html.HiddenFor(m => m.Posts[i].Fullname)
@@ -74,54 +77,91 @@
                         <a tabindex="0" class="btn btn-default likes-popover" role="button" data-toggle="popover" data-trigger="focus" title="Gillas av" data-content="<ul class='hidden-likes list-group'>@foreach (var list in Model.Posts[i].Likers)
                             {
                                 <li class='list-group-item'><a href='~/Account/ViewExternProfile/@list.User.Id'>@list.User.UserName</a></li>
-                            }</ul>"><span id="likes">@Model.Posts[i].Likes</span> personer gillar detta</a>
-                        
-                    </p>
-                    
-                    <hr>
-                    <p class="message">
-                        @Model.Posts[i].Message
-                        @Html.HiddenFor(m => m.Posts[i].Message)
-                    </p>
-                    <p>
-                        @if (Model.Posts[i].FilePath != null)
-                        {
-                            <hr />
-                            <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
-                            <small>@Model.Posts[i].FilePath</small>
-                        }
-                    </p>
-                    <hr>
+                            }</ul>"><span id="likes">@Model.Posts[i].Likes</span>personer gillar detta</a>
 
-                    @{
-                      
-                        
-                        var IsUser = Model.Posts[i].Likers.Any(x => x.Id == User.Identity.GetUserId());
-                        if (IsUser)
-                        {
-                            <p>Du gillar det här inlägget</p>
-                        }
-                        else
-                        {
-                            <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Gilla</button>
+                        </p>
+
+                        <hr>
+                        <p class="message">
+                            @Model.Posts[i].Message
+                            @Html.HiddenFor(m => m.Posts[i].Message)
+                        </p>
+                        <p>
+                            @if (Model.Posts[i].FilePath != null)
+                            {
+                                <hr />
+                                <a class="btn btn-default" href="../@Model.Posts[i].FilePath" download id="DownloadLink">Ladda ner mig</a>
+                                <small>@Model.Posts[i].FilePath</small>
                             }
-                        
-                    }
+                        </p>
+                        <hr>
+
+                        @{
 
 
-                    @if (User.IsInRole("admin"))
-                    {
-                        <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
-                        <input type="text" value="true" id="check-admin" style="display: none !important;" />
-                    }
-                </div>
+                            var IsUser = Model.Posts[i].Likers.Any(x => x.Id == User.Identity.GetUserId());
+                            if (IsUser)
+                            {
+                                <button data-post-id=@Model.Posts[i].PostId  type="submit" class="dislike-btn btn btn-danger glyphicon glyphicon-thumbs-down" id="@Model.Posts[i].PostId">Dislike</button>
+                            }
+                            else
+                            {
+                                <button data-post-id=@Model.Posts[i].PostId type="submit" class="likeButton btn btn-info glyphicon glyphicon-thumbs-up" id="@Model.Posts[i].PostId"> Like</button>
+                            }
+
+                        }
+
+                        <button class="commentBtn btn btn-default" id="@Model.Posts[i].PostId" value="Comment">Kommentera</button>
+                        <input type="text" value="true" style="display: none !important;" />
+
+
+
+                        @if (User.IsInRole("admin") || Model.Posts[i].UserId == User.Identity.GetUserId())
+                        {
+                            <button class="deleteButton btn btn-danger" id="@Model.Posts[i].PostId" value="Delete">Ta bort</button>
+                            <input type="text" value="true" id="check-admin" style="display: none !important;" />
+                        }
+                        <h5>Kommentarer</h5>
+                        @if (Model.Posts[i].Comments != null)
+                        {
+                            foreach (var comment in Model.Posts[i].Comments)
+                            {
+                                <div class="container">
+                                    <div class="col-md-5" style="border: 1px solid black; border-radius: 3px; margin-bottom: 5px;">
+                                        <a href="~/Account/ViewExternProfile/@comment.User.Id">@comment.User.Firstname @comment.User.Lastname</a>
+                                        <p>@comment.Message</p>
+                                        <p>@comment.Timestamp.ToString()</p>
+                                    </div>
+
+                                </div>
+
+                            }
+                        }
+                    </div>
+                   
+
                 }
+
             </div>
         </div>
     </div>
 </div>
-@section Scripts{
-<script type="text/javascript">
+<div id="CommentModal" class="modal fade" role="dialog" style="width: 600px; height: 500px; background-color: white; margin: auto; border-radius: 25px; padding: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kommentera inlägget</h4>
+    </div>
+    <div class="modal-body">
+        <h3>Kommentar</h3>
+        <textarea id="commentText" rows="5" class="form-control" placeholder="Skriv din kommentar..." style="margin-bottom: 5%;">
+
+        </textarea>
+        <button class="btn btn-success" id="sendComment">Skicka kommentar</button>
+        <p class="hidden" id="postId"></p>
+    </div>
+</div>
+    @section Scripts{
+        <script type="text/javascript">
 
         $(document).ready(function () {
 
@@ -133,16 +173,47 @@
                  {
                      <text>
                         var postId = $(".likeButton").getAttribute("data-post-id");
-                        
+
                         $(".likeButton").addClass("disabledButton");
 
-                        
+
                     </text>
                  }
              }
 
          }*@
+            $(".add-follower").on("click", function (e) {
+                var value = e.target.getAttribute("id");
+                $.ajax({
+                    url: "/api/category/follow/",
+                    type: "Post",
+                    data: value ,
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
 
+                })
+            });
+            $(".remove-follower").on("click", function (e) {
+                var value = e.target.getAttribute("id");
+                $.ajax({
+                    url: "/api/category/unfollow/",
+                    type: "Post",
+                    data: value,
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
+
+                })
+            });
             $(".disabledButton").prop("disabled", true);
 
             $('input[type="file"]').change(function (e) {
@@ -153,7 +224,35 @@
             $("#File").on("click", function () {
                 $("#File").val("");
             });
-        });
+    });
+
+            $(".commentBtn").on("click", function (e) {
+                var value = e.target.getAttribute("id");
+                $("#CommentModal").modal();
+                $("#postId").text(value);
+            });
+
+            $("#sendComment").on("click", function (e) {
+                var value = $("#postId").text();
+                var content = $("#commentText").val();
+                var userId = "@User.Identity.GetUserId()";
+                $.ajax({
+                    url: "/api/blog/comment",
+                    type: "Post",
+                    data: JSON.stringify([value, userId, content]),
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Något har gått fel, kontakta systemadmin!");
+                    }
+
+                })
+
+            });
+
         $(".deleteButton").on("click", function (e) {
             var value = e.target.getAttribute("id");
             $.ajax({
@@ -248,13 +347,13 @@
     $(".likes-popover").on("click", function (e) {
         var target = $(e.target);
         target.popover({
-            trigger: 'focus', 
+            trigger: 'focus',
             html: true
 
         })
     })
-    
 
+         
          $(".likeButton").on("click", function (e) {
              var value = e.target.getAttribute("id");
              var target = $(e.target);
@@ -266,17 +365,38 @@
                 data: JSON.stringify([value, "@User.Identity.GetUserName()"]),
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    $('#likes').text(likes);
-                    target.prop("disabled", true);
                     
+                    location.reload();
+
                 },
                 error: function () {
-                    alert("Något har gått fel, kontakta systemadmin!");
+                    
+                }
+
+            })
+
+            });
+            $(document).ready(function(){
+
+                $(".dislike-btn").on("click", function (e) {
+                    var value = e.target.getAttribute("id");
+                        
+                         var target = $(e.target);
+            $.ajax({
+                url: "/api/blog/dislike/",
+                type: "Post",
+                data: value, 
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    location.reload();
                 }
 
             })
 
         });
-
-</script>
-}
+            })
+        </script>
+    }

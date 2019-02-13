@@ -17,9 +17,18 @@ namespace Kommunikationsverktyg.Models
 
         public virtual string Message { get; set; }
         public virtual string Title { get; set; }
-        public virtual ICollection<FileModel> Files { get; set; }
+        public virtual string FilePath { get; set; }
 
+        
         public virtual string Id { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<InformalCommentModel> Comments { get; set; }
+
+        public virtual List<ImageModel> Images { get; set; }
+
+        public InformalBlogModel() {
+            Images = new List<ImageModel>();
+        }
     }
 }

@@ -35,7 +35,8 @@ namespace Kommunikationsverktyg.Repository
                 ".JPE",
                 ".BMP",
                 ".GIF",
-                ".PNG"
+                ".PNG",
+                ".MP4"
             };
 
             if (ImageExtensions.Contains(Path.GetExtension(img).ToUpperInvariant()))

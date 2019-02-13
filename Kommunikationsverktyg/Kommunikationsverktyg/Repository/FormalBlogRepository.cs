@@ -37,7 +37,10 @@ namespace Kommunikationsverktyg.Repository
                         UserId = item.User.Id,
                         PostId = item.FormalBlogModelId,
                         Category = item.Category.Type,
-                        Likes = item.Likers.Count
+                        Likes = item.Likers.Count,
+                        Comments = item.Comments.ToList(),
+                        CategoryId = item.Category.CategoryModelId,
+                        Followers = localDb.Followers.Where(f => f.CategoryModelId == item.Category.CategoryModelId).ToList()
                 };
                     m.Likers = item.Likers.ToList();
                    if(m.Likers == null)
@@ -74,6 +77,7 @@ namespace Kommunikationsverktyg.Repository
                     User = user,
                     Category = category
                 };
+                NotifyFollower(category);
                 _db.FormalBlogPosts.Add(model);
                 _db.SaveChanges();
             }
@@ -82,6 +86,17 @@ namespace Kommunikationsverktyg.Repository
                 throw new Exception();
             }
 
+
+        }
+
+        private void NotifyFollower(CategoryModel category)
+        {
+            var helper = new EmailNotification();
+
+            foreach(var item in category.Followers)
+            {
+                helper.SendEmail(item.User.Email, "Ett nytt inlägg i kategorin " + category.Type + " är tillgängligt", "Nytt inlägg");
+            }
 
         }
 
@@ -137,6 +152,9 @@ namespace Kommunikationsverktyg.Repository
 
             try
             {
+                var comments = _db.FormalComments.Where(i => i.BlogModel.FormalBlogModelId == id).ToList();
+                _db.FormalComments.RemoveRange(comments);
+                _db.SaveChanges();
                 var db = new ApplicationDbContext();
                 var post = db.FormalBlogPosts.Find(id);
                 db.FormalBlogPosts.Remove(post);
@@ -167,6 +185,23 @@ namespace Kommunikationsverktyg.Repository
                 db.SaveChanges();
             }
             catch(Exception e) {
+                throw new Exception();
+            }
+        }
+
+        public void DisLikePost(int postId, string UserId)
+        {
+            try
+            {
+
+                var db = new ApplicationDbContext();
+
+                var like = db.Likes.Single(i => i.FormalBlogModelId == postId && i.Id == UserId);
+                db.Likes.Remove(like);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
                 throw new Exception();
             }
         }
@@ -204,6 +239,30 @@ namespace Kommunikationsverktyg.Repository
                     throw new Exception();
                 }
             }
+        }
+
+        public void SaveComment(string postId, string userID, string content)
+        {
+            var blogID = int.Parse(postId); 
+            try
+            {
+                var user = _db.Users.FirstOrDefault(u => u.Id == userID);
+                var post = _db.FormalBlogPosts.Find(blogID);
+                var answer = new FormalCommentModel {
+                    BlogModel = post,
+                    BlogID = post.FormalBlogModelId,
+                    userId = user.Id,
+                    Message = content,
+                    Timestamp = DateTime.Now
+            };
+               
+                _db.FormalComments.Add(answer);
+                _db.SaveChanges();
+            }
+            catch (Exception e) {
+                throw new Exception(e.Message);
+            }
+            
         }
 
     }

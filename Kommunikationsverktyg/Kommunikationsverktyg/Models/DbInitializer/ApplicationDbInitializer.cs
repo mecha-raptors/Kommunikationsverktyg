@@ -46,16 +46,16 @@ namespace Kommunikationsverktyg.Models.DbInitializer
                                               UserName = "user@user.se",
                                               PasswordHash = hasher.HashPassword("password"),
                                               Title = "Rektor",
-                                              Firstname = "John",
-                                              Lastname = "Holmes"};
+                                              Firstname = "Darth",
+                                              Lastname = "Vader"};
             var user3 = new ApplicationUser
             {
                 Email = "user1@user.se",
                 UserName = "user1@user.se",
                 PasswordHash = hasher.HashPassword("password"),
                 Title = "Lektor",
-                Firstname = "Ron",
-                Lastname = "Jeremy"
+                Firstname = "James",
+                Lastname = "RavenLord"
             };
             userManager.Create(user2);
             userManager.Create(user3);
@@ -83,6 +83,11 @@ namespace Kommunikationsverktyg.Models.DbInitializer
             {
                 Type = "Utbildning"
             };
+            var category = new CategoryModel
+            {
+                Type = "Övrigt"
+            };
+            db.Categories.Add(category);
             db.PlacardTypes.Add(research);
             db.PlacardTypes.Add(education);
 
