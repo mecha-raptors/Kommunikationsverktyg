@@ -71,8 +71,8 @@ namespace Kommunikationsverktyg.Repository
                 var model = new FormalBlogModel
                 {
                     FilePath = SaveFile(list.File),
-                    Message = FilterContent(list.Message),
-                    Title = FilterContent(list.Title),
+                    Message = FilterContent(list.Message, user, DateTime.Now),
+                    Title = FilterContent(list.Title, user, DateTime.Now),
                     Timestamp = DateTime.Now,
                     User = user,
                     Category = category
@@ -120,11 +120,13 @@ namespace Kommunikationsverktyg.Repository
             return userPath;
         }
 
-        public string FilterContent(string content)
+        public string FilterContent(string content, ApplicationUser user, DateTime timestamp)
         {
             var words = content.Split(' ');
             var badWords = _db.BadWords.ToList();
             string filteredContent = "";
+            var IsValid = false;
+
             foreach (var item in words)
             {
                 var IsComitted = false;
@@ -134,6 +136,7 @@ namespace Kommunikationsverktyg.Repository
                     {
                         filteredContent += item.Mask() + " ";
                         IsComitted = true;
+                        IsValid = true;
                         break;
                     }
 
@@ -143,9 +146,21 @@ namespace Kommunikationsverktyg.Repository
                     filteredContent += item + " ";
                 }
             }
+            if (IsValid) { 
+                SendViolationNotificationEmail(user, timestamp, content);
+            }
             return filteredContent;
         }
 
+        private void SendViolationNotificationEmail(ApplicationUser user, DateTime timestamp, string content)
+        {
+            var email = new EmailNotification();
+            var roles = new RoleRepository();
+
+            var admins = roles.GetUsersByRole("admin");
+            admins.ForEach(i => email.SendEmail(i.Email, "Användaren: " + user.Firstname + " " + user.Lastname + " skrev: " + "\n" + content + ". \n" + "Datum: " + timestamp.ToString() , "Varning!"));
+
+        }
 
         public void DeletePost(int id)
         {
