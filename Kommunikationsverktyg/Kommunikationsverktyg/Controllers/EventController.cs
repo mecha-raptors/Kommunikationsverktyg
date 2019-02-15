@@ -53,8 +53,8 @@ namespace Kommunikationsverktyg.Controllers
                         Description = em.Description,
                         Location = em.Location,
                         TimeSuggestions = new List<DateModel>(),
-                        Invitees = new List<ApplicationUser>()
-
+                        Invitees = new List<ApplicationUser>(),
+                        EventCreator = db.Users.Find(User.Identity.GetUserId())
                     };
 
                     newEvent.TimeSuggestions = em.TimeSuggestions;
@@ -75,8 +75,10 @@ namespace Kommunikationsverktyg.Controllers
                     {
                         Title = em.Title,
                         Description = em.Description,
+                        Location = em.Location,
                         Start = em.TimeSuggestions[0].StartTime,
-                        End = em.TimeSuggestions[0].EndTime
+                        End = em.TimeSuggestions[0].EndTime,
+                        EventCreator = db.Users.Find(User.Identity.GetUserId())
                     };
 
                     db.EventModels.Add(newEvent);
@@ -104,7 +106,7 @@ namespace Kommunikationsverktyg.Controllers
                     End = new CalDateTime(Convert.ToDateTime(e.End)),
                     Sequence = 0,
                     Uid = Guid.NewGuid().ToString(),
-                    Location = "Ett Rum"
+                    Location = e.Location
                 });
             }
 

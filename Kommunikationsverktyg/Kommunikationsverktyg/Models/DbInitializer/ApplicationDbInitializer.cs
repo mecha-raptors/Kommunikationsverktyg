@@ -22,7 +22,8 @@ namespace Kommunikationsverktyg.Models.DbInitializer
                 Title = "Exempelmöte",
                 Description = "Vi ska ses och prata.",
                 Start = new DateTime(2019, 1, 10, 14, 0, 0),
-                End = new DateTime(2019, 1, 10, 16, 0, 0)
+                End = new DateTime(2019, 1, 10, 16, 0, 0),
+                Location = "N2063"
             };
 
             db.EventModels.Add(Event);

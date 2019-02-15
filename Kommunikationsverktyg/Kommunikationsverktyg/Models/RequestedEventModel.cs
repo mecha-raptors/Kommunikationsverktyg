@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kommunikationsverktyg.Models
 {
@@ -20,5 +21,7 @@ namespace Kommunikationsverktyg.Models
         public virtual List<DateModel> TimeSuggestions { get; set; }
         [Required]
         public virtual List<ApplicationUser> Invitees { get; set; }
+        [Required]
+        public virtual ApplicationUser EventCreator { get; set; }
     }
 }

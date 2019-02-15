@@ -5,7 +5,7 @@
     ViewBag.Title = "Notiser";
 }
 
-<h2>Notiser</h2>
+<h2>Händelser jag är inbjuden till.</h2>
 
 <div>
     <table class="table table-striped">
@@ -28,64 +28,120 @@
             foreach (var e in Model)
             {
 
-                <tbody id="events">
-                    <tr data-eventId=@e.EventId>
-
-                        <td>@e.Title</td>
-                        <td>@e.Location</td>
-                        <td>@e.Description</td>
-
-                        @foreach (var t in e.TimeSuggestions)
-                        {
-                            <td>@t.StartTime.ToString("dd MMM yyyy HH:mm")</td>
-                            <td>@t.EndTime.ToString("dd MMM yyyy HH:mm")</td>
-                            <td data-datemodel=@t.DateId>
-                                <button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>
-                                <button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button>
-                            </td>
-
-                            <td>
-                                @foreach (var v in t.Votes)
-                                {
-                                    if (v.VoteFor == true)
-                                    {
-                                        @v.Voter.Firstname @v.Voter.Lastname <br />
-                                    }
-                                }
-                            </td>
-                            <td>
-                                @foreach (var v in t.Votes)
-                                {
-                                    if (v.VoteFor == false)
-                                    {
-                                        @v.Voter.Firstname @v.Voter.Lastname <br />
-                                    }
-
-                                }
-                            </td>
-                            @*<td>
-
-                @foreach (var u in e.Invitees)
+                foreach (var i in e.Invitees)
+                {
+                    if (i.Id == User.Identity.GetUserId())
                     {
-                        if (t.Votes != null && t.Votes.Count() > 0)
-                        {
-                            foreach (var v in t.Votes)
-                            {
-                                if (v.Voter.Id != u.Id)
+                        <tbody id="events">
+                            <tr data-eventId=@e.EventId>
+
+                                <td>@e.Title</td>
+                                <td>@e.Location</td>
+                                <td>@e.Description</td>
+
+                                @foreach (var t in e.TimeSuggestions)
                                 {
-                                    @u.Firstname @u.Lastname <br />
+                                    <td>@t.StartTime.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td>@t.EndTime.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td data-datemodel=@t.DateId>
+                                        <button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>
+                                        <button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button>
+                                    </td>
+
+                                    <td>
+                                        @foreach (var v in t.Votes)
+                                        {
+                                            if (v.VoteFor == true)
+                                            {
+                                                @v.Voter.Firstname @v.Voter.Lastname <br />
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var v in t.Votes)
+                                        {
+                                            if (v.VoteFor == false)
+                                            {
+                                                @v.Voter.Firstname @v.Voter.Lastname <br />
+                                            }
+
+                                        }
+                                    </td>
                                 }
-                            }
-                        }
-                        else
-                        {
-                        @u.Firstname @u.Lastname <br />
-                        }
+                            </tr>
+                        </tbody>
                     }
-            </td>*@
-                        }
-                    </tr>
-                </tbody>
+                }
+            }
+        }
+
+    </table>
+</div>
+
+<h2>Händelser jag har skapat.</h2>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mötesnamn</th>
+                <th>Lokal</th>
+                <th>Beskrivning</th>
+                <th>Börjar</th>
+                <th>Slutar</th>
+                <th>Registrera Möte?</th>
+                <th>Har tackat ja</th>
+                <th>Har tackat nej</th>
+
+
+            </tr>
+        </thead>
+        @if (Model != null)
+        {
+            foreach (var e in Model)
+            {
+
+                if (e.EventCreator.Id == User.Identity.GetUserId())
+                    {
+                        <tbody id="events">
+                            <tr data-eventId=@e.EventId>
+
+                                <td>@e.Title</td>
+                                <td>@e.Location</td>
+                                <td>@e.Description</td>
+
+                                @foreach (var t in e.TimeSuggestions)
+                                {
+                                    <td>@t.StartTime.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td>@t.EndTime.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td data-datemodel=@t.DateId>
+                                        <button value="Yes" class="createBtn btn btn-primary" id="createEvent">Registrera</button>
+                                        <button value="No" class="cancelBtn btn btn-danger" id="cancelEvent" style="margin-left: 5px;">Avbryt</button>
+                                    </td>
+
+                                    <td>
+                                        @foreach (var v in t.Votes)
+                                        {
+                                            if (v.VoteFor == true)
+                                            {
+                                                @v.Voter.Firstname @v.Voter.Lastname <br />
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var v in t.Votes)
+                                        {
+                                            if (v.VoteFor == false)
+                                            {
+                                                @v.Voter.Firstname @v.Voter.Lastname <br />
+                                            }
+
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    }
             }
         }
 
@@ -97,34 +153,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 
     <script>
-        //$(document).ready(function () {
-        //    var table = $('#events');
-        //    var events = [];
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "/Home/GetEventNotifications",
-        //        success: function (data) {
-        //            $.each(data, function (i, v) {
-        //                console.log(moment(data[i].TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm'));
-        //                table.append(
-        //                    '<tr>' +
-        //                    '<td>' + v.Title + '</td>' +
-        //                    '<td>' + v.Description + '</td>' +
-        //                    '<td>' + moment(v.TimeSuggestions[0].StartTime).format('MMM Do YYYY HH:mm') + '</td>' +
-        //                    '<td>' + moment(v.TimeSuggestions[0].EndTime).format('MMM Do YYYY HH:mm') + '</td>' +
-        //                    '<td><button value="Yes" class="acceptBtn btn btn-primary" id="acceptEvent">Ja</button>' +
-        //                    '<button value="No" class="declineBtn btn btn-danger" id="declineEvent" style="margin-left: 5px;">Nej</button></td>' +
-        //                    '</tr>'
-        //                );
-        //                console.log(data[i].Title);
-        //            })
-        //        },
-        //        error: function (error) {
-        //            alert('failed');
-        //        }
-        //    })
-        //});
-
         $(".acceptBtn").on("click", function (e) {
 
             var data = e.target.parentNode.getAttribute("data-datemodel");
@@ -152,6 +180,44 @@
                 data: JSON.stringify([data]),
                 contentType: "application/json; charset=utf-8",
                 success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert("Något har gått fel, kontakta systemadmin!");
+                }
+
+            })
+        })
+
+        $(".createBtn").on("click", function (e) {
+
+            var data = e.target.parentNode.getAttribute("data-datemodel");
+
+            $.ajax({
+                url: "/api/event/registerEventModel",
+                type: "Post",
+                data: JSON.stringify([data]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Händelsen har registrerats i kalendern.");
+                    location.reload();
+                },
+                error: function () {
+                    alert("Något har gått fel, kontakta systemadmin!");
+                }
+
+            })
+        });
+
+        $(".cancelBtn").on("click", function (e) {
+            var data = e.target.parentNode.getAttribute("data-datemodel");
+            $.ajax({
+                url: "/api/event/cancelRequestedEvent",
+                type: "Post",
+                data: JSON.stringify([data]),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Händelsen har avbrutits.");
                     location.reload();
                 },
                 error: function () {

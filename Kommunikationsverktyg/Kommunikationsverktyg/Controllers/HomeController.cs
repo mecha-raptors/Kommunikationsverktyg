@@ -86,18 +86,15 @@ namespace Kommunikationsverktyg.Controllers
 
         public JsonResult GetEvents()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
+            ApplicationDbContext db = new ApplicationDbContext();
                 var events = db.EventModels.ToList();
                 return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
         }
 
         public ActionResult NotificationsView()
         {
             var db = new ApplicationDbContext();
-            var userId = User.Identity.GetUserId();
-            var events = db.RequestedEvents.Where(e => e.Invitees.Select(u => u.Id).Contains(userId)).ToList();
+            var events = db.RequestedEvents.ToList();
             return View(events);
         }
 
