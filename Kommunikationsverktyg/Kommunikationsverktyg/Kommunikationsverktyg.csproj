@@ -236,37 +236,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902110853082_funfunfun.cs" />
-    <Compile Include="Migrations\201902110853082_funfunfun.Designer.cs">
-      <DependentUpon>201902110853082_funfunfun.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902111344058_usermodelvotes.cs" />
-    <Compile Include="Migrations\201902111344058_usermodelvotes.Designer.cs">
-      <DependentUpon>201902111344058_usermodelvotes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902111451480_tackaNej.cs" />
-    <Compile Include="Migrations\201902111451480_tackaNej.Designer.cs">
-      <DependentUpon>201902111451480_tackaNej.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902120859577_jfjfjfj.cs" />
-    <Compile Include="Migrations\201902120859577_jfjfjfj.Designer.cs">
-      <DependentUpon>201902120859577_jfjfjfj.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902121047339_VoteModel.cs" />
-    <Compile Include="Migrations\201902121047339_VoteModel.Designer.cs">
-      <DependentUpon>201902121047339_VoteModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902130854032_lall.cs" />
-    <Compile Include="Migrations\201902130854032_lall.Designer.cs">
-      <DependentUpon>201902130854032_lall.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902130905548_feck.cs" />
-    <Compile Include="Migrations\201902130905548_feck.Designer.cs">
-      <DependentUpon>201902130905548_feck.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902131026219_fekc1.cs" />
-    <Compile Include="Migrations\201902131026219_fekc1.Designer.cs">
-      <DependentUpon>201902131026219_fekc1.cs</DependentUpon>
+    <Compile Include="Migrations\201902150838130_asd.cs" />
+    <Compile Include="Migrations\201902150838130_asd.Designer.cs">
+      <DependentUpon>201902150838130_asd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DateModel.cs" />
@@ -414,29 +386,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902110853082_funfunfun.resx">
-      <DependentUpon>201902110853082_funfunfun.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902111344058_usermodelvotes.resx">
-      <DependentUpon>201902111344058_usermodelvotes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902111451480_tackaNej.resx">
-      <DependentUpon>201902111451480_tackaNej.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902120859577_jfjfjfj.resx">
-      <DependentUpon>201902120859577_jfjfjfj.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902121047339_VoteModel.resx">
-      <DependentUpon>201902121047339_VoteModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902130854032_lall.resx">
-      <DependentUpon>201902130854032_lall.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902130905548_feck.resx">
-      <DependentUpon>201902130905548_feck.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902131026219_fekc1.resx">
-      <DependentUpon>201902131026219_fekc1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902150838130_asd.resx">
+      <DependentUpon>201902150838130_asd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
