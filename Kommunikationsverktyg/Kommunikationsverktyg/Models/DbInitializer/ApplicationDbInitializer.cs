@@ -41,7 +41,7 @@ namespace Kommunikationsverktyg.Models.DbInitializer
             var hasher = new PasswordHasher();
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            var user = new ApplicationUser { Email = "admin@admin.se", UserName = "admin@admin.se", PasswordHash = hasher.HashPassword("password") };
+            var user = new ApplicationUser { Email = "admin@admin.se", UserName = "admin@admin.se", Firstname = "Admin", Lastname = "Adminsson", Title = "Hövding", PasswordHash = hasher.HashPassword("password") };
             userManager.Create(user);
             var user2 = new ApplicationUser { Email = "user@user.se",
                                               UserName = "user@user.se",
