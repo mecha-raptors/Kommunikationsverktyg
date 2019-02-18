@@ -14,7 +14,7 @@ namespace Kommunikationsverktyg.Models
         public virtual string Firstname { get; set; }
         public virtual string Lastname { get; set; }
         public virtual string Description { get; set; }
-        public virtual string Image { get; set; } = @"Images\avatar.jpg";
+        public virtual string Image { get; set; } = @"Images/avatar.jpeg";
         public virtual string Phone { get; set; }
         public string Title { get; set; }
         public ICollection<FormalBlogModel> Posts { get; set; }
