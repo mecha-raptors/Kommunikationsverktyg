@@ -376,6 +376,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Images\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Views\Event\" />
     <Folder Include="Views\SearchApi\" />
     <Folder Include="XmlWordList\" />
